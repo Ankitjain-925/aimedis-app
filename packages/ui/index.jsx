@@ -8,6 +8,7 @@ export * from './providers/Crisp';
 
 export * from './components/common/DocumentRoot';
 export * from './components/common/Logo';
+export * from './components/common/ColorSwitcher';
 
 export * from './components/auth/HCaptchaModal';
 export * from './components/auth/VerifyModal';

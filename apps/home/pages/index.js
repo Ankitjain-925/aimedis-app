@@ -71,11 +71,11 @@ export default function Home() {
                 )
                 .pauseFor(1000)
                 .typeString(
-                  '<br/>Should I check your <strong>heart rate</strong> or <strong>body tempature</strong>?'
+                  '<br/>Should I measure your <strong>heart rate</strong> or <strong>body temperature</strong>?'
                 )
                 .pauseFor(1000)
                 .typeString(
-                  '<br/>Just type and let me know what you are looking for:<br/>'
+                  '<br/>Just type and I will try to help what you are looking for:<br/>'
                 )
                 .start();
             }}

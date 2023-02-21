@@ -22,23 +22,38 @@ import { GiTechnoHeart } from 'react-icons/gi';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Logo, LogoIcon, ColorSwitcher, HCaptchaModal, useCrispChat } from 'ui';
 import { useRouter } from 'next/router';
+import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
 
 const Login = () => {
   const router = useRouter();
   const crisp = useCrispChat();
+
+  const supabase = useSupabaseClient();
+  const session = useSession();
 
   const captchaModal = useDisclosure();
 
   const [isLoading, setIsLoading] = useState('');
   const [email, setIsEmail] = useState('');
 
-  const handleCaptcha = useCallback(
+  const handleLogin = useCallback(
     async ({ token, captcha }) => {
       switch (isLoading) {
         case 'email':
+          const { data, error } = await supabase.auth.signInWithOtp({
+            email,
+            options: {
+              data: {},
+              captchaToken: token,
+            },
+          });
+        case 'oauth':
+
+        case 'wallet':
       }
+      setIsLoading('');
     },
-    [isLoading]
+    [supabase, isLoading, email]
   );
 
   useEffect(() => {
@@ -140,8 +155,7 @@ const Login = () => {
                   <form
                     onSubmit={(event) => {
                       event.preventDefault();
-                      router.push('/start');
-                      //setIsLoading('email');
+                      setIsLoading('email');
                     }}
                   >
                     <Stack spacing="4">
@@ -213,7 +227,7 @@ const Login = () => {
                   <HCaptchaModal
                     isOpen={captchaModal.isOpen}
                     onClose={captchaModal.onClose}
-                    onVerify={handleCaptcha}
+                    onVerify={handleLogin}
                   />
                 </Stack>
                 <Stack spacing="2" align="center">
