@@ -20,6 +20,15 @@
     },
     "test": {
       "cache": false
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "db:push": {
+      "cache": false
+    },
+    "db:pull": {
+      "cache": false
     }
   },
   "globalEnv": []
