@@ -270,6 +270,7 @@ model profiles {
   mrmrs                    String?
   title                    String?
   firstname                String?
+  middlename               String?
   lastname                 String?
   position                 String?
   avatar_photo_url         String?
