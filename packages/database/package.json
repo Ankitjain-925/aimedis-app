@@ -4,9 +4,11 @@
     "@prisma/client": "latest"
   },
   "devDependencies": {
-    "prisma": "latest"
+    "prisma": "latest",
+    "glob": "^9.0.1"
   },
   "scripts": {
+    "prisma-merge": "node ./merge.js",
     "db:generate": "prisma generate",
     "db:push": "prisma db push --skip-generate",
     "db:pull": "prisma db pull"
