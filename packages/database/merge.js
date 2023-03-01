@@ -43,7 +43,7 @@ const main = async () => {
         .split('\n')
         .filter((line) => line.indexOf('import') < 0)
         .join('\n')
-        .replace(/generator[^}]*}/g , '')
+        .replace(/generator[^}]*}/g, '');
       if (filePath.indexOf('supabase.prisma') > -1) {
         data.unshift(
           `\n//BEGIN ${filePath.replace('prisma/', '')}\n` +

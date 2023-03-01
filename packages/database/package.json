@@ -10,8 +10,7 @@
   "scripts": {
     "prisma-merge": "node ./merge.js",
     "db:generate": "prisma generate",
-    "db:push": "node ./merge.js && prisma db push --skip-generate",
-    "db:pull": "prisma db pull"
+    "db:push": "node ./merge.js && prisma db push --skip-generate"
   },
   "main": "./index.js"
 }

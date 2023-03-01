@@ -1,4 +1,5 @@
 import { users } from "./supabase"
+import { fhir_patient } from "../fhir/patient"
 
 generator client {
   provider        = "prisma-client-js"
@@ -25,7 +26,9 @@ model profiles {
   avatar_rpm_half_body_url String?
   avatar_rpm_full_body_url String?
   bio                      String?
+  
   users                    users    @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  //patient                  fhir_patient @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@schema("public")
 }

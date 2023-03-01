@@ -1,0 +1,20 @@
+import { profiles } from "../home/profiles"
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+model fhir_patient {
+   id String @unique
+   txid Int
+   ts DateTime @default(now()) @db.Timestamptz(6)
+   resource_type String @default("Patient")
+   //status resource_status not null
+   resource Json
+     
+   //created_user_id profiles @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+   //updated_user_id profiles @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("public")
+}

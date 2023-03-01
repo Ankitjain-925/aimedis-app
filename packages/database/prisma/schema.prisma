@@ -11,7 +11,7 @@ datasource db {
 }
 
 
-//BEGIN prisma\home\supabase.prisma
+//BEGIN home/supabase.prisma
 
 
 
@@ -255,10 +255,10 @@ enum factor_type {
   @@schema("auth")
 }
 
-//END prisma\home\supabase.prisma
+//END home/supabase.prisma
 
 
-//BEGIN prisma\home\profiles.prisma
+//BEGIN home/profiles.prisma
 
 
 
@@ -286,4 +286,4 @@ model profiles {
 
   @@schema("public")
 }
-//END prisma\home\profiles.prisma
+//END home/profiles.prisma
