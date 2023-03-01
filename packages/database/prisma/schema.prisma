@@ -11,7 +11,9 @@ datasource db {
 }
 
 
-//BEGIN home/supabase.prisma
+//BEGIN prisma\home\supabase.prisma
+
+
 
 model audit_log_entries {
   instance_id String?   @db.Uuid
@@ -253,10 +255,12 @@ enum factor_type {
   @@schema("auth")
 }
 
-//END home/supabase.prisma
+//END prisma\home\supabase.prisma
 
 
-//BEGIN home/profiles.prisma
+//BEGIN prisma\home\profiles.prisma
+
+
 
 model profiles {
   id                       String   @id @db.Uuid
@@ -282,4 +286,4 @@ model profiles {
 
   @@schema("public")
 }
-//END home/profiles.prisma
+//END prisma\home\profiles.prisma
