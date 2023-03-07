@@ -15,11 +15,15 @@ import {
   Text,
   useColorModeValue,
   useToast,
+  Container,
+  VStack
 } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { useCallback, useEffect, useState } from 'react';
 import { Apps } from 'common';
+import {LeftArrow, RightArrow} from 'ui'
 import Typewriter from 'typewriter-effect';
+import {ScrollMenu, VisibilityContext} from 'react-horizontal-scrolling-menu'
 
 export default function Home() {
   const toast = useToast();
@@ -29,6 +33,8 @@ export default function Home() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
+  const appsBg = useColorModeValue('#F7FAFC', '#031B1B')
+  const appBg = useColorModeValue('#fff', '#052020')
 
   const handleLoginEmail = useCallback(async () => {
     setIsLoading('email');
@@ -59,26 +65,27 @@ export default function Home() {
     setIsLoading('');
   }, [supabase]);
 
+
   return (
     <>
-      <Flex flex="1" justify="center" align="center" fontSize="22px!important">
-        <Box pb="32" px="6">
-          <Typewriter
+      <Flex flex='1' justify="center" align="center">
+      <Flex justify="center" align="center" flexDirection='column'>
+        <Text color='#00abaf' fontWeight='600'>Aimedis - Your Personalised Healthcare Ecosystem</Text>
+        <Text fontSize='3xl' fontWeight='700'>Introducing an AI-Powered </Text>
+        <Text fontSize='3xl' fontWeight='700'>Medical Assistant</Text>
+        <Box pb="6" px="6" fontWeight='normal' display='flex' align='center'>
+        <Typewriter
             onInit={(typewriter) => {
               typewriter
-                .typeString(
-                  'Good Morning Dennis! 👋 How are you feeling today?'
+              .typeString(
+                'Hey Sam, good morning! '
                 )
                 .pauseFor(1000)
                 .typeString(
-                  '<br/>Should I measure your <strong>heart rate</strong> or <strong>body temperature</strong>?'
-                )
-                .pauseFor(1000)
-                .typeString(
-                  '<br/>Just type and I will try to help what you are looking for:<br/>'
-                )
-                .start();
-            }}
+                  'Ask me anything medical-related - symptoms,<br/> conditions, treatments, medications, and more.'
+                  )
+                  .start();
+                }}
             options={{
               autoStart: true,
               loop: false,
@@ -87,10 +94,24 @@ export default function Home() {
             }}
           />
         </Box>
+            <Stack direction='row'>
+            <Input placeholder='Type your question here..' w='md' />
+            <Button bg='#00abaf' color='#fff' _hover={{ bg: '#00abaf' }}>Ask</Button>
+            </Stack>
+        </Flex>
       </Flex>
-      <Flex h="125px">
-        <IconButton icon={<ChevronLeftIcon />} h="100%" fontSize="2xl" />
-        <SimpleGrid flex="1" columns={Apps.length} overflowY="auto" px="4">
+      <Box display='flex' alignItems='center' justifyContent='center' bg={appsBg}>
+      <Box width='70%' >
+          <ScrollMenu
+            LeftArrow={LeftArrow}
+            RightArrow={RightArrow}
+            options={{
+              ratio: 0.9,
+              rootMargin: "5px",
+              threshold: [0.01, 0.05, 0.5, 0.75, 0.95, 1]
+            }}
+            
+          >
           {Apps.map((app) => (
             <Stack
               key={app.value}
@@ -98,30 +119,28 @@ export default function Home() {
               align="center"
               justify="center"
               textAlign="center"
-              _hover={{ bg: useColorModeValue('gray.100', 'whiteAlpha.50') }}
+              bg={appBg}
+              // _hover={{ bg: useColorModeValue('gray.100', 'whiteAlpha.50') }}
               cursor="pointer"
               rounded="xl"
-              py="4"
-              px="4"
+              px="8"
+              py='8'
+              mx="3"
+              my="8"
+              // w="200px"
             >
-              <Square
-                size={{ base: '10', md: '12' }}
-                bg="accent"
-                color="inverted"
-                borderRadius="lg"
-              >
-                <Icon as={app.icon} boxSize={{ base: '5', md: '6' }} />
-              </Square>
-              <Stack spacing={{ base: '1', md: '2' }}>
-                <Text fontSize={{ base: 'lg', md: 'xl' }} fontWeight="medium">
+              <Icon as={app.icon} boxSize={{ base: '5', md: '7' }} color='accent' mb='6' />
+              <VStack spacing='0'>
+                <Text fontSize={{ base: 'md', md: 'md' }} fontWeight="medium">Aimedis</Text>
+                <Text fontSize={{ base: 'md', md: 'md' }} fontWeight="medium" margin='0'>
                   {app.name}
                 </Text>
-              </Stack>
+              </VStack>
             </Stack>
           ))}
-        </SimpleGrid>
-        <IconButton icon={<ChevronRightIcon />} h="100%" fontSize="2xl" />
-      </Flex>
+          </ScrollMenu>
+      </Box>
+      </Box>
     </>
   );
 }

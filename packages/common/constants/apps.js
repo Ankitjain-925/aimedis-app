@@ -1,9 +1,13 @@
 import { FaHandsHelping, FaStore } from 'react-icons/fa';
-import { BsFillChatDotsFill } from 'react-icons/bs';
+import { BsChatLeft, BsFillChatDotsFill, BsHeart } from 'react-icons/bs';
 import { IoLogoAppleAr } from 'react-icons/io5';
 import { SiExpertsexchange } from 'react-icons/si';
 import { MdHealthAndSafety } from 'react-icons/md';
-import { BiWorld } from 'react-icons/bi';
+import { BiMask, BiWorld } from 'react-icons/bi';
+import { RiPulseLine } from 'react-icons/ri';
+import { GiArtificialHive } from 'react-icons/gi';
+import { TbArrowsDoubleNeSw } from 'react-icons/tb';
+import { FiShoppingCart } from 'react-icons/fi';
 
 export const getAppUrl = (value) => {
   if (value === 'fhir') {
@@ -23,7 +27,7 @@ export const Apps = [
   {
     name: 'Care',
     value: 'care',
-    icon: FaHandsHelping,
+    icon: RiPulseLine,
     url:
       process.env.NODE_ENV === 'development'
         ? 'http://localhost:3002'
@@ -32,16 +36,16 @@ export const Apps = [
   {
     name: 'Chat',
     value: 'chat',
-    icon: BsFillChatDotsFill,
+    icon: BsChatLeft,
     url:
       process.env.NODE_ENV === 'development'
         ? 'http://localhost:3003'
         : 'https://chat.aimedis.app',
   },
   {
-    name: 'Dapp',
+    name: 'dApp',
     value: 'dapp',
-    icon: IoLogoAppleAr,
+    icon: GiArtificialHive,
     url:
       process.env.NODE_ENV === 'development'
         ? 'http://localhost:3004'
@@ -50,7 +54,7 @@ export const Apps = [
   {
     name: 'Exchange',
     value: 'exchange',
-    icon: SiExpertsexchange,
+    icon: TbArrowsDoubleNeSw,
     url:
       process.env.NODE_ENV === 'development'
         ? 'http://localhost:3005'
@@ -59,7 +63,7 @@ export const Apps = [
   {
     name: 'Health',
     value: 'health',
-    icon: MdHealthAndSafety,
+    icon: BsHeart,
     url:
       process.env.NODE_ENV === 'development'
         ? 'http://localhost:3006'
@@ -68,7 +72,7 @@ export const Apps = [
   {
     name: 'Metaverse',
     value: 'metaverse',
-    icon: BiWorld,
+    icon: BiMask,
     url:
       process.env.NODE_ENV === 'development'
         ? 'http://localhost:3008'
@@ -77,7 +81,7 @@ export const Apps = [
   {
     name: 'Store',
     value: 'store',
-    icon: FaStore,
+    icon: FiShoppingCart,
     url:
       process.env.NODE_ENV === 'development'
         ? 'http://localhost:3009'

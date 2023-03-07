@@ -8,7 +8,9 @@ import { StepsTheme as Steps } from 'chakra-ui-steps';
 const baseTheme = { ...proTheme };
 
 export const theme = extendTheme(
+  baseTheme,
   {
+    
     config: {
       initialColorMode: 'light',
       useSystemColorMode: false,
@@ -17,9 +19,8 @@ export const theme = extendTheme(
       heading: `'Poppins', sans-serif`,
       body: `'Poppins', sans-serif`,
     },
-    styles,
     ...foundations,
     components: { ...components, Steps },
-  },
-  baseTheme
+    styles,
+  }
 );

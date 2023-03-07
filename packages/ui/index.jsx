@@ -14,3 +14,4 @@ export * from './components/auth/HCaptchaModal';
 export * from './components/auth/VerifyModal';
 
 export * from './components/layouts/HomeLayout';
+export * from './components/scroll-menu-arrows/arrows'
