@@ -1,4 +1,4 @@
-import { profiles } from "./profiles"
+// This is Supabase pre-defined schemas. Dont change anything in this file.
 
 generator client {
   provider        = "prisma-client-js"
@@ -217,7 +217,6 @@ model users {
   identities                  identities[]
   mfa_factors                 mfa_factors[]
   sessions                    sessions[]
-  profiles                    profiles?
 
   @@index([instance_id])
   @@schema("auth")
