@@ -103,6 +103,7 @@ model memberships {
   @@schema("public")
 }
 
+
 model rooms {
   id           String       @id @db.Uuid
   name         String

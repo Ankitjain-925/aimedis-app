@@ -1,4 +1,4 @@
-import { users } from "../home/profiles"
+import { profiles } from "../home/profiles"
 
 generator client {
   provider        = "prisma-client-js"
