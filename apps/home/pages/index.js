@@ -23,6 +23,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Apps } from 'common';
 import {LeftArrow, RightArrow} from 'ui'
 import Typewriter from 'typewriter-effect';
+// import {App} from 'metaroom'
 import {ScrollMenu, VisibilityContext} from 'react-horizontal-scrolling-menu'
 
 export default function Home() {
@@ -127,15 +128,13 @@ export default function Home() {
               py='8'
               mx="3"
               my="8"
-              // w="200px"
+              w="140px"
+              shadow="sm"
             >
               <Icon as={app.icon} boxSize={{ base: '5', md: '7' }} color='accent' mb='6' />
-              <VStack spacing='0'>
-                <Text fontSize={{ base: 'md', md: 'md' }} fontWeight="medium">Aimedis</Text>
                 <Text fontSize={{ base: 'md', md: 'md' }} fontWeight="medium" margin='0'>
                   {app.name}
                 </Text>
-              </VStack>
             </Stack>
           ))}
           </ScrollMenu>
