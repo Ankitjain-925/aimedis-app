@@ -61,7 +61,7 @@ const Login = () => {
             toast({
               title: 'Failed to login',
               description: 'Please try again or contact us.',
-              status: 'success',
+              status: 'error',
               duration: 6000,
               isClosable: true,
             });
@@ -92,7 +92,7 @@ const Login = () => {
           title: 'Failed to verify',
           description: 'Code has expired or is invalid.',
           status: 'error',
-          duration: 9000,
+          duration: 6000,
           isClosable: true,
         });
         return;

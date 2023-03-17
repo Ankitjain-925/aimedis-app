@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useRouter } from 'next/router';
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import {
-  SessionContextProvider,
-  useSession,
-} from '@supabase/auth-helpers-react';
-import { useState, useEffect } from 'react';
+import { SessionContextProvider } from '@supabase/auth-helpers-react';
+import { useState, useEffect, createContext, useContext } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+const queryClient = new QueryClient();
 
-export const SupabaseProvider = ({ pageProps, children }) => {
+export const DatabaseContext = createContext(null);
+
+export const DatabaseProvider = ({ pageProps, children }) => {
   const router = useRouter();
 
   const [supabase] = useState(() =>
@@ -37,11 +38,19 @@ export const SupabaseProvider = ({ pageProps, children }) => {
   */
 
   return (
-    <SessionContextProvider
-      supabaseClient={supabase}
-      initialSession={pageProps.initialSession}
-    >
-      {children}
-    </SessionContextProvider>
+    <DatabaseContext.Provider value={{ database: supabase, queryClient }}>
+      <SessionContextProvider
+        supabaseClient={supabase}
+        initialSession={pageProps.initialSession}
+      >
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      </SessionContextProvider>
+    </DatabaseContext.Provider>
   );
+};
+
+export const useDatabase = () => {
+  return useContext(DatabaseContext);
 };
