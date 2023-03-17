@@ -15,29 +15,39 @@ import {
   Text,
   useColorModeValue,
   useDisclosure,
+  useToast,
   VStack,
 } from '@chakra-ui/react';
 import { BsGoogle, BsLinkedin, BsWalletFill } from 'react-icons/bs';
 import { GiTechnoHeart } from 'react-icons/gi';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Logo, LogoIcon, ColorSwitcher, HCaptchaModal, useCrispChat } from 'ui';
+import {
+  Logo,
+  LogoIcon,
+  ColorSwitcher,
+  HCaptchaModal,
+  useCrispChat,
+  VerifyModal,
+} from 'ui';
 import { useRouter } from 'next/router';
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
 
 const Login = () => {
   const router = useRouter();
   const crisp = useCrispChat();
+  const toast = useToast();
 
   const supabase = useSupabaseClient();
-  const session = useSession();
 
   const captchaModal = useDisclosure();
+  const verifyModal = useDisclosure();
 
   const [isLoading, setIsLoading] = useState('');
   const [email, setIsEmail] = useState('');
 
   const handleLogin = useCallback(
     async ({ token, captcha }) => {
+      captchaModal.onClose();
       switch (isLoading) {
         case 'email':
           const { data, error } = await supabase.auth.signInWithOtp({
@@ -47,13 +57,49 @@ const Login = () => {
               captchaToken: token,
             },
           });
+          if (error) {
+            toast({
+              title: 'Failed to login',
+              description: 'Please try again or contact us.',
+              status: 'success',
+              duration: 6000,
+              isClosable: true,
+            });
+            return;
+          }
+          verifyModal.onOpen();
         case 'oauth':
 
         case 'wallet':
       }
       setIsLoading('');
     },
-    [supabase, isLoading, email]
+    [captchaModal, supabase, isLoading, email, toast, verifyModal]
+  );
+
+  const handleVerifyOTP = useCallback(
+    async (token) => {
+      setIsLoading('verify');
+      const { data, error } = await supabase.auth.verifyOtp({
+        email,
+        token,
+        type: 'magiclink',
+      });
+      if (error) {
+        console.error(error);
+        setIsLoading('');
+        toast({
+          title: 'Failed to verify',
+          description: 'Code has expired or is invalid.',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        });
+        return;
+      }
+      router.push('/');
+    },
+    [supabase, email, toast, router]
   );
 
   useEffect(() => {
@@ -228,6 +274,15 @@ const Login = () => {
                     isOpen={captchaModal.isOpen}
                     onClose={captchaModal.onClose}
                     onVerify={handleLogin}
+                  />
+                  <VerifyModal
+                    isOpen={verifyModal.isOpen}
+                    onClose={verifyModal.onClose}
+                    email={email}
+                    onVerify={handleVerifyOTP}
+                    isVerifying={isLoading === 'verify'}
+                    onResend={() => {}}
+                    isResending={isLoading === 'resend'}
                   />
                 </Stack>
                 <Stack spacing="2" align="center">
