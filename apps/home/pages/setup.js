@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Start = () => {
+const Setup = () => {
   return <div>Start</div>;
 };
 
