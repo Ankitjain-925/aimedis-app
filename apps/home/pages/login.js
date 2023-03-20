@@ -43,10 +43,11 @@ const Login = () => {
   const verifyModal = useDisclosure();
 
   const [isLoading, setIsLoading] = useState('');
+  const [hcaptchaToken, setHCaptchaToken] = useState('');
   const [email, setIsEmail] = useState('');
 
   const handleLogin = useCallback(
-    async ({ token, captcha }) => {
+    async ({ captchaToken, captchaRef }) => {
       captchaModal.onClose();
       switch (isLoading) {
         case 'email':
@@ -54,7 +55,7 @@ const Login = () => {
             email,
             options: {
               data: {},
-              captchaToken: token,
+              captchaToken,
             },
           });
           if (error) {
@@ -67,6 +68,7 @@ const Login = () => {
             });
             return;
           }
+          setHCaptchaToken(captchaToken);
           verifyModal.onOpen();
         case 'oauth':
 

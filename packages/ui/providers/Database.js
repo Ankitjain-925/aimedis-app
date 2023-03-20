@@ -15,7 +15,9 @@ export const DatabaseProvider = ({ pageProps, children }) => {
     createBrowserSupabaseClient({
       cookieOptions: {
         domain:
-          process.env.NODE_ENV === 'development' ? 'localhost' : 'aimedis.app',
+          process.env.NODE_ENV === 'development'
+            ? 'app.localhost'
+            : 'aimedis.app',
         maxAge: '31536000',
         path: '/',
         sameSite: 'Lax',

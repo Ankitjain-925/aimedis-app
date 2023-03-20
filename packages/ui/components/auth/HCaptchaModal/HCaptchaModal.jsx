@@ -24,7 +24,7 @@ export const HCaptchaModal = ({ isOpen, onClose, onVerify }) => {
             sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY}
             onLoad={() => setIsLoading(false)}
             onVerify={(token) => {
-              onVerify({ token, captcha: captchaRef.current });
+              onVerify({ captchaToken: token, captchaRef: captchaRef.current });
             }}
           />
         </ModalBody>

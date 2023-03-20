@@ -11,16 +11,26 @@ export const UserContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
   const user = useUser();
+  const supabase = useSupabaseClient();
 
-  console.log(user);
   const isUser = useMemo(() => user !== null, [user]);
   const userId = useMemo(() => user?.id, [user]);
-
   const profile = useProfile(userId, {
     queryConfig: {
       enabled: isUser,
     },
   });
+
+  useEffect(() => {
+    (async () => {
+      if (supabase) {
+        console.log('auth', supabase.auth);
+        const { user, error } = await supabase.auth.updateUser({
+          password: '123456',
+        });
+      }
+    })();
+  }, [supabase]);
 
   return (
     <UserContext.Provider value={{ user, profile }}>
