@@ -4,4 +4,4 @@ const Setup = () => {
   return <div>Start</div>;
 };
 
-export default Start;
+export default Setup;
