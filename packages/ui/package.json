@@ -35,6 +35,8 @@
     "next": "^13.1.6",
     "npm": "^9.5.0",
     "react-icons": "^4.7.1",
-    "react-query": "^3.39.3"
+    "react-query": "^3.39.3",
+    "@supabase/supabase-js": "^2.12.0"
+
   }
 }

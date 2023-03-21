@@ -6,12 +6,16 @@ export function UserAuthorization(handler) {
       if (!token) {
         return res.status(401).json({ status: 401, message: 'Unauthorized' });
       }
-
-    const { data: user, error } = await supabaseClient(token).auth.getUser();
+    const supabase = supabaseClient(token)
+    const { data: user, error } = await supabase.auth.getUser();
     if (error) {
         return res.status(401).json({ status: 401, message: 'Unauthorized' });
     }
-  
-      return handler(req, res, user);
+
+    req.user = user
+    req.token = token
+    req.supabase = supabase
+
+      return handler(req, res);
     };
   }
