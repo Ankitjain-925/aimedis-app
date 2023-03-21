@@ -1,0 +1,33 @@
+.onFlag .ReactFlagsSelect-module_selectBtn__19wW7 {
+    border: none;
+    padding-top: 9px;
+  }
+  /* 
+  .setDiv{
+      display:flex;
+      justify-content: center;
+  } */
+  
+  .firstList {
+    border: 1px solid black;
+    /* background-color: antiquewhite; */
+  }
+  
+  .applyOnList {
+    border: 1px solid black;
+    width: 21.2%;
+    /* background-color: antiquewhite; */
+  }
+  
+  .setInput {
+    padding-right: 12px;
+  }
+  
+  .AddInputCss {
+    padding-top: 50px;
+  }
+  .chakra-input__group img {
+    height: 20px !important;
+    width: 30px !important;
+  }
+  

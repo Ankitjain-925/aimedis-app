@@ -15,3 +15,5 @@ export * from './components/auth/VerifyModal';
 
 export * from './components/layouts/HomeLayout';
 export * from './components/scroll-menu-arrows/arrows'
+
+export * from './components/inputs/PhoneNumberInput'

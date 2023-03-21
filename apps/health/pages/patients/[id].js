@@ -9,6 +9,9 @@ import SplitPane, { DragHandle } from "../components/SplitWindows/SplitPane";
 import React, { useState } from "react";
 import { useWindowSize } from "../components/SplitWindows/WindowSize";
 import { Graphs, Insurances, Contacts, Rights, Donor, KYC, Journals, Archived, Journey, Trusted } from "../components/PatientsTabComponents";
+import {
+    ColorSwitcher,
+  } from 'ui';
 // import { Insurances,} from "../components/DraggableComponents";
 function TabsPanel1({ height }) {
     return (
@@ -83,6 +86,7 @@ export default function PatientInformation() {
 
     return (
         <Box>
+            <ColorSwitcher />
             <Grid templateRows="auto 9fr" h="100vh" w="100vw">
                 <SplitPane orientation="horizontal" splittype="1" >
                     <Box>
@@ -106,6 +110,7 @@ export default function PatientInformation() {
                         </Center>
                     </DragHandle>
                     <Box h="100vh" >
+                    
                         {/* <Grid m={'10px'}> */}
                         <Menu>
                             <MenuButton as={Button} m={'10px'}>
