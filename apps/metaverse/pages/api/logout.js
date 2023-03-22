@@ -7,6 +7,9 @@ const supabaseServer = createClient(
 );
 
 export default UserAuthorization(async function logout(req, res) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ status: 405, message: 'Method Not Allowed' });
+      }
     const { error } = await req.supabase.auth.signOut(req.token);
     if (error) {
       return res.status(500).json({ status: 500, message: error.message });
