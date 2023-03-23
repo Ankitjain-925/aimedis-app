@@ -38,16 +38,7 @@ export default function Home() {
   return (
     <>
       <Flex flex="1" justify="center" align="center">
-        <Flex justify="center" align="center" flexDirection="column">
-          <Text color="#00abaf" fontWeight="600">
-            Aimedis - Your Personalised Healthcare Ecosystem
-          </Text>
-          <Text fontSize="3xl" fontWeight="700">
-            Introducing an AI-Powered{' '}
-          </Text>
-          <Text fontSize="3xl" fontWeight="700">
-            Medical Assistant
-          </Text>
+        <Flex justify="center" align="center" flexDirection="column" pb="24">
           <Box pb="6" px="6" fontWeight="normal" display="flex" align="center">
             <Typewriter
               onInit={(typewriter) => {

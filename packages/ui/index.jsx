@@ -17,4 +17,10 @@ export * from './components/auth/HCaptchaModal';
 export * from './components/auth/VerifyModal';
 
 export * from './components/layouts/HomeLayout';
+export * from './components/layouts/PageLayout';
+export * from './components/layouts/SettingsLayout';
+export * from './components/layouts/FormLayout';
+
 export * from './components/scroll-menu-arrows/arrows';
+export * from './components/common/AvatarUpload';
+export * from './components/common/CheckboxCardGroup';
