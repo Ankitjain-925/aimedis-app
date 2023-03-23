@@ -10,6 +10,7 @@ import { useProfile } from '../hooks/useProfile';
 export const UserContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
+  const session = useSession();
   const user = useUser();
   const supabase = useSupabaseClient();
 
@@ -24,7 +25,6 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     (async () => {
       if (supabase) {
-        console.log('auth', supabase.auth);
         const { user, error } = await supabase.auth.updateUser({
           password: '123456',
         });
@@ -32,8 +32,14 @@ export const UserProvider = ({ children }) => {
     })();
   }, [supabase]);
 
+  console.log('session', session);
+  console.log('user', user);
+  console.log('profile', profile.query.data);
+
   return (
-    <UserContext.Provider value={{ user, profile }}>
+    <UserContext.Provider
+      value={{ session, user, profile: profile.query.data }}
+    >
       {children}
     </UserContext.Provider>
   );
