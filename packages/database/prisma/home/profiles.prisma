@@ -12,7 +12,7 @@ model profiles {
   username                 String?         @unique
   email                    String?
   phone                    String?
-  gender                   gender
+  gender                   gender?
   mrmrs                    String?
   title                    String?
   firstname                String?
@@ -79,3 +79,16 @@ enum app {
 
   @@schema("public")
 }
+
+
+model invalidated_tokens  {
+  id         Int      @id @default(autoincrement())
+  token      String   @unique
+  expire_at  DateTime @default(now())
+
+  @@schema("public")
+
+}
+
+
+
