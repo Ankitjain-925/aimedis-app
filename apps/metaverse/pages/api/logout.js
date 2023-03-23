@@ -20,7 +20,7 @@ export default UserAuthorization(async function logout(req, res) {
     if (insertError) {
     return res.status(500).json({ status: 500, message: insertError.message });
     }
-    return res.status(200).json({ message: 'Logged out successfully' });
+    return res.status(200).json({ status: 200 , message: 'Logged out successfully' });
   });
 
 
