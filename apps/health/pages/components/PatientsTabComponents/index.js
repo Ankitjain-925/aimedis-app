@@ -8,5 +8,7 @@ import Journals from './journals'
 import Archived from './archived'
 import Journey from './journey'
 import Trusted from './trusted'
+import Emergency from './emergency'
+import Documents from './documents'
 
-export {Insurances, Contacts, Graphs, Rights, Donor, Journals, Archived, Journey, KYC, Trusted };
+export {Documents, Emergency, Insurances, Contacts, Graphs, Rights, Donor, Journals, Archived, Journey, KYC, Trusted };

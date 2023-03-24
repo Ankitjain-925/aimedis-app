@@ -23,29 +23,29 @@ export default function Contacts() {
   }
   return ( 
     <>
-     <Text fontSize='17px' as='b'  pl="10px" >
+     <Text fontSize='17px' fontWeight='600'  pl="10px" >
         Emergency Contacts
       </Text>
       <Grid m="10px" mt="20px">
       <FormControl>
         <FormLabel>Name</FormLabel>
-        <Input type='text' style={{height:"40px"}}/>
+        <Input type='text' height="40px"/>
       </FormControl>
       <FormControl mt="15px">
         <FormLabel>Relation</FormLabel>
-        <Input type='text' style={{height:"40px"}}/>
+        <Input type='text' height="40px"/>
         {/* <FormErrorMessage>Email is required.</FormErrorMessage> */}
       </FormControl>
       <FormControl mt="15px">
         <FormLabel>Email Address</FormLabel>
-        <Input type='email' style={{height:"40px"}}/>
+        <Input type='email' height="40px"/>
       </FormControl>
       <FormControl mt="15px">
         <FormLabel>Mobile</FormLabel>
         <PhoneNumberInput
             value={value}
             placeholder="Enter phone number"
-            style={{height:"40px"}}
+            height="40px"
             onChange={(value) => setValue(value)}
           />
       </FormControl>

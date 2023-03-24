@@ -39,7 +39,7 @@ export default function Trusted() {
     const border = useColorModeValue("gray.100", "gray.700");
   return (
     <>
-      <Text fontSize='17px' as='b' pl="10px">
+      <Text fontSize='17px' fontWeight='600' pl="10px">
         Family Doctor
       </Text>
       <Text fontSize="13px" pl="10px">
@@ -65,7 +65,7 @@ export default function Trusted() {
           </Button>
         </FormControl>
       </Grid>
-      <Text fontSize='17px' as='b'  pl="10px" mt="30px">
+      <Text fontSize='17px' fontWeight='600'  pl="10px" mt="30px">
         Trusted Nurses
       </Text>
       <Text fontSize="13px" pl="10px">
@@ -123,7 +123,7 @@ export default function Trusted() {
         direction={["column", "row", "row"]}
         justifyContent="space-between">
         <Flex align="center">
-        <Text fontSize='17px' as='b'  pl="10px">
+        <Text fontSize='17px' fontWeight='600'  pl="10px">
             Trusted Doctors
           </Text>
         </Flex>
@@ -189,7 +189,7 @@ export default function Trusted() {
           <ModalBody>
           <FormControl>
             <FormLabel>Find a doctor</FormLabel>
-            <Input type='text' style={{height:"40px"}} placeholder="Search by Name or ID"/>
+            <Input type='text' height="40px" placeholder="Search by Name or ID"/>
           </FormControl>
           </ModalBody>
 

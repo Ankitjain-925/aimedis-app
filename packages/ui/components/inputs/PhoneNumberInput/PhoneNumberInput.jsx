@@ -23,7 +23,7 @@ export const PhoneNumberInput = ({
   country,
   onChange,
   placeholder,
-  style,
+  height,
   ...rest
 }) => {
   const countryOptions = COUNTRIES.map(({ name, iso }) => ({
@@ -77,13 +77,13 @@ export const PhoneNumberInput = ({
 
   return (
     <>
-      <InputGroup style={style} size={size} {...rest}>
+      <InputGroup height={height} size={size} {...rest}>
         <InputLeftElement width="7rem">
           {showDropdown && (
             <UnorderedList
               boxShadow="xl"
               pl="3"
-              styleType="none"
+              heightType="none"
               top="40px"
               width="200px"
               left="0"

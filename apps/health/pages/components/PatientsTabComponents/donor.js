@@ -26,27 +26,27 @@ export default function Donor() {
   }
   return (
     <>
-      <Text fontSize='17px' as='b'  pl="10px">
+      <Text fontSize='17px' fontWeight='600'  pl="10px">
         Organ Donor
       </Text>
       <Text fontSize="13px" pl="10px" >
         Here you can easily select to be an organ donor or not at anytime.
       </Text>
       <Grid mt="20px" ml="10px">
-        <Text as='b'>
+        <Text fontWeight='600'>
           In case an organ / tissue of mine is considered to be transplanted after my death, I herewith declare:
         </Text>
         <RadioGroup mt="15px">
           <Stack direction='column'>
             <Radio value='yes' colorScheme='green'>Yes, I herewith agree with a transplantation of one or more organ / tissues of mine after doctors have pronounced me dead</Radio>
             <Radio value='no' colorScheme='green'>Yes, I allow this except for following organ / tissues: </Radio>
-            <Select my="10px" style={{height:"40px"}} placeholder='Select option'>
+            <Select my="10px" height="40px" placeholder='Select option'>
               <option value='option1'>Option 1</option>
               <option value='option2'>Option 2</option>
               <option value='option3'>Option 3</option>
             </Select>
             <Radio value='yes2' colorScheme='green'>Yes, I allow this only for following organ / tissues: </Radio>
-            <Select my="10px" style={{height:"40px"}} placeholder='Select option'>
+            <Select my="10px" height="40px" placeholder='Select option'>
               <option value='option1'>Option 1</option>
               <option value='option2'>Option 2</option>
               <option value='option3'>Option 3</option>
@@ -56,20 +56,20 @@ export default function Donor() {
             <Grid>
       <FormControl mt="15px">
         <FormLabel>First Name</FormLabel>
-        <Input type='text' style={{height:"40px"}}/>
+        <Input type='text' height="40px"/>
       </FormControl>
       <FormControl mt="15px">
         <FormLabel>Last Name</FormLabel>
-        <Input type='text' style={{height:"40px"}}/>
+        <Input type='text' height="40px"/>
         {/* <FormErrorMessage>Email is required.</FormErrorMessage> */}
       </FormControl >
       <FormControl mt="15px">
         <FormLabel>City</FormLabel>
-        <Input type='text' style={{height:"40px"}}/>
+        <Input type='text' height="40px"/>
       </FormControl>
       <FormControl mt="15px">
         <FormLabel>Postal Code</FormLabel>
-        <Input type='text' style={{height:"40px"}}/>
+        <Input type='text' height="40px"/>
       </FormControl>
       <FormControl mt="15px">
         <FormLabel>Mobile</FormLabel>
@@ -77,12 +77,12 @@ export default function Donor() {
             value={value}
             placeholder="Enter phone number"
             onChange={(value) => setValue(value)}
-            style={{height:"40px"}}
+            height="40px"
           />
       </FormControl>
       <FormControl mt="15px">
         <FormLabel>Free Text</FormLabel>
-        <Input type='text' style={{height:"40px"}}/>
+        <Input type='text' height="40px"/>
       </FormControl>
       <FormControl mt="15px">
       <Button

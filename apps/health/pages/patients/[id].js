@@ -8,7 +8,7 @@ import {
 import SplitPane, { DragHandle } from "../components/SplitWindows/SplitPane";
 import React, { useState } from "react";
 import { useWindowSize } from "../components/SplitWindows/WindowSize";
-import { Graphs, Insurances, Contacts, Rights, Donor, KYC, Journals, Archived, Journey, Trusted } from "../components/PatientsTabComponents";
+import { Documents, Emergency, Graphs, Insurances, Contacts, Rights, Donor, KYC, Journals, Archived, Journey, Trusted } from "../components/PatientsTabComponents";
 import {
     ColorSwitcher,
   } from 'ui';
@@ -53,12 +53,20 @@ function TabsPanel2({ height }) {
     return (
         <Tabs>
             <TabList>
+                <Tab>Emergency Data</Tab>
+                <Tab>Documents</Tab>
                 <Tab>Journal</Tab>
                 <Tab>Archived Journal</Tab>
                 <Tab>Patient Journey</Tab>
             </TabList>
 
             <TabPanels overflow={"auto"} height={height}>
+                <TabPanel>
+                    <Emergency />
+                </TabPanel>
+                <TabPanel>
+                    <Documents />
+                </TabPanel>
                 <TabPanel>
                     <Journals />
                 </TabPanel>

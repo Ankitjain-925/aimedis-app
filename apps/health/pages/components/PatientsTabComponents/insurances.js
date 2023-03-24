@@ -48,7 +48,7 @@
           direction={["column", "row", "row"]}
           justifyContent="space-between">
           <Flex align="center">
-            <Text fontSize='17px' as='b' pl="10px">
+            <Text fontSize='17px' fontWeight='600' pl="10px">
             Insurances
             </Text>
           </Flex>
@@ -98,15 +98,15 @@
           <ModalBody>
           <FormControl mt="15px">
             <FormLabel>Insurnace Country</FormLabel>
-            <Input type='text' style={{height:"40px"}} />
+            <Input type='text' height="40px" />
           </FormControl>
           <FormControl mt="15px">
             <FormLabel>Insurnace Company</FormLabel>
-            <Input type='text' style={{height:"40px"}} />
+            <Input type='text' height="40px" />
           </FormControl>
           <FormControl mt="15px">
             <FormLabel>Insurnace Number</FormLabel>
-            <Input type='text' style={{height:"40px"}} />
+            <Input type='text' height="40px" />
           </FormControl>
           </ModalBody>
 

@@ -29,7 +29,7 @@ export default function Rights() {
   }
   return (
     <>
-      <Text fontSize='17px' as='b' mb="10px"  pl="10px">
+      <Text fontSize='17px' fontWeight='600' mb="10px"  pl="10px">
         Rights Management
       </Text>
       <Text fontSize='13px' pl="10px">
@@ -61,7 +61,7 @@ export default function Rights() {
       </Grid>
 
       <Grid m="10px" mt="30px">
-        <Text as='b' fontSize="14px">
+        <Text fontWeight='600' fontSize="14px">
           Apply a right management setting of all items
         </Text>
         <RadioGroup mt="10px">
