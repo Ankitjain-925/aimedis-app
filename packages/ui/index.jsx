@@ -16,6 +16,7 @@ export * from './components/common/ColorSwitcher';
 export * from './components/auth/HCaptchaModal';
 export * from './components/auth/VerifyModal';
 
+export * from './components/layouts/ShellWithSidebar';
 export * from './components/layouts/HomeLayout';
 export * from './components/layouts/PageLayout';
 export * from './components/layouts/SettingsLayout';
