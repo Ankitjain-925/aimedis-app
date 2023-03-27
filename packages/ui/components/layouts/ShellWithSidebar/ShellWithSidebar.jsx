@@ -13,6 +13,8 @@ import {
 import { FiDownloadCloud } from 'react-icons/fi';
 import { Navbar } from './Navbar';
 import { Sidebar } from './Sidebar';
+import { Navbar as HomeNavBar } from '../HomeLayout/Navbar';
+import { AccountMenu } from '../../common/AccountMenu';
 
 export const ShellWithSidebar = ({ sidebar, navbar, children }) => {
   const { links, actions, footer } = sidebar;
@@ -22,7 +24,8 @@ export const ShellWithSidebar = ({ sidebar, navbar, children }) => {
     base: false,
     lg: true,
   });
-  return (
+  return (<>
+    {/* <HomeNavBar/> */}
     <Flex
       as="section"
       direction={{
@@ -39,7 +42,7 @@ export const ShellWithSidebar = ({ sidebar, navbar, children }) => {
         <Navbar
           leftContent={leftContent}
           middleContent={middleContent}
-          rightContent={rightContent}
+          rightContent={<AccountMenu/>}
         />
       )}
 
@@ -57,7 +60,7 @@ export const ShellWithSidebar = ({ sidebar, navbar, children }) => {
           <Flex justify="space-between">
             {leftContent}
             {middleContent}
-            {rightContent}
+            {<AccountMenu/>}
           </Flex>
         </Box>
         <Flex
@@ -76,5 +79,6 @@ export const ShellWithSidebar = ({ sidebar, navbar, children }) => {
         </Flex>
       </Flex>
     </Flex>
+    </>
   );
 };
