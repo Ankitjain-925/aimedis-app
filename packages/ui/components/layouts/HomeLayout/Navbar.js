@@ -9,11 +9,11 @@ import {
   InputGroup,
   InputLeftElement,
 } from '@chakra-ui/react';
+import { AccountMenu } from '../../common/AccountMenu';
 import { AppsMenu } from '../../common/AppsMenu/AppsMenu';
 import { ColorSwitcher } from '../../common/ColorSwitcher';
 import { Logo, LogoIcon } from '../../common/Logo';
 import { NotificationsPopover } from '../../common/NotificationsPopover.js/index.js';
-import { UserProfileDrawer } from '../../common/UserProfileDrawer';
 
 export const Navbar = () => {
   return (
@@ -28,13 +28,13 @@ export const Navbar = () => {
           <LogoIcon fill="#319795" height="40px" />
         </Box>
         <Box>
-          <InputGroup w="600px">
+          {/*<InputGroup w="600px">
             <InputLeftElement
               pointerEvents="none"
               children={<Search2Icon color="gray.300" />}
             />
             <Input type="search" placeholder="Search" shadow="sm" />
-          </InputGroup>
+          </InputGroup>*/}
         </Box>
         <HStack spacing="4">
           <HStack spacing="1">
@@ -52,7 +52,7 @@ export const Navbar = () => {
             />
             <ColorSwitcher variant="ghost" rounded="full" color="subtle" />
           </HStack>
-          <UserProfileDrawer variant="ghost" rounded="full" />
+          <AccountMenu />
         </HStack>
       </Flex>
     </Box>

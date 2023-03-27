@@ -1,7 +1,7 @@
-export default function Care() {
+export default function Dashboard() {
   return (
     <div>
-      <h1>Care</h1>
+      <h1>Dashboard</h1>
     </div>
   );
 }

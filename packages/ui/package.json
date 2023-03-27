@@ -23,10 +23,13 @@
     "@chakra-ui/theme-tools": "^2.0.16",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.5",
+    "@fontsource/poppins": "^4.5.10",
     "@hcaptcha/react-hcaptcha": "^1.4.4",
+    "@hookform/resolvers": "^3.0.0",
     "@supabase/auth-helpers-nextjs": "^0.5.4",
     "@supabase/auth-helpers-react": "^0.3.1",
     "@supabase/auth-ui-react": "^0.2.7",
+    "@supabase/supabase-js": "^2.12.0",
     "chakra-ui-steps": "^2.0.4",
     "crisp-sdk-web": "^1.0.13",
     "focus-visible": "^5.2.0",
@@ -37,6 +40,10 @@
     "react-icons": "^4.7.1",
     "react-world-flags": "^1.5.1",
     "libphonenumber-js": "^1.10.21",
-    "states-cities-db": "^1.4.1"
+    "states-cities-db": "^1.4.1",
+    "react-hook-form": "^7.43.7",
+    "react-horizontal-scrolling-menu": "^3.2.5",
+    "react-query": "^3.39.3",
+    "yup": "^1.0.2"
   }
 }

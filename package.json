@@ -23,7 +23,7 @@
   },
   "packageManager": "npm@9.3.1",
   "dependencies": {
-    "@fontsource/poppins": "^4.5.10",
-    "react-horizontal-scrolling-menu": "^3.2.5"
+    "install": "^0.13.0",
+    "npm": "^9.6.2"
   }
 }

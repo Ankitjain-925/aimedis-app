@@ -43,10 +43,11 @@ const Login = () => {
   const verifyModal = useDisclosure();
 
   const [isLoading, setIsLoading] = useState('');
+  const [hcaptchaToken, setHCaptchaToken] = useState('');
   const [email, setIsEmail] = useState('');
 
   const handleLogin = useCallback(
-    async ({ token, captcha }) => {
+    async ({ captchaToken, captchaRef }) => {
       captchaModal.onClose();
       switch (isLoading) {
         case 'email':
@@ -54,19 +55,20 @@ const Login = () => {
             email,
             options: {
               data: {},
-              captchaToken: token,
+              captchaToken,
             },
           });
           if (error) {
             toast({
               title: 'Failed to login',
               description: 'Please try again or contact us.',
-              status: 'success',
+              status: 'error',
               duration: 6000,
               isClosable: true,
             });
             return;
           }
+          setHCaptchaToken(captchaToken);
           verifyModal.onOpen();
         case 'oauth':
 
@@ -92,7 +94,7 @@ const Login = () => {
           title: 'Failed to verify',
           description: 'Code has expired or is invalid.',
           status: 'error',
-          duration: 9000,
+          duration: 6000,
           isClosable: true,
         });
         return;

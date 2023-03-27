@@ -11,9 +11,8 @@ model profiles {
   updated_at               DateTime        @default(now()) @db.Timestamptz(6)
   username                 String?         @unique
   email                    String?
-  phone_prefix             String?
-  phone_number             String?
-  gender                   gender
+  phone                    String?
+  gender                   gender?
   mrmrs                    String?
   title                    String?
   firstname                String?
@@ -80,3 +79,16 @@ enum app {
 
   @@schema("public")
 }
+
+
+model invalidated_tokens  {
+  id         Int      @id @default(autoincrement())
+  token      String   @unique
+  expire_at  DateTime @default(now())
+
+  @@schema("public")
+
+}
+
+
+
