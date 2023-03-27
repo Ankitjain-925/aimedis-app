@@ -1,3 +1,4 @@
+import { Text ,Box} from '@chakra-ui/react';
 import {
   ChakraProvider,
   DatabaseProvider,
@@ -7,15 +8,14 @@ import {
 } from 'ui';
 import { MdDashboard } from 'react-icons/md';
 import { HiDocument } from 'react-icons/hi';
-import { Box, Text } from '@chakra-ui/react';
+
 
 export default function App({ Component, pageProps }) {
   return (
     <ChakraProvider pageProps={pageProps}>
       <DatabaseProvider pageProps={pageProps}>
         <UserProvider>
-          <CrispChatProvider>
-            <ShellWithSidebar
+          <CrispChatProvider><ShellWithSidebar
               navbar={{
                 leftContent: (
                   <Box>
@@ -45,7 +45,7 @@ export default function App({ Component, pageProps }) {
                     children: [
                       {
                         label: 'Page',
-                        href: '/',
+                        href: '/test',
                         icon: HiDocument,
                       },
                     ],

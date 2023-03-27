@@ -1,5 +1,6 @@
 import { Icon } from '@chakra-ui/icons';
 import { Box, Divider, Flex, Stack, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 import { Logo, LogoIcon } from '../../common/Logo';
 import { NavButton } from './NavButton';
 
@@ -30,12 +31,14 @@ export const Sidebar = ({ links = [], actions, footer }) => (
             {links.map((link, index) => {
               if (!link?.children?.length) {
                 return (
+                  <Link href={link.href}>
                   <NavButton
                     key={index}
                     label={link.label}
                     href={link.href}
                     icon={link.icon}
                   />
+                  </Link>
                 );
               }
               return (
@@ -46,12 +49,15 @@ export const Sidebar = ({ links = [], actions, footer }) => (
                     </Text>
                   )}
                   {link.children.map((childLink, index) => (
+                  <Link href={childLink.href}>
+
                     <NavButton
                       key={index}
                       label={childLink.label}
                       href={childLink.href}
                       icon={childLink.icon}
                     />
+                    </Link>
                   ))}
                 </Stack>
               );

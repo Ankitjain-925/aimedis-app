@@ -5,8 +5,6 @@ export const NavButton = (props) => {
   const { icon, label, href, ...buttonProps } = props;
   return (
     <Button
-      as={Link}
-      href={href || '#'}
       variant="ghost"
       justifyContent="start"
       {...buttonProps}
