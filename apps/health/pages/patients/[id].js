@@ -18,6 +18,7 @@ import SplitPane, { DragHandle } from "../components/SplitWindows/SplitPane";
 import React, { useState } from "react";
 import { useWindowSize } from "../components/SplitWindows/WindowSize";
 import {
+  Information,
   Documents,
   Emergency,
   Graphs,
@@ -37,6 +38,7 @@ function TabsPanel1({ height }) {
   return (
     <Tabs>
       <TabList>
+        <Tab>Information</Tab>
         <Tab>Insurances</Tab>
         <Tab>Contacts</Tab>
         <Tab>Trusted Doctors</Tab>
@@ -46,6 +48,9 @@ function TabsPanel1({ height }) {
       </TabList>
 
       <TabPanels overflow={"auto"} height={height}>
+        <TabPanel>
+          <Information />
+        </TabPanel>
         <TabPanel>
           <Insurances />
         </TabPanel>

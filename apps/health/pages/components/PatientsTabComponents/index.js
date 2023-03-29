@@ -10,5 +10,6 @@ import Journey from './journey'
 import Trusted from './trusted'
 import Emergency from './emergency'
 import Documents from './documents'
+import Information from './information'
 
-export {Documents, Emergency, Insurances, Contacts, Graphs, Rights, Donor, Journals, Archived, Journey, KYC, Trusted };
+export {Information, Documents, Emergency, Insurances, Contacts, Graphs, Rights, Donor, Journals, Archived, Journey, KYC, Trusted };
