@@ -4,13 +4,11 @@ const fs = require('fs');
 const config = `
 generator client {
     provider        = "prisma-client-js"
-    previewFeatures = ["multiSchema"]
 }
   
 datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
-    schemas  = ["auth", "public"]
 }
 `;
 
@@ -44,19 +42,11 @@ const main = async () => {
         .filter((line) => line.indexOf('import') < 0)
         .join('\n')
         .replace(/generator[^}]*}/g, '');
-      if (filePath.indexOf('supabase.prisma') > -1) {
-        data.unshift(
-          `\n//BEGIN ${filePath.replace('prisma/', '')}\n` +
-            file +
-            `\n//END ${filePath.replace('prisma/', '')}\n`
-        );
-      } else {
         data.push(
           `\n//BEGIN ${filePath.replace('prisma/', '')}\n` +
             file +
             `\n//END ${filePath.replace('prisma/', '')}\n`
         );
-      }
     }
   }
   data.unshift(config);
