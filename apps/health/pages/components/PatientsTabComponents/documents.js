@@ -400,11 +400,6 @@ export default function Documents() {
                 <FormLabel style={{ fontSize: "13px" }}>
                   Upload a photo of your ID Card
                 </FormLabel>
-                {/* <Input
-                  type="File"
-                  placeholder="extra small size"
-                  height="40px"
-                /> */}
                 <Box
                   minHeight="100px"
                   borderRadius={"8px"}

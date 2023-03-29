@@ -5,7 +5,8 @@ import {
     Input,
     Text,
     Button,
-    Checkbox
+    Checkbox,
+    Box,
   } from '@chakra-ui/react'
   import React, {useState } from 'react'
    import { PhoneNumberInput } from 'ui';
@@ -44,11 +45,59 @@ import {
         </FormControl>
         <FormControl mt="15px">
           <FormLabel>Upload a photo of your ID Card</FormLabel>
-          <Input type="File" placeholder='extra small size' height="40px" />
+          <Box
+                  minHeight="100px"
+                  borderRadius={"8px"}
+                  border={"1px dotted"}>
+                  <Box
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      bottom: "50%",
+                      left: "30%",
+                      // right:'30%'
+                    }}>
+                    <Text fontSize="13px" fontWeight={"500"}>
+                      Browse or drag here
+                    </Text>
+                  </Box>
+                  <Input
+                    opacity={"0"}
+                    minHeight="100px"
+                    type="File"
+                    placeholder="extra small size"
+                    height="40px"
+                  />
+                </Box>
+          {/* <Input type="File" placeholder='extra small size' height="40px" /> */}
         </FormControl>
         <FormControl mt="15px">
           <FormLabel>Upload a photo of your ID Card</FormLabel>
-          <Input type="File" placeholder='extra small size' height="40px" />
+          <Box
+                  minHeight="100px"
+                  borderRadius={"8px"}
+                  border={"1px dotted"}>
+                  <Box
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      bottom: "50%",
+                      left: "30%",
+                      // right:'30%'
+                    }}>
+                    <Text fontSize="13px" fontWeight={"500"}>
+                      Browse or drag here
+                    </Text>
+                  </Box>
+                  <Input
+                    opacity={"0"}
+                    minHeight="100px"
+                    type="File"
+                    placeholder="extra small size"
+                    height="40px"
+                  />
+                </Box>
+          {/* <Input type="File" placeholder='extra small size' height="40px" /> */}
         </FormControl>
         <FormControl mt="30px">
         <Checkbox colorScheme='green' defaultChecked>
