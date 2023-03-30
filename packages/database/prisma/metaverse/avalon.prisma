@@ -59,6 +59,8 @@ enum role {
   moderator
 }
 
+
+
 model buildings {
   id          String        @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
   name        String
@@ -93,6 +95,7 @@ model memberships {
   created_at  DateTime   @default(now())
   updated_at  DateTime   @default(now()) @updatedAt
 }
+
 
 model rooms {
   id           String       @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
