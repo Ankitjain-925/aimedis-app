@@ -1,10 +1,7 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["multiSchema"]
+  provider = "prisma-client-js"
 }
 
 model patient_information {
-  id  String   @id @db.Uuid
-
-  @@schema("public")
+  id String @id @db.Uuid
 }
