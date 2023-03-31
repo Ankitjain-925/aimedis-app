@@ -3,16 +3,23 @@ import { useDatabase } from '../providers/Database';
 
 const getWorld = (database, id) => {
   return database
-    .from('profiles')
+    .from('worlds')
     .select('*')
     .eq('id', id)
     .throwOnError()
     .single();
 };
 
+const getAllWorlds = (database) => {
+  return database
+    .from('worlds')
+    .select('*')
+    .throwOnError()
+};
+
 const updateWorld = (database, id, data) => {
   return database
-    .from('profiles')
+    .from('worlds')
     .update(data)
     .eq('id', id)
     .select('*')
@@ -20,9 +27,17 @@ const updateWorld = (database, id, data) => {
     .single();
 };
 
+const addWorld = (database,  data) => {
+  return database
+    .from('worlds')
+    .insert(data)
+    .throwOnError()
+    .single();
+};
+
 export const useWorldQuery = (id, options) => {
   const { database } = useDatabase();
-  const key = ['profile', id];
+  const key = ['world', id];
 
   return useQuery(
     key,
@@ -33,7 +48,20 @@ export const useWorldQuery = (id, options) => {
   );
 };
 
-export const useWorldMutation = (id, options) => {
+export const useAllWorldQuery = ( options) => {
+  const { database } = useDatabase();
+  const key = 'allworlds';
+
+  return useQuery(
+    key,
+    async () => {
+      return getAllWorlds(database).then((result) => result.data);
+    },
+    options
+  );
+};
+
+export const useUpdateWorldMutation = (id, options) => {
   const { database, queryClient } = useDatabase();
 
   return useMutation(
@@ -42,7 +70,22 @@ export const useWorldMutation = (id, options) => {
     },
     {
       onSuccess: (data, variables) => {
-        queryClient.refetchQueries(['profile', id]);
+        queryClient.refetchQueries(['world', id]);
+      },
+      ...options,
+    }
+  );
+};
+export const useAddWorldMutation = (options) => {
+  const { database, queryClient } = useDatabase();
+
+  return useMutation(
+    async (data) => {
+      return addWorld(database, data).then((result) => result.data);
+    },
+    {
+      onSuccess: (data, variables) => {
+        queryClient.refetchQueries('allworlds');
       },
       ...options,
     }
@@ -52,6 +95,8 @@ export const useWorldMutation = (id, options) => {
 export const useWorld = (id, { queryConfig, mutationConfig }) => {
   return {
     query: useWorldQuery(id, queryConfig),
-    mutation: useWorldMutation(id, mutationConfig),
+    updateMutation: useUpdateWorldMutation(id, mutationConfig),
+    addMutation: useAddWorldMutation(mutationConfig),
+    fetchAll: useAllWorldQuery(queryConfig)
   };
 };

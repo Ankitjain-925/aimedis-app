@@ -6,8 +6,9 @@ import {
   CrispChatProvider,
   ShellWithSidebar,
 } from 'ui';
-import { MdDashboard } from 'react-icons/md';
+import { IoIosAnalytics } from 'react-icons/io';
 import { HiDocument } from 'react-icons/hi';
+import { BiWorld } from 'react-icons/bi';
 
 
 export default function App({ Component, pageProps }) {
@@ -36,17 +37,17 @@ export default function App({ Component, pageProps }) {
               sidebar={{
                 links: [
                   {
-                    label: 'Dashboard',
+                    label: 'Users Overview',
                     href: '/',
-                    icon: MdDashboard,
+                    icon: IoIosAnalytics,
                   },
                   {
                     label: 'Section',
                     children: [
                       {
-                        label: 'Page',
-                        href: '/test',
-                        icon: HiDocument,
+                        label: 'Worlds',
+                        href: '/worlds',
+                        icon: BiWorld,
                       },
                     ],
                   },
