@@ -27,7 +27,7 @@ const schema = yup
   })
   .required();
 
-const Account = () => {
+const Office = () => {
   const {
     handleSubmit,
     register,
@@ -40,39 +40,39 @@ const Account = () => {
 
   return (
     <SettingsLayout
-    links={[
-      {
-        label: 'Basic Information',
-        href: '/settings',
-        icon: IoMdInformationCircle,
-      },
-      {
-        label: 'Office Information',
-        href: '/settings/office',
-        icon: IoMdInformationCircle,
-      },
-      {
-        label: 'Service and Appointment',
-        href: '/settings/services',
-        icon: MdMedicalServices,
-      },
-      {
-        label: 'License',
-        href: '/settings/license',
-        icon: TbLicense,
-      }
-    ]}
+      links={[
+        {
+          label: 'Basic Information',
+          href: '/settings',
+          icon: IoMdInformationCircle,
+        },
+        {
+          label: 'Office Information',
+          href: '/settings/office',
+          icon: IoMdInformationCircle,
+        },
+        {
+          label: 'Service and Appointment',
+          href: '/settings/services',
+          icon: MdMedicalServices,
+        },
+        {
+          label: 'License',
+          href: '/settings/license',
+          icon: TbLicense,
+        }
+      ]}
     >
       <PageLayout
-        title="Profile information"
-        description="This is your profile information"
+        title="General"
+        description="Manage your account settings"
         actions={<></>}
         hasDivider
       >
         <Stack spacing="8" divider={<StackDivider />} pt="2">
           <FormLayout
-            title="Medical Account Information"
-            description="Manage your account information"
+            title="Profile"
+            description="Manage information about you"
           >
             <Stack spacing="6" direction={{ base: 'column', md: 'row' }}>
               <FormControl isInvalid={errors.name}>
@@ -141,4 +141,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default Office;
