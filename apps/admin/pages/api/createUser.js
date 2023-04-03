@@ -3,7 +3,7 @@ import { UserAuthorization } from 'database/utils/user-auth';
 
 const supabase = supabaseServer
 
-export default async function createUser(req, res) {
+export default UserAuthorization(async function createUser(req, res) {
 
     const { email , password } = req.body
 
@@ -33,4 +33,4 @@ export default async function createUser(req, res) {
 
     }
    
-}
+});

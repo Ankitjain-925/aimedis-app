@@ -30,19 +30,12 @@ import {
   FormErrorMessage
 } from '@chakra-ui/react'
 
-import {TableSkeleton , useDatabase , useAllProfileQuery , useAddProfileMutation } from 'ui'
+import {TableSkeleton , useDatabase , useUserData, useAllProfileQuery } from 'ui'
 import { useRef, useState } from "react";
 import {useForm} from 'react-hook-form'
 import * as yup from 'yup'
 
 import { yupResolver } from '@hookform/resolvers/yup';
-
-
-
-
-
-  
-
 
 
 export default function Admin() {
@@ -66,6 +59,7 @@ export default function Admin() {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
   
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -74,15 +68,17 @@ export default function Admin() {
   const [password, setPassword] = useState(null)
 
   const {queryClient} = useDatabase()
+  const { session , user , profile } = useUserData()
 
   const handleUserCreation = async (event) => {
     event.preventDefault();
 
     // Call the Supabase API to create the admin user
-    const response = await fetch('http://app.localhost:3001/api/createUser', {
+    const response = await fetch('/api/createUser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.access_token}`,
       },
       body: JSON.stringify({ email, password }),
     });
