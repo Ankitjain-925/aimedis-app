@@ -83,7 +83,6 @@ const License = () => {
               <FormLabel>Responsible authority</FormLabel>
               <Input />
             </FormControl>
-
             <FormControl id="registration">
               <FormLabel>Registration / Doctor number</FormLabel>
               <Input />
@@ -100,11 +99,9 @@ const License = () => {
                 borderRadius={"8px"}
                 border={"1px dotted"}>
                 <Box
-                  style={{
-                    position: "absolute",
-                    top: "60%",
-                    left: "17%",
-                  }}>
+                  position="absolute"
+                  top="52%"
+                  left="27%">
                   <Text fontSize="13px" fontWeight={"500"}>
                     Browse or drag here
                   </Text>
@@ -125,11 +122,9 @@ const License = () => {
                 borderRadius={"8px"}
                 border={"1px dotted"}>
                 <Box
-                  style={{
-                    position: "absolute",
-                    top: "60%",
-                    left: "17%",
-                  }}>
+                  position="absolute"
+                  top="52%"
+                  left="27%">
                   <Text fontSize="13px" fontWeight={"500"}>
                     Browse or drag here
                   </Text>
@@ -150,11 +145,9 @@ const License = () => {
                 borderRadius={"8px"}
                 border={"1px dotted"}>
                 <Box
-                  style={{
-                    position: "absolute",
-                    top: "60%",
-                    left: "17%",
-                  }}>
+                  position="absolute"
+                  top="52%"
+                  left="27%">
                   <Text fontSize="13px" fontWeight={"500"}>
                     Browse or drag here
                   </Text>
@@ -174,9 +167,9 @@ const License = () => {
             description="AIS terms and its privacy policy"
           >
             <FormControl>
-            <Checkbox>
-              By clicking this you accept AIS terms and its privacy policy
-            </Checkbox>
+              <Checkbox>
+                By clicking this you accept AIS terms and its privacy policy
+              </Checkbox>
             </FormControl>
           </FormLayout>
         </Stack>
