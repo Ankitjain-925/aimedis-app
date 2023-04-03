@@ -34,6 +34,7 @@ import {TableSkeleton , useDatabase , useUserData, useAllProfileQuery } from 'ui
 import { useRef, useState } from "react";
 import {useForm} from 'react-hook-form'
 import * as yup from 'yup'
+import {useMutation} from 'react-query'
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -70,10 +71,7 @@ export default function Admin() {
   const {queryClient} = useDatabase()
   const { session , user , profile } = useUserData()
 
-  const handleUserCreation = async (event) => {
-    event.preventDefault();
-
-    // Call the Supabase API to create the admin user
+  const createUserMutation = async ({ email, password }) => {
     const response = await fetch('/api/createUser', {
       method: 'POST',
       headers: {
@@ -82,17 +80,32 @@ export default function Admin() {
       },
       body: JSON.stringify({ email, password }),
     });
-
-    // Handle the response from the API
+  
     if (response.ok) {
-      console.log('Admin user created successfully');
-      setEmail('')
-      setPassword('')
-      onClose()
-      queryClient.invalidateQueries('allprofile');
+      return response.json();
     } else {
-      console.error('Failed to create admin user');
+      throw new Error('Failed to create admin user');
     }
+  };
+
+  const { mutate, isLoading:isMutating  } = useMutation(createUserMutation);
+  
+
+  const handleUserCreation = async (event) => {
+    event.preventDefault();
+
+    mutate({ email, password }, {
+      onSuccess: () => {
+        queryClient.invalidateQueries('allprofile');
+        onClose();
+        setEmail('');
+        setPassword('');
+        console.log('Admin user created successfully');
+      },
+      onError: (error) => {
+        console.error(error.message);
+      },
+    });
 
   };
 
@@ -152,7 +165,7 @@ export default function Admin() {
 
           <ModalFooter display={'flex'}  flexDirection={'column'} alignItems={'center'}>
             <Button colorScheme='blue' w='60%' mb={3} onClick={handleUserCreation}>
-            {'Add User'}
+            {isMutating ? 'Adding...' : 'Add User'}
             </Button>
             <Button onClick={onClose} w='60%'>Cancel</Button>
           </ModalFooter>

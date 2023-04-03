@@ -77,7 +77,7 @@ export default function World() {
 
   const {queryClient} = useDatabase()
 
-  const { mutate, isLoading:mutating } = useAddWorldMutation({
+  const { mutate, isLoading:isMutating } = useAddWorldMutation({
     onSuccess: () => {
       setName('')
       setDescription('')
@@ -156,7 +156,7 @@ export default function World() {
 
           <ModalFooter display={'flex'}  flexDirection={'column'} alignItems={'center'}>
             <Button colorScheme='blue' w='60%' mb={3} onClick={handleWorldAdd}>
-            {mutating ? 'Adding...' : 'Add World'}
+            {isMutating ? 'Adding...' : 'Add World'}
             </Button>
             <Button onClick={onClose} w='60%'>Cancel</Button>
           </ModalFooter>
