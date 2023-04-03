@@ -24,11 +24,12 @@ import {
   Textarea,
   HStack,
   Avatarup,
-  VStack,
+  IconButton,
   Form,
   Alert,
   FormErrorMessage
 } from '@chakra-ui/react'
+import { FiEdit2, FiTrash2 } from 'react-icons/fi'
 
 import {TableSkeleton, AvatarUpload, useDatabase} from 'ui'
 import { useRef, useState } from "react";
@@ -65,7 +66,7 @@ export default function World() {
     resolver: yupResolver(schema),
   });
   
-  const heads =['Name', 'Description', 'Logo']
+  const heads =['Name', 'Description', 'Logo', 'Action']
 
   const {isLoading, data:users, error} = useAllWorldQuery()
 
@@ -184,6 +185,20 @@ export default function World() {
           </Td>
           <Td>
           <Avatar name={p.name} src={p.logo_url} boxSize="10" />
+          </Td>
+          <Td>
+            <HStack spacing="1">
+              <IconButton
+                icon={<FiTrash2 fontSize="1.25rem" />}
+                variant="ghost"
+                aria-label="Delete member"
+              />
+              <IconButton
+                icon={<FiEdit2 fontSize="1.25rem" />}
+                variant="ghost"
+                aria-label="Edit member"
+              />
+            </HStack>
           </Td>
           
         </Tr>

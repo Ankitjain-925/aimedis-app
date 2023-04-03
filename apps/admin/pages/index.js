@@ -25,10 +25,13 @@ import {
   HStack,
   Avatarup,
   VStack,
+  IconButton,
   Form,
   Alert,
   FormErrorMessage
 } from '@chakra-ui/react'
+
+import { FiEdit2, FiTrash2 } from 'react-icons/fi'
 
 import {TableSkeleton , useDatabase , useUserData, useAllProfileQuery } from 'ui'
 import { useRef, useState } from "react";
@@ -110,7 +113,7 @@ export default function Admin() {
   };
 
 
-  const heads =['Username', 'Email', 'First Name', 'Last Name']
+  const heads =['Username', 'Email', 'First Name', 'Last Name', 'Action']
 
   const {isLoading, data, error} = useAllProfileQuery()
 
@@ -198,6 +201,20 @@ export default function Admin() {
           </Td>
           <Td>
             <Text>{p.lastname}</Text>
+          </Td>
+          <Td>
+            <HStack spacing="1">
+              <IconButton
+                icon={<FiTrash2 fontSize="1.25rem" />}
+                variant="ghost"
+                aria-label="Delete member"
+              />
+              <IconButton
+                icon={<FiEdit2 fontSize="1.25rem" />}
+                variant="ghost"
+                aria-label="Edit member"
+              />
+            </HStack>
           </Td>
           
         </Tr>
