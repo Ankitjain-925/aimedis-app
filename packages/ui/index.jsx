@@ -25,3 +25,6 @@ export * from './components/layouts/FormLayout';
 export * from './components/scroll-menu-arrows/arrows';
 export * from './components/common/AvatarUpload';
 export * from './components/common/CheckboxCardGroup';
+
+//PHONE INPUT
+export * from './components/inputs/PhoneNumberInput'

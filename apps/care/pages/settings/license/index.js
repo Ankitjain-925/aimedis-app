@@ -75,23 +75,23 @@ const License = () => {
             title="Insurance infomation"
             description="Manage information about insurance"
           >
-            <FormControl id="firstName">
+            <FormControl id="country">
               <FormLabel>Country</FormLabel>
               <Input />
             </FormControl>
-            <FormControl id="lastName">
+            <FormControl id="authority">
               <FormLabel>Responsible authority</FormLabel>
               <Input />
             </FormControl>
 
-            <FormControl id="street">
+            <FormControl id="registration">
               <FormLabel>Registration / Doctor number</FormLabel>
               <Input />
             </FormControl>
           </FormLayout>
           <FormLayout
             title="Upload Insurance"
-            description="Upload a copy of your ID and heathcare Pharma / Research / Insurance card"
+            description={`Upload a copy of your ID and heathcare pharma / Research / Insurance card`}
           >
             <FormControl>
               <FormLabel>Upload a photo of your ID Card</FormLabel>
