@@ -17,6 +17,7 @@ export default UserAuthorization(async function createUser(req, res) {
     const { data , error } = await supabase.auth.admin.createUser({  
         email: email,
         password: password,
+        email_confirm: true
       })
     
     if(!error){
