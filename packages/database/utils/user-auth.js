@@ -1,10 +1,5 @@
-import { createClient } from '@supabase/supabase-js';
-import { supabaseClient } from 'database/utils/supabase';
-
-const supabaseServer = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_SECRET
-  );
+import { supabaseClientWithToken } from 'database/utils/supabase';
+import { supabaseServer } from 'database/utils/supabase';
 
 export function UserAuthorization(handler) {
     return async (req, res) => {
@@ -27,7 +22,7 @@ export function UserAuthorization(handler) {
         return res.status(401).json({ status: 401, message: 'Invalid Token' });
     }
     
-    const supabase = supabaseClient(token)
+    const supabase = supabaseClientWithToken(token)
     
     const { data: user, error } = await supabase.auth.getUser();
     if (error) {

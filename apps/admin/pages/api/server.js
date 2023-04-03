@@ -1,11 +1,10 @@
-import { createClient } from "@supabase/supabase-js";
+import { supabaseServer } from 'database/utils/supabase';
+import { UserAuthorization } from 'database/utils/user-auth';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
-export default async function servers(req, res) {
+const supabase = supabaseServer
+
+export default UserAuthorization(async function servers(req, res) {
   switch (req.method) {
     case "POST":
       try {
@@ -31,8 +30,6 @@ export default async function servers(req, res) {
           .eq("id", world_id)
           .select();
         }  
-
-        conslo
 
         if (insertError) {
           throw insertError;
@@ -141,6 +138,6 @@ export default async function servers(req, res) {
           });
         }
     }
-}
+});
 
          
