@@ -33,7 +33,7 @@ import { FiEdit2, FiTrash2 } from 'react-icons/fi'
 
 import {TableSkeleton, AvatarUpload, useDatabase} from 'ui'
 import { useRef, useState } from "react";
-import {useAllWorldQuery, useAddWorldMutation, useDeleteWorldMutation} from 'ui';
+import {useAllWorldQuery, useAddWorldMutation, useDeleteWorldMutation, useUpdateWorldMutation} from 'ui';
 import {useForm} from 'react-hook-form'
 import * as yup from 'yup'
 
@@ -75,6 +75,7 @@ export default function World() {
   const initialRef = useRef(null)
   const [name, setName] = useState(null)
   const [description, setDescription] = useState(null)
+  const [id, setId] = useState(null)
   const [editing, setEditing] = useState(false)
 
   const {queryClient} = useDatabase()
@@ -99,10 +100,22 @@ export default function World() {
     },
   });
 
+  const { mutate:updateWorld, isLoading:isUpdating } = useUpdateWorldMutation(id,{
+    onSuccess: () => {
+      queryClient.invalidateQueries('allworlds');
+      onClose()
+    },
+    onError: (error) => {
+      alert(error)
+    },
+  });
+
   const editHandler = (id, name, description)=>{
 
     setName(name)
     setDescription(description)
+    setId(id)
+    setEditing(true);
     // alert(name + description)
     onOpen()
   }
@@ -120,6 +133,11 @@ export default function World() {
       deleteWorld(id)
     //  await onClose()
   };
+
+  const handleWorldUpdate =  (id, name, description) => {
+    updateWorld({id, name, description})
+  //  await onClose()
+};
 
   if(isLoading){
 
@@ -151,7 +169,7 @@ export default function World() {
         <ModalOverlay bg='blackAlpha.300'
       backdropFilter='blur(10px)' />
         <ModalContent borderRadius={0} w='100%'>
-          <ModalHeader>Add new World <Text fontWeight='400' fontSize='sm' >Adding new world on the metaverse</Text> </ModalHeader>
+          <ModalHeader> {editing ? 'Update' : 'Add new'} World <Text fontWeight='400' fontSize='sm' >{editing ? 'Updating' : 'Adding new'} world on the metaverse</Text> </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             
@@ -178,11 +196,20 @@ export default function World() {
           </ModalBody>
 
           <ModalFooter display={'flex'}  flexDirection={'column'} alignItems={'center'}>
-            <Button colorScheme='blue' w='60%' mb={3} onClick={handleWorldAdd} isLoading={isMutating}
+            {/* <Button colorScheme='blue' w='60%' mb={3} onClick={handleWorldAdd} isLoading={isMutating}
     loadingText='Adding'>
             Add World
             </Button>
-            <Button onClick={onClose} w='60%'>Cancel</Button>
+            <Button onClick={onClose} w='60%'>Cancel</Button> */}
+
+            <Button colorScheme="blue" w="60%" mb={3}
+            onClick={editing ? () => handleWorldUpdate(id, name, description) : handleWorldAdd} // Check if editing is true
+            isLoading={isMutating}
+            loadingText={editing ? 'Updating' : 'Adding'} // Change the label of the button
+          >
+            {editing ? 'Update' : 'Add'} World {/* Change the label of the button */}
+          </Button>
+
           </ModalFooter>
         </ModalContent>
       </Modal>
