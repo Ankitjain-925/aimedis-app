@@ -33,7 +33,7 @@ import { FiEdit2, FiTrash2 } from 'react-icons/fi'
 
 import {TableSkeleton, AvatarUpload, useDatabase} from 'ui'
 import { useRef, useState } from "react";
-import {useAllWorldQuery, useAddWorldMutation} from 'ui';
+import {useAllWorldQuery, useAddWorldMutation, useDeleteWorldMutation} from 'ui';
 import {useForm} from 'react-hook-form'
 import * as yup from 'yup'
 
@@ -66,7 +66,7 @@ export default function World() {
     resolver: yupResolver(schema),
   });
   
-  const heads =['Name', 'Description', 'Logo', 'Action']
+  const heads =['Icon','Name', 'Description', 'Action']
 
   const {isLoading, data:users, error} = useAllWorldQuery()
 
@@ -75,6 +75,7 @@ export default function World() {
   const initialRef = useRef(null)
   const [name, setName] = useState(null)
   const [description, setDescription] = useState(null)
+  const [editing, setEditing] = useState(false)
 
   const {queryClient} = useDatabase()
 
@@ -89,6 +90,22 @@ export default function World() {
       alert(error)
     },
   });
+  const { mutate:deleteWorld, isLoading:isDeleting } = useDeleteWorldMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries('allworlds');
+    },
+    onError: (error) => {
+      alert(error)
+    },
+  });
+
+  const editHandler = (id, name, description)=>{
+
+    setName(name)
+    setDescription(description)
+    // alert(name + description)
+    onOpen()
+  }
 
   const handleWorldAdd =  (e) => {
     const newWorldData = {
@@ -96,6 +113,11 @@ export default function World() {
       description
     };
       mutate(newWorldData)
+    //  await onClose()
+  };
+  const handleWorldDelete =  (id) => {
+
+      deleteWorld(id)
     //  await onClose()
   };
 
@@ -143,21 +165,22 @@ export default function World() {
               </FormControl>
             <FormControl>
               <FormLabel>Name</FormLabel>
-              <Input ref={initialRef} {...register('name')} isInvalid={errors.name} placeholder='World name' name='name' value={name}  onChange={(e) => setName(e.target.value)} />
+              <Input  {...register('name')} isInvalid={errors.name} placeholder='World name' name='name' value={name} key={name}  onChange={(e) => setName(e.target.value)} />
               <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
             </FormControl>
             </HStack>
 
             <FormControl mt={4}>
               <FormLabel>Description</FormLabel>
-              <Textarea placeholder='Describe this world' isInvalid={errors.description} {...register('description')} name='description' value={description} onChange={(e) => setDescription(e.target.value)} />
+              <Textarea placeholder='Describe this world' isInvalid={errors.description} {...register('description')} name='description' value={description} key={description} onChange={(e) => setDescription(e.target.value)} />
               <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
             </FormControl>
           </ModalBody>
 
           <ModalFooter display={'flex'}  flexDirection={'column'} alignItems={'center'}>
-            <Button colorScheme='blue' w='60%' mb={3} onClick={handleWorldAdd}>
-            {isMutating ? 'Adding...' : 'Add World'}
+            <Button colorScheme='blue' w='60%' mb={3} onClick={handleWorldAdd} isLoading={isMutating}
+    loadingText='Adding'>
+            Add World
             </Button>
             <Button onClick={onClose} w='60%'>Cancel</Button>
           </ModalFooter>
@@ -178,13 +201,13 @@ export default function World() {
       {users.map((p) => (
         <Tr key={p.id}>
           <Td>
+          <Avatar name={p.name} src={p.logo_url} boxSize="10" />
+          </Td>
+          <Td>
             <Text >{p.name}</Text>
           </Td>
           <Td>
             <Text>{p.description}</Text>
-          </Td>
-          <Td>
-          <Avatar name={p.name} src={p.logo_url} boxSize="10" />
           </Td>
           <Td>
             <HStack spacing="1">
@@ -192,11 +215,14 @@ export default function World() {
                 icon={<FiTrash2 fontSize="1.25rem" />}
                 variant="ghost"
                 aria-label="Delete member"
+                onClick={()=>handleWorldDelete(p.id)}
+                isDisabled={isDeleting}
               />
               <IconButton
                 icon={<FiEdit2 fontSize="1.25rem" />}
                 variant="ghost"
                 aria-label="Edit member"
+                onClick={()=>editHandler(p.id, p.name, p.description)}
               />
             </HStack>
           </Td>

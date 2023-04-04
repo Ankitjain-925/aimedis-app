@@ -9,6 +9,14 @@ const getWorld = (database, id) => {
     .throwOnError()
     .single();
 };
+const deleteWorld = (database, id) => {
+  return database
+    .from('worlds')
+    .delete()
+    .eq('id', id)
+    .throwOnError()
+    .single();
+};
 
 const getAllWorlds = (database) => {
   return database
@@ -76,6 +84,20 @@ export const useUpdateWorldMutation = (id, options) => {
     }
   );
 };
+export const useDeleteWorldMutation = (id) => {
+  const { database, queryClient } = useDatabase();
+
+  return useMutation(
+    async (id) => {
+      return deleteWorld(database, id).then((result) => result.data);
+    },
+    {
+      onSuccess: (data, variables) => {
+        queryClient.refetchQueries('allworlds');
+      },
+    }
+  );
+};
 export const useAddWorldMutation = (options) => {
   const { database, queryClient } = useDatabase();
 
@@ -97,6 +119,7 @@ export const useWorld = (id, { queryConfig, mutationConfig }) => {
     query: useWorldQuery(id, queryConfig),
     updateMutation: useUpdateWorldMutation(id, mutationConfig),
     addMutation: useAddWorldMutation(mutationConfig),
-    fetchAll: useAllWorldQuery(queryConfig)
+    fetchAll: useAllWorldQuery(queryConfig),
+    deleteMutation: useDeleteWorldMutation(id)
   };
 };
