@@ -70,6 +70,8 @@ export default function Admin() {
   const initialRef = useRef(null)
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
+  const [id, setId] = useState(null)
+  const [editing, setEditing] = useState(false)
 
   const {queryClient} = useDatabase()
   const { session , user , profile } = useUserData()
@@ -112,6 +114,43 @@ export default function Admin() {
 
   };
 
+  
+  const deleteUserMutation = async (id) => {
+    const response = await fetch('/api/deleteUser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.access_token}`,
+      },
+      body: JSON.stringify(id),
+    });
+  
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Failed to delete admin user');
+    }
+  };
+
+  const { mutate:deleteUser, isLoading:isDeleting  } = useMutation(deleteUserMutation);
+  
+
+  const handleUserDelete = async (id) => {
+
+    deleteUser(id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries('allprofile');
+        
+      },
+      onError: (error) => {
+        console.error(error.message);
+      },
+    });
+
+  };
+
+
+
 
   const heads =['Username', 'Email', 'First Name', 'Last Name', 'Action']
 
@@ -150,7 +189,6 @@ export default function Admin() {
           <ModalHeader>Add new User <Text fontWeight='400' fontSize='sm' >Adding new user on the metaverse</Text> </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            
             <HStack spacing='10'>
             <FormControl>
               <FormLabel>Email</FormLabel>
@@ -165,7 +203,6 @@ export default function Admin() {
               <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
             </FormControl>
           </ModalBody>
-
           <ModalFooter display={'flex'}  flexDirection={'column'} alignItems={'center'}>
             <Button colorScheme='blue' w='60%' mb={3} onClick={handleUserCreation}>
             {isMutating ? 'Adding...' : 'Add User'}
@@ -208,6 +245,7 @@ export default function Admin() {
                 icon={<FiTrash2 fontSize="1.25rem" />}
                 variant="ghost"
                 aria-label="Delete member"
+                onClick={()=>handleUserDelete(p.id)}
               />
               <IconButton
                 icon={<FiEdit2 fontSize="1.25rem" />}

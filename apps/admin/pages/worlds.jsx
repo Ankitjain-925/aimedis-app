@@ -103,6 +103,8 @@ export default function World() {
   const { mutate:updateWorld, isLoading:isUpdating } = useUpdateWorldMutation(id,{
     onSuccess: () => {
       queryClient.invalidateQueries('allworlds');
+      setName('')
+      setDescription('')
       onClose()
     },
     onError: (error) => {
@@ -111,12 +113,11 @@ export default function World() {
   });
 
   const editHandler = (id, name, description)=>{
-
-    setName(name)
-    setDescription(description)
-    setId(id)
+    console.log(id, name, description)
+    setName(name);
+    setDescription(description);
+    setId(id);
     setEditing(true);
-    // alert(name + description)
     onOpen()
   }
 
@@ -183,14 +184,14 @@ export default function World() {
               </FormControl>
             <FormControl>
               <FormLabel>Name</FormLabel>
-              <Input  {...register('name')} isInvalid={errors.name} placeholder='World name' name='name' value={name} key={name}  onChange={(e) => setName(e.target.value)} />
+              <Input  {...register('name')} isInvalid={errors.name} placeholder='World name' name='name' value={name} onChange={(e) => setName(e.target.value)} />
               <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
             </FormControl>
             </HStack>
 
             <FormControl mt={4}>
               <FormLabel>Description</FormLabel>
-              <Textarea placeholder='Describe this world' isInvalid={errors.description} {...register('description')} name='description' value={description} key={description} onChange={(e) => setDescription(e.target.value)} />
+              <Textarea placeholder='Describe this world' isInvalid={errors.description} {...register('description')} name='description' value={description} onChange={(e) => setDescription(e.target.value)} />
               <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
             </FormControl>
           </ModalBody>
