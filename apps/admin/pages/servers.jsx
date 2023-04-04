@@ -31,7 +31,7 @@ import {
   } from '@chakra-ui/react'
   import { FiEdit2, FiTrash2 } from 'react-icons/fi'
   
-  import {TableSkeleton, AvatarUpload, useDatabase} from 'ui'
+  import {TableSkeleton, AvatarUpload, useDatabase, Option, CustomSelect,RadioCard, RadioCardGroup } from 'ui'
   import { useRef, useState } from "react";
   import {useAllServerQuery, useAddServerMutation, useDeleteServerMutation, useUpdateServerMutation} from 'ui';
   import {useForm} from 'react-hook-form'
@@ -71,6 +71,7 @@ import {
     const initialRef = useRef(null)
     const [name, setName] = useState(null)
     const [description, setDescription] = useState(null)
+    const [colorMode, setColorMode] = useState()
     const [id, setId] = useState(null)
     const [editing, setEditing] = useState(false)
   
@@ -175,8 +176,32 @@ import {
             <ModalHeader> {editing ? 'Update' : 'Add new'} Server <Text fontWeight='400' fontSize='sm' >{editing ? 'Updating' : 'Adding new'} server on the metaverse</Text> </ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
+
+            <CustomSelect
+            name="ColorMode"
+            colorScheme="blue"
+            value={colorMode}
+            onChange={setColorMode}
+            placeholder="Select a color mode"
+          >
+            <Option value="light">
+              <HStack>
+                <Text>Light</Text>
+              </HStack>
+            </Option>
+            <Option value="dark">
+              <HStack>
+                <Text>Dark</Text>
+              </HStack>
+            </Option>
+            <Option value="system">
+              <HStack>
+                <Text>System</Text>
+              </HStack>
+            </Option>
+          </CustomSelect>
               
-              <HStack spacing='5'>
+              <HStack spacing='5' mt={5}>
                 <FormControl w="64px" >
                   <AvatarUpload
                     src={''}
@@ -191,11 +216,25 @@ import {
               </FormControl>
               </HStack>
   
-              <FormControl mt={4}>
+              <FormControl mt={4} mb={4}>
                 <FormLabel>Description</FormLabel>
                 <Textarea placeholder='Describe this server' isInvalid={errors.description} {...register('description')} name='description' value={description} onChange={(e) => setDescription(e.target.value)} />
                 <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
               </FormControl>
+
+              <RadioCardGroup defaultValue="one" spacing="3">
+          {['one', 'two', 'three'].map((option) => (
+            <RadioCard key={option} value={option}>
+              <Text color="emphasized" fontWeight="medium" fontSize="sm">
+                Option {option}
+              </Text>
+              <Text color="muted" fontSize="sm">
+                Jelly biscuit muffin icing dessert powder macaroon.
+              </Text>
+            </RadioCard>
+          ))}
+        </RadioCardGroup>
+
             </ModalBody>
   
             <ModalFooter display={'flex'}  flexDirection={'column'} alignItems={'center'}>
