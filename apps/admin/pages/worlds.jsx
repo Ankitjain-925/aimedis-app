@@ -105,7 +105,8 @@ export default function World() {
       queryClient.invalidateQueries('allworlds');
       setName('')
       setDescription('')
-      onClose()
+      setEditing(false);
+      handleClose()
     },
     onError: (error) => {
       alert(error)
@@ -140,6 +141,11 @@ export default function World() {
   //  await onClose()
 };
 
+  const handleClose = (e)=>{
+    setEditing(false);
+    onClose();
+  }
+
   if(isLoading){
 
     return(
@@ -162,7 +168,7 @@ export default function World() {
       <Modal
         initialFocusRef={initialRef}
         isOpen={isOpen}
-        onClose={onClose}
+        onClose={editing ? handleClose: onClose}
         size='xl'
         borderRadius='0'
         
