@@ -7,8 +7,8 @@ import {
   ShellWithSidebar,
 } from 'ui';
 import { IoIosAnalytics } from 'react-icons/io';
-import { HiDocument } from 'react-icons/hi';
-import { BiWorld } from 'react-icons/bi';
+import { AiOutlineTeam } from 'react-icons/ai';
+import { BiWorld, BiServer } from 'react-icons/bi';
 
 
 export default function App({ Component, pageProps }) {
@@ -49,6 +49,17 @@ export default function App({ Component, pageProps }) {
                         href: '/worlds',
                         icon: BiWorld,
                       },
+                      {
+                        label: 'Servers',
+                        href: '/servers',
+                        icon: BiServer,
+                      },
+                      {
+                        label: 'Tenants',
+                        href: '/tenants',
+                        icon: AiOutlineTeam,
+                      },
+                      
                     ],
                   },
                 ],

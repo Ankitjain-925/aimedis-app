@@ -211,10 +211,10 @@ export default function World() {
 
             <Button colorScheme="blue" w="60%" mb={3}
             onClick={editing ? () => handleWorldUpdate(id, name, description) : handleWorldAdd} // Check if editing is true
-            isLoading={isMutating}
+            isLoading={editing ? isUpdating : isMutating}
             loadingText={editing ? 'Updating' : 'Adding'} // Change the label of the button
           >
-            {editing ? 'Update' : 'Add'} World {/* Change the label of the button */}
+            {editing ? 'Update' : 'Add'} {/* Change the label of the button */}
           </Button>
 
           </ModalFooter>
