@@ -222,7 +222,10 @@ export default function World() {
       </Modal>
 
     <Flex justify='end' mb='4'> 
-      <Button bg="#00abaf" color="#fff" _hover={{ bg: '#00abaf' }} onClick={onOpen} >Add</Button>
+      <Button bg="#00abaf" color="#fff" _hover={{ bg: '#00abaf' }} onClick={()=>{
+        setName('')
+        setDescription('')
+        onOpen()}} >Add</Button>
       </Flex>
 <Box border='1px' borderColor='gray.200'>
   <Table>
