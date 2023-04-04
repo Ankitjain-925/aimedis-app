@@ -68,7 +68,7 @@ export default function World() {
   
   const heads =['Icon','Name', 'Description', 'Action']
 
-  const {isLoading, data:users, error} = useAllWorldQuery()
+  const {isLoading, data:worlds, error} = useAllWorldQuery()
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -235,7 +235,7 @@ export default function World() {
       </Tr>
     </Thead>
     <Tbody>
-      {users.map((p) => (
+      {worlds.map((p) => (
         <Tr key={p.id}>
           <Td>
           <Avatar name={p.name} src={p.logo_url} boxSize="10" />
