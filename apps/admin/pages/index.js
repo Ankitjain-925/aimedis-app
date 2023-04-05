@@ -33,7 +33,7 @@ import {
 
 import { FiEdit2, FiTrash2 } from 'react-icons/fi'
 
-import {TableSkeleton , useDatabase , useUserData, useAllProfileQuery } from 'ui'
+import {TableSkeleton , useDatabase , useUserData, useAllProfileQuery, useAdminClaim } from 'ui'
 import { useRef, useState } from "react";
 import {useForm} from 'react-hook-form'
 import * as yup from 'yup'
@@ -43,6 +43,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 
 export default function Admin() {
+
+  const {database , queryClient} = useDatabase()
+  const { session , user , profile } = useUserData()
+
+  const isAdmin = useAdminClaim(database)
+  if (isAdmin) {
+    console.log('User has admin claim.')
+  } else {
+    console.log('You are not authorized to view this page.')
+  }
 
   const schema = yup
     .object({
@@ -72,9 +82,6 @@ export default function Admin() {
   const [password, setPassword] = useState(null)
   const [id, setId] = useState(null)
   const [editing, setEditing] = useState(false)
-
-  const {queryClient} = useDatabase()
-  const { session , user , profile } = useUserData()
 
   const createUserMutation = async ({ email, password }) => {
     const response = await fetch('/api/createUser', {
