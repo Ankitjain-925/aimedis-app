@@ -40,28 +40,28 @@ const Account = () => {
 
   return (
     <SettingsLayout
-    links={[
-      {
-        label: 'Basic Information',
-        href: '/settings',
-        icon: IoMdInformationCircle,
-      },
-      {
-        label: 'Office Information',
-        href: '/settings/office',
-        icon: IoMdInformationCircle,
-      },
-      {
-        label: 'Service and Appointment',
-        href: '/settings/services',
-        icon: MdMedicalServices,
-      },
-      {
-        label: 'License',
-        href: '/settings/license',
-        icon: TbLicense,
-      }
-    ]}
+      links={[
+        {
+          label: 'Basic Information',
+          href: '/settings',
+          icon: IoMdInformationCircle,
+        },
+        {
+          label: 'Office Information',
+          href: '/settings/office',
+          icon: IoMdInformationCircle,
+        },
+        {
+          label: 'Service and Appointment',
+          href: '/settings/services',
+          icon: MdMedicalServices,
+        },
+        {
+          label: 'License',
+          href: '/settings/license',
+          icon: TbLicense,
+        }
+      ]}
     >
       <PageLayout
         title="Profile information"

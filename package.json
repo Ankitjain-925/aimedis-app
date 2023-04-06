@@ -24,6 +24,7 @@
   "packageManager": "npm@9.3.1",
   "dependencies": {
     "install": "^0.13.0",
-    "npm": "^9.6.2"
+    "npm": "^9.6.2",
+    "react-date-range": "^1.4.0"
   }
 }
