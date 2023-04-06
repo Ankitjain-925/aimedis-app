@@ -33,7 +33,7 @@ import {
 
 import { FiEdit2, FiTrash2 } from 'react-icons/fi'
 
-import {TableSkeleton , useDatabase , useUserData, useAllProfileQuery, useAdminClaim } from 'ui'
+import {TableSkeleton , useDatabase , useUserData, useAllProfileQuery } from 'ui'
 import { useRef, useState } from "react";
 import {useForm} from 'react-hook-form'
 import * as yup from 'yup'
