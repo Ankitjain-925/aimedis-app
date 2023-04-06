@@ -33,6 +33,7 @@ export default function App() {
     const [email, setEmail] = useState("");
     const [images, setImages] = useState([]);
     const [message, setmessage] = useState("");
+    const [empty,setEmpty]=useState("")
 
     const user = useUser();
     const supabase = useSupabaseClient();
@@ -53,11 +54,12 @@ export default function App() {
     useEffect(() => {
 
         getImages();
-        deleteImage()
 
     }, []);
 
-
+    const reset=()=>{
+        setEmpty(null)
+    } 
     async function uploadImage(e) {
         let file = e.target.files[0];
 
@@ -66,17 +68,16 @@ export default function App() {
                 .storage
                 .from('demo')
                 .upload(`${file?.name}`, file)
-                
+                console.log("error",data,error)
                         if (data) {
                             setmessage()
                 
                             getImages();
                         } else {
                             setmessage(error.message)
-                            console.log(error);
                         }
-
-        }
+                    }
+                    reset()
     }
 
     async function deleteImage(imageName) {
@@ -102,10 +103,11 @@ export default function App() {
                 px="6"
                 py="4"
                 bg={useColorModeValue('white', 'gray.800')}
-
+                position="relative"
+                flexDirection="column"
             >
 
-                <VStack spacing="3" position="absolute">
+                <VStack spacing="3">
                     <Square size="10" bg="bg-subtle" borderRadius="lg">
                         <Icon as={FiUploadCloud} boxSize="5" color="muted" />
                     </Square>
@@ -126,12 +128,15 @@ export default function App() {
                     </VStack>
                 </VStack>
                 <Input
+                     position="absolute"
+                     bottom="14px"
                     opacity={"0"}
                     minHeight="100px"
                     type="File"
                     placeholder="extra small size"
                     height="40px"
                     width="100%"
+                    value={empty}
                     onChange={(e) => uploadImage(e)}
 
                 />
