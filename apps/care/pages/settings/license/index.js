@@ -75,23 +75,22 @@ const License = () => {
             title="Insurance infomation"
             description="Manage information about insurance"
           >
-            <FormControl id="firstName">
+            <FormControl id="country">
               <FormLabel>Country</FormLabel>
               <Input />
             </FormControl>
-            <FormControl id="lastName">
+            <FormControl id="authority">
               <FormLabel>Responsible authority</FormLabel>
               <Input />
             </FormControl>
-
-            <FormControl id="street">
+            <FormControl id="registration">
               <FormLabel>Registration / Doctor number</FormLabel>
               <Input />
             </FormControl>
           </FormLayout>
           <FormLayout
             title="Upload Insurance"
-            description="Upload a copy of your ID and heathcare Pharma / Research / Insurance card"
+            description={`Upload a copy of your ID and heathcare pharma / Research / Insurance card`}
           >
             <FormControl>
               <FormLabel>Upload a photo of your ID Card</FormLabel>
@@ -100,11 +99,9 @@ const License = () => {
                 borderRadius={"8px"}
                 border={"1px dotted"}>
                 <Box
-                  style={{
-                    position: "absolute",
-                    top: "60%",
-                    left: "17%",
-                  }}>
+                  position="absolute"
+                  top="52%"
+                  left="27%">
                   <Text fontSize="13px" fontWeight={"500"}>
                     Browse or drag here
                   </Text>
@@ -125,11 +122,9 @@ const License = () => {
                 borderRadius={"8px"}
                 border={"1px dotted"}>
                 <Box
-                  style={{
-                    position: "absolute",
-                    top: "60%",
-                    left: "17%",
-                  }}>
+                  position="absolute"
+                  top="52%"
+                  left="27%">
                   <Text fontSize="13px" fontWeight={"500"}>
                     Browse or drag here
                   </Text>
@@ -150,11 +145,9 @@ const License = () => {
                 borderRadius={"8px"}
                 border={"1px dotted"}>
                 <Box
-                  style={{
-                    position: "absolute",
-                    top: "60%",
-                    left: "17%",
-                  }}>
+                  position="absolute"
+                  top="52%"
+                  left="27%">
                   <Text fontSize="13px" fontWeight={"500"}>
                     Browse or drag here
                   </Text>
@@ -174,9 +167,9 @@ const License = () => {
             description="AIS terms and its privacy policy"
           >
             <FormControl>
-            <Checkbox>
-              By clicking this you accept AIS terms and its privacy policy
-            </Checkbox>
+              <Checkbox>
+                By clicking this you accept AIS terms and its privacy policy
+              </Checkbox>
             </FormControl>
           </FormLayout>
         </Stack>

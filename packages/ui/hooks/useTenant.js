@@ -1,33 +1,33 @@
 import { useMutation, useQuery } from 'react-query';
 import { useDatabase } from '../providers/Database';
 
-const getWorld = (database, id) => {
+const getTenant = (database, id) => {
   return database
-    .from('worlds')
+    .from('tenants')
     .select('*')
     .eq('id', id)
     .throwOnError()
     .single();
 };
-const deleteWorld = (database, id) => {
+const deleteTenant = (database, id) => {
   return database
-    .from('worlds')
+    .from('tenants')
     .delete()
     .eq('id', id)
     .throwOnError()
     .single();
 };
 
-const getAllWorlds = (database) => {
+const getAllTenants = (database) => {
   return database
-    .from('worlds')
+    .from('tenants')
     .select('*')
     .throwOnError()
 };
 
-const updateWorld = (database, id, data) => {
+const updateTenant = (database, id, data) => {
   return database
-    .from('worlds')
+    .from('tenants')
     .update(data)
     .eq('id', id)
     .select('*')
@@ -35,46 +35,46 @@ const updateWorld = (database, id, data) => {
     .single();
 };
 
-const addWorld = (database,  data) => {
+const addTenant = (database,  data) => {
   return database
-    .from('worlds')
+    .from('tenants')
     .insert(data)
     .throwOnError()
     .single();
 };
 
-export const useWorldQuery = (id, options) => {
+export const useTenantQuery = (id, options) => {
   const { database } = useDatabase();
   const key = ['world', id];
 
   return useQuery(
     key,
     async () => {
-      return getWorld(database, id).then((result) => result.data);
+      return getTenant(database, id).then((result) => result.data);
     },
     options
   );
 };
 
-export const useAllWorldQuery = ( options) => {
+export const useAllTenantQuery = ( options) => {
   const { database } = useDatabase();
-  const key = 'allworlds';
+  const key = 'alltenants';
 
   return useQuery(
     key,
     async () => {
-      return getAllWorlds(database).then((result) => result.data);
+      return getAllTenants(database).then((result) => result.data);
     },
     options
   );
 };
 
-export const useUpdateWorldMutation = (id, options) => {
+export const useUpdateTenantMutation = (id, options) => {
   const { database, queryClient } = useDatabase();
 
   return useMutation(
     async (data) => {
-      return updateWorld(database, id, data).then((result) => result.data);
+      return updateTenant(database, id, data).then((result) => result.data);
     },
     {
       onSuccess: (data, variables) => {
@@ -84,42 +84,42 @@ export const useUpdateWorldMutation = (id, options) => {
     }
   );
 };
-export const useDeleteWorldMutation = (id) => {
+export const useDeleteTenantMutation = (id) => {
   const { database, queryClient } = useDatabase();
 
   return useMutation(
     async (id) => {
-      return deleteWorld(database, id).then((result) => result.data);
+      return deleteTenant(database, id).then((result) => result.data);
     },
     {
       onSuccess: (data, variables) => {
-        queryClient.refetchQueries('allworlds');
+        queryClient.refetchQueries('alltenants');
       },
     }
   );
 };
-export const useAddWorldMutation = (options) => {
+export const useAddTenantMutation = (options) => {
   const { database, queryClient } = useDatabase();
 
   return useMutation(
     async (data) => {
-      return addWorld(database, data).then((result) => result.data);
+      return addTenant(database, data).then((result) => result.data);
     },
     {
       onSuccess: (data, variables) => {
-        queryClient.refetchQueries('allworlds');
+        queryClient.refetchQueries('alltenants');
       },
       ...options,
     }
   );
 };
 
-export const useWorld = (id, { queryConfig, mutationConfig }) => {
+export const useTenant = (id, { queryConfig, mutationConfig }) => {
   return {
-    query: useWorldQuery(id, queryConfig),
-    updateMutation: useUpdateWorldMutation(id, mutationConfig),
-    addMutation: useAddWorldMutation(mutationConfig),
-    fetchAll: useAllWorldQuery(queryConfig),
-    deleteMutation: useDeleteWorldMutation(id)
+    query: useTenantQuery(id, queryConfig),
+    updateMutation: useUpdateTenantMutation(id, mutationConfig),
+    addMutation: useAddTenantMutation(mutationConfig),
+    fetchAll: useAllTenantQuery(queryConfig),
+    deleteMutation: useDeleteTenantMutation(id)
   };
 };

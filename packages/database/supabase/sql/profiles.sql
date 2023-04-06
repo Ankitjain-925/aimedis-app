@@ -98,3 +98,17 @@ create policy "Avatar images are publicly accessible." on storage.objects
 
 create policy "Anyone can upload an avatar." on storage.objects
   for insert with check (bucket_id = 'avatars');
+
+
+
+-- begin
+--   insert into public.profiles (
+--     id, 
+--     email
+--   )
+--   values (
+--     new.id, 
+--     new.email
+--   );
+--   return new;
+-- end;  

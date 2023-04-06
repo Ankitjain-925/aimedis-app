@@ -1,8 +1,7 @@
 import { memberships } from "..\metaverse\avalon"
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["multiSchema"]
+  provider = "prisma-client-js"
 }
 
 model profiles {
@@ -27,43 +26,52 @@ model profiles {
   memberships              memberships[]
   notification_sent        notifications[] @relation("actor")
   notification_recieved    notifications[] @relation("recipients")
-
-  @@schema("public")
+  identities               user_identities[]
 }
-
-
 
 enum gender {
   male
   female
   other
+}
 
-  @@schema("public")
+model identities {
+  id         String          @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  name       String
+  users      user_identities[]
+  created_at DateTime        @default(now())
+  updated_at DateTime        @default(now()) @updatedAt
+}
+
+model user_identities {
+  id          String   @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  user        profiles @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user_id     String   @db.Uuid
+  identity    identities @relation(fields: [identity_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  identity_id String   @db.Uuid
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now()) @updatedAt
 }
 
 model entities {
-  id String   @id @db.Uuid
-  app           app 
+  id            String          @id @db.Uuid
+  app           app
   trigger_point String
-  notifications notifications[] 
-  
-  @@schema("public")
+  notifications notifications[]
 }
 
 model notifications {
-  id            String   @id @db.Uuid
-  actor         profiles @relation("actor", fields: [actor_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  actor_id      String   @db.Uuid
+  id            String     @id @db.Uuid
+  actor         profiles   @relation("actor", fields: [actor_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  actor_id      String     @db.Uuid
   recipients    profiles[] @relation("recipients")
-  recipient_ids String @db.Uuid
-  entity_id     String @db.Uuid
-  entities      entities @relation(fields: [entity_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  recipient_ids String     @db.Uuid
+  entity_id     String     @db.Uuid
+  entities      entities   @relation(fields: [entity_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   message       String
-  is_read       Boolean  @default(false)
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
-
-  @@schema("public")
+  is_read       Boolean    @default(false)
+  created_at    DateTime   @default(now())
+  updated_at    DateTime   @updatedAt
 }
 
 enum app {
@@ -78,19 +86,10 @@ enum app {
   metaverse
   store
   web
-
-  @@schema("public")
 }
 
-
-model invalidated_tokens  {
-  id         Int      @id @default(autoincrement())
-  token      String   @unique
-  expire_at  DateTime @default(now())
-
-  @@schema("public")
-
+model invalidated_tokens {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  expire_at DateTime @default(now())
 }
-
-
-
