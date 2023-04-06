@@ -196,6 +196,8 @@ const Office = () => {
 
               </Flex>
               <DateRange
+                className="setColor"
+                // style={{ backgroundColor: "black", color: "black" }}
                 editableDateInputs={true}
                 onChange={item => setState([item.selection])}
                 moveRangeOnFirstSelection={false}
@@ -396,7 +398,7 @@ const Office = () => {
               <Flex display="flex" spacing="6">
                 {weekNames.map((element) =>
                   <>
-                    <Button w="10%" colorScheme='teal'>{element}</Button>
+                    <Button p="3px" colorScheme='teal'>{element}</Button>
                     <Spacer />
                   </>
                 )
