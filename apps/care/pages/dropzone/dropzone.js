@@ -41,8 +41,7 @@ export default function App() {
         const { data, error } = await supabase
             .storage
             .from('demo')
-            .list(
-            );
+            .list();
         if (data !== null) {
             setImages(data);
         } else {
@@ -54,24 +53,29 @@ export default function App() {
     useEffect(() => {
 
         getImages();
+        deleteImage()
 
     }, []);
 
 
     async function uploadImage(e) {
         let file = e.target.files[0];
-        const { data, error } = await supabase
-            .storage
-            .from('demo')
-            .upload(`${file.name}`, file)
 
-        if (data) {
-            setmessage()
+        if(file){
+            const { data, error } = await supabase
+                .storage
+                .from('demo')
+                .upload(`${file?.name}`, file)
+                
+                        if (data) {
+                            setmessage()
+                
+                            getImages();
+                        } else {
+                            setmessage(error.message)
+                            console.log(error);
+                        }
 
-            getImages();
-        } else {
-            setmessage(error.message)
-            console.log(error);
         }
     }
 
@@ -91,7 +95,7 @@ export default function App() {
     return (
 
         <>
-         {message}
+        <Text fontSize="xs" color='tomato'> {message}</Text>  
             <Center
                 borderWidth="1px"
                 borderRadius="lg"
@@ -137,13 +141,13 @@ export default function App() {
                     images.map((image) => {
                         return (
                             <>
-                            <Center  borderWidth="10px">
-                                <Center>
-                                    <Image variant="top" src={CDNURL + image?.name} />
-                                </Center>
-                                <Center>
-                                    <Button variant="danger" onClick={() => deleteImage(image?.name)}>Delete Image</Button>
-                                </Center>
+                                <Center borderWidth="10px">
+                                    <Center>
+                                        <Image variant="top" src={CDNURL + image?.name} />
+                                    </Center>
+                                    <Center>
+                                        <Button variant="danger" onClick={() => deleteImage(image?.name)}>Delete Image</Button>
+                                    </Center>
                                 </Center>
 
                             </>
