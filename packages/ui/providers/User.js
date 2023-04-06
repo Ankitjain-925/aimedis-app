@@ -4,7 +4,7 @@ import {
   useSupabaseClient,
   useSession,
 } from '@supabase/auth-helpers-react';
-import { useState, useEffect, createContext, useMemo } from 'react';
+import { useState, useEffect, createContext,useContext, useMemo } from 'react';
 import { useProfile } from '../hooks/useProfile';
 
 export const UserContext = createContext(null);
@@ -43,4 +43,9 @@ export const UserProvider = ({ children }) => {
       {children}
     </UserContext.Provider>
   );
+};
+
+
+export const useUserData = () => {
+  return useContext(UserContext);
 };

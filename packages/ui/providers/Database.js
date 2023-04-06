@@ -4,6 +4,7 @@ import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import { useState, useEffect, createContext, useContext } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools} from 'react-query/devtools';
 const queryClient = new QueryClient();
 
 export const DatabaseContext = createContext(null);
@@ -47,6 +48,7 @@ export const DatabaseProvider = ({ pageProps, children }) => {
       >
         <QueryClientProvider client={queryClient}>
           {children}
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </SessionContextProvider>
     </DatabaseContext.Provider>

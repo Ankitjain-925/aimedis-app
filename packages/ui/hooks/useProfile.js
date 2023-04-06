@@ -10,6 +10,13 @@ const getProfile = (database, id) => {
     .single();
 };
 
+const getAllProfiles = (database) => {
+  return database
+    .from('profiles')
+    .select('*')
+    .throwOnError()
+};
+
 const updateProfile = (database, id, data) => {
   return database
     .from('profiles')
@@ -28,6 +35,18 @@ export const useProfileQuery = (id, options) => {
     key,
     async () => {
       return getProfile(database, id).then((result) => result.data);
+    },
+    options
+  );
+};
+export const useAllProfileQuery = ( options) => {
+  const { database } = useDatabase();
+  const key = 'allprofile';
+
+  return useQuery(
+    key,
+    async () => {
+      return getAllProfiles(database).then((result) => result.data);
     },
     options
   );
@@ -53,5 +72,6 @@ export const useProfile = (id, { queryConfig, mutationConfig }) => {
   return {
     query: useProfileQuery(id, queryConfig),
     mutation: useProfileMutation(id, mutationConfig),
+    fetchAll: useAllProfileQuery(queryConfig)
   };
 };

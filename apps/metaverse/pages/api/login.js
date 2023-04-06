@@ -1,13 +1,5 @@
-import { createClient } from '@supabase/supabase-js';
+import { supabaseClient , supabaseServer } from 'database/utils/supabase';
 
-const supabaseClient = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
-const supabaseServer = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_SECRET
-);
 
 export default async function login(req, res) {
   if (req.method !== 'POST') {

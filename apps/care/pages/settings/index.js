@@ -5,14 +5,12 @@ import { MdMedicalServices } from 'react-icons/md';
 import { TbLicense } from 'react-icons/tb';
 import {
   FormControl,
-  FormErrorMessage,
   FormLabel,
   Select,
   Radio,
   Input,
   Stack,
   StackDivider,
-  Textarea,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -89,7 +87,6 @@ const Account = () => {
             title="Contact information"
             description="Manage your location information"
           >
-
             <FormControl>
               <FormLabel>Email Address</FormLabel>
               <Input type='email' />
