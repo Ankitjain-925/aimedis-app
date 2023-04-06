@@ -148,10 +148,10 @@ const Account = () => {
             <FormControl>
               <FormLabel>Gender</FormLabel>
               <Stack spacing={'40px'} direction='row'>
-                  <Radio value='male' colorScheme='green'>Male</Radio>
-                  <Radio value='female' colorScheme='green'>Female</Radio>
-                  <Radio value='other' colorScheme='green'>Other</Radio>
-                </Stack>
+                <Radio value='male' colorScheme='green'>Male</Radio>
+                <Radio value='female' colorScheme='green'>Female</Radio>
+                <Radio value='other' colorScheme='green'>Other</Radio>
+              </Stack>
             </FormControl>
             <FormControl>
               <FormLabel>Date of Birth</FormLabel>
