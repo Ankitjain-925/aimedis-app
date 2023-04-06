@@ -47,12 +47,6 @@ export default function Admin() {
   const {database , queryClient} = useDatabase()
   const { session , user , profile } = useUserData()
 
-  const isAdmin = useAdminClaim(database)
-  if (isAdmin) {
-    console.log('User has admin claim.')
-  } else {
-    console.log('You are not authorized to view this page.')
-  }
 
   const schema = yup
     .object({

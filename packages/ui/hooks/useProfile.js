@@ -4,7 +4,7 @@ import { useDatabase } from '../providers/Database';
 const getProfile = (database, id) => {
   return database
     .from('profiles')
-    .select('*')
+    .select('* , user_identities (id)')
     .eq('id', id)
     .throwOnError()
     .single();

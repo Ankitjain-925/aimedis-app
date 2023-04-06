@@ -5,18 +5,18 @@ generator client {
 }
 
 model worlds {
-  id          String    @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  id          String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name        String
   description String?
   logo_url    String?
   tenants     tenants[]
   servers     servers[]
   created_at  DateTime  @default(now())
-  updated_at  DateTime  @default(now()) @updatedAt
+  updated_at  DateTime? @updatedAt
 }
 
 model servers {
-  id               String     @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  id               String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name             String
   description      String?
   ip_address       String?
@@ -28,11 +28,11 @@ model servers {
   room             rooms?     @relation(fields: [room_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   room_id          String?    @db.Uuid
   created_at       DateTime   @default(now())
-  updated_at       DateTime   @default(now()) @updatedAt
+  updated_at       DateTime?  @updatedAt
 }
 
 model tenants {
-  id              String        @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  id              String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name            String
   world_id        String?       @db.Uuid
   worlds          worlds?       @relation(fields: [world_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
@@ -43,22 +43,20 @@ model tenants {
   billing_address String?
   buildings       buildings[]
   created_at      DateTime      @default(now())
-  updated_at      DateTime      @default(now()) @updatedAt
+  updated_at      DateTime?     @updatedAt
   memberships     memberships[]
 }
 
 model tenant_roles {
-  id          String        @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  id          Int           @id @default(autoincrement())
   name        String
   created_at  DateTime      @default(now())
-  updated_at  DateTime      @default(now()) @updatedAt
+  updated_at  DateTime?     @updatedAt
   memberships memberships[]
 }
 
-
-
 model buildings {
-  id          String        @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  id          String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name        String
   tenant_id   String?       @db.Uuid
   tenants     tenants?      @relation(fields: [tenant_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
@@ -69,31 +67,31 @@ model buildings {
   memberships memberships[]
   server      servers[]
   created_at  DateTime      @default(now())
-  updated_at  DateTime      @default(now()) @updatedAt
+  updated_at  DateTime?     @updatedAt
   rooms       rooms[]
 }
 
 model memberships {
-  id          String     @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  id          String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name        String
-  tenant_id   String?    @db.Uuid
-  tenants     tenants?   @relation(fields: [tenant_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  building_id String?    @db.Uuid
-  buildings   buildings? @relation(fields: [building_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  profile_id  String?    @db.Uuid
-  profiles    profiles?  @relation(fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  role_id     String?    @db.Uuid
-  roles       tenant_roles?     @relation(fields: [role_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tenant_id   String?       @db.Uuid
+  tenants     tenants?      @relation(fields: [tenant_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  building_id String?       @db.Uuid
+  buildings   buildings?    @relation(fields: [building_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  profile_id  String?       @db.Uuid
+  profiles    profiles?     @relation(fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  role_id     Int?
+  roles       tenant_roles? @relation(fields: [role_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   description String?
   image       String?
   nft_id      Int?
   metadata    Json?
-  created_at  DateTime   @default(now())
-  updated_at  DateTime   @default(now()) @updatedAt
+  created_at  DateTime      @default(now())
+  updated_at  DateTime?     @updatedAt
 }
 
 model rooms {
-  id           String       @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  id           String       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name         String
   building_id  String?      @db.Uuid
   buildings    buildings?   @relation(fields: [building_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
@@ -101,7 +99,7 @@ model rooms {
   type         room_types
   availability Boolean?
   created_at   DateTime     @default(now())
-  updated_at   DateTime     @default(now()) @updatedAt
+  updated_at   DateTime?    @updatedAt
   activities   activities[]
   servers      servers[]
 }
@@ -113,7 +111,7 @@ enum room_types {
 }
 
 model activities {
-  id          String         @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  id          String         @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name        String
   room_id     String?        @db.Uuid
   rooms       rooms?         @relation(fields: [room_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
@@ -123,7 +121,7 @@ model activities {
   start_time  DateTime
   end_time    DateTime
   created_at  DateTime       @default(now())
-  updated_at  DateTime       @default(now()) @updatedAt
+  updated_at  DateTime?      @updatedAt
   channels    channels?
 }
 
@@ -133,13 +131,11 @@ enum activity_types {
 }
 
 model channels {
-  id          String     @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  id          String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name        String
   activity_id String     @unique @db.Uuid
   activities  activities @relation(fields: [activity_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   description String
   created_at  DateTime   @default(now())
-  updated_at  DateTime   @default(now()) @updatedAt
+  updated_at  DateTime?  @updatedAt
 }
-
-
