@@ -199,21 +199,21 @@ const Opinions = () => {
             Standard Questions
           </Text>
           <Box mb="10px">
-            <Text fontSize="13px">How would patient like to receive the Second Opinion?</Text>
+            <Text fontSize="13px" fontWeight="600">How would patient like to receive the Second Opinion?</Text>
             <Text fontSize="15px">Online</Text>
           </Box>
           <Box mb="10px" mt="10px">
-            <Text fontSize="13px"> Patient profession</Text>
+            <Text fontSize="13px" fontWeight="600"> Patient profession</Text>
             <Text fontSize="15px">Student</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">
+            <Text fontSize="13px" fontWeight="600">
               Annotations / Details / Questions
             </Text>
             <Text fontSize="15px">Here is the details</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">
+            <Text fontSize="13px" fontWeight="600">
               Attachements
             </Text>
             <Box>
@@ -222,7 +222,7 @@ const Opinions = () => {
             
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px" mb="7px">
+            <Text fontSize="13px" mb="7px" fontWeight="600">
               Upload scenned prescription
             </Text>
             <Box

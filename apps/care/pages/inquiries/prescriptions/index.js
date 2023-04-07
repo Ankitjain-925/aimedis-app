@@ -333,11 +333,11 @@ const Prescriptions = () => {
             Standard Questions
           </Text>
           <Box mb="10px">
-            <Text fontSize="13px">Is this a follow-up prescription?</Text>
+            <Text fontSize="13px" fontWeight="600">Is this a follow-up prescription?</Text>
             <Text fontSize="15px">Yes</Text>
           </Box>
           <Box mb="10px" mt="10px">
-            <Text fontSize="13px">
+            <Text fontSize="13px" fontWeight="600">
               How would you like to receive the prescription?
             </Text>
             <Text fontSize="15px">Online</Text>
@@ -347,41 +347,41 @@ const Prescriptions = () => {
             Medicine Inquiry
           </Text>
           <Box mb="15px">
-            <Text fontSize="13px">
+            <Text fontSize="13px" fontWeight="600">
               Medicine / Substance
             </Text>
             <Text fontSize="15px">ABC-1</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">Dose</Text>
+            <Text fontSize="13px" fontWeight="600">Dose</Text>
             <Text fontSize="15px">50-mg</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">Trade name</Text>
+            <Text fontSize="13px" fontWeight="600">Trade name</Text>
             <Text fontSize="15px">ABC-34</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">
+            <Text fontSize="13px" fontWeight="600">
               ATC code if applicable
             </Text>
             <Text fontSize="15px">CODE123</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">Manufacturer</Text>
+            <Text fontSize="13px" fontWeight="600">Manufacturer</Text>
             <Text fontSize="15px">India</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">Pack size</Text>
+            <Text fontSize="13px" fontWeight="600">Pack size</Text>
             <Text fontSize="15px">10</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">
+            <Text fontSize="13px" fontWeight="600">
               Annotations / Details / Questions
             </Text>
             <Text fontSize="15px">Here is the details</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px" mb="7px">
+            <Text fontSize="13px" mb="7px" fontWeight="600">
               Upload scenned prescription
             </Text>
             <Box
@@ -392,7 +392,7 @@ const Prescriptions = () => {
                 position="relative"
                 top="50px"
                 left="27%">
-                <Text fontSize="13px" fontWeight={"500"}>
+                <Text fontSize="13px" fontWeight={"600"}>
                   Browse or drag here
                 </Text>
               </Box>

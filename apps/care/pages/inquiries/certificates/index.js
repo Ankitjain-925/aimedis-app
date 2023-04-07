@@ -196,58 +196,58 @@ const Certificates = () => {
             Standard Questions
           </Text>
           <Box mb="10px">
-            <Text fontSize="13px">How are you feeling?</Text>
+            <Text fontSize="13px" fontWeight="600">How are you feeling?</Text>
             <Text fontSize="15px">Good</Text>
           </Box>
           <Box mb="10px" mt="10px">
-            <Text fontSize="13px">
+            <Text fontSize="13px" fontWeight="600">
             Is your temperature higher than 38 °C?
             </Text>
             <Text fontSize="15px">no</Text>
           </Box>
 
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">Which symptoms do you have?</Text>
+            <Text fontSize="13px" fontWeight="600">Which symptoms do you have?</Text>
             <Text fontSize="15px">ABC-1</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">Since when?</Text>
+            <Text fontSize="13px" fontWeight="600">Since when?</Text>
             <Text fontSize="15px">2 days</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">
+            <Text fontSize="13px" fontWeight="600">
               Have you already been sick at home for the same problem?
             </Text>
             <Text fontSize="15px">no</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">How long do you think you will be unable to work?</Text>
+            <Text fontSize="13px" fontWeight="600">How long do you think you will be unable to work?</Text>
             <Text fontSize="15px">2 days</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">Is it a known disease?</Text>
+            <Text fontSize="13px" fontWeight="600">Is it a known disease?</Text>
             <Text fontSize="15px">Yes</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">Are you taking any medication?</Text>
+            <Text fontSize="13px" fontWeight="600">Are you taking any medication?</Text>
             <Text fontSize="15px">Yes</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">Do you have any allergies?</Text>
+            <Text fontSize="13px" fontWeight="600">Do you have any allergies?</Text>
             <Text fontSize="15px">No</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">What is your profession?</Text>
+            <Text fontSize="13px" fontWeight="600">What is your profession?</Text>
             <Text fontSize="15px">Student</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px">
+            <Text fontSize="13px" fontWeight="600">
               Annotations / Details / Questions
             </Text>
             <Text fontSize="15px">Here is the details</Text>
           </Box>
           <Box mb="15px" mt="10px">
-            <Text fontSize="13px" mb="7px">
+            <Text fontSize="13px" mb="7px" fontWeight="600">
               Upload scenned prescription
             </Text>
             <Box
