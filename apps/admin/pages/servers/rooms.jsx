@@ -64,7 +64,7 @@ import {
       resolver: yupResolver(schema),
     });
     
-    const heads =['Icon','Name', 'Description', 'Action']
+    const heads =['Icon','Name', 'Description', 'Actions']
   
     const {isLoading, data:rooms, error} = useAllRoomQuery()
   const {isLoading:loadingBuildings, data:buildings, error:buildingError} = useAllBuildingQuery()
@@ -296,17 +296,17 @@ import {
             <Td>
               <HStack spacing="1">
                 <IconButton
+                  icon={<FiEdit2 fontSize="1.25rem" />}
+                  variant="ghost"
+                  aria-label="Edit member"
+                  onClick={()=>editHandler(p.id, p.name, p.description)}
+                />
+                <IconButton
                   icon={<FiTrash2 fontSize="1.25rem" />}
                   variant="ghost"
                   aria-label="Delete member"
                   onClick={()=>handleRoomDelete(p.id)}
                   isDisabled={isDeleting}
-                />
-                <IconButton
-                  icon={<FiEdit2 fontSize="1.25rem" />}
-                  variant="ghost"
-                  aria-label="Edit member"
-                  onClick={()=>editHandler(p.id, p.name, p.description)}
                 />
               </HStack>
             </Td>

@@ -149,7 +149,7 @@ export default function Admin() {
     });
   };
 
-  const heads = ["Username", "Email", "First Name", "Last Name", "Action"];
+  const heads = ["Username", "Email", "First Name", "Last Name", "Actions"];
 
   const { isLoading, data, error } = useAllProfileQuery();
 
