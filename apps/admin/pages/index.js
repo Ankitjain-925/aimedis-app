@@ -270,15 +270,15 @@ export default function Admin() {
                 <Td>
                   <HStack spacing="1">
                     <IconButton
+                      icon={<FiEdit2 fontSize="1.25rem" />}
+                      variant="ghost"
+                      aria-label="Edit member"
+                    />
+                    <IconButton
                       icon={<FiTrash2 fontSize="1.25rem" />}
                       variant="ghost"
                       aria-label="Delete member"
                       onClick={() => handleUserDelete(p.id)}
-                    />
-                    <IconButton
-                      icon={<FiEdit2 fontSize="1.25rem" />}
-                      variant="ghost"
-                      aria-label="Edit member"
                     />
                   </HStack>
                 </Td>
