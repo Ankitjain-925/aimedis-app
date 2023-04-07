@@ -1,0 +1,67 @@
+.setDarkColor  , .rdrDateDisplayItem input{
+    background-color: black;
+}
+
+.setDarkColor .rdrMonth, .setDarkColor .rdrMonthsVertical, .setDarkColor .rdrMonthAndYearWrapper {
+    background-color: black;
+}
+
+.setDarkColor .rdrDateDisplayItem input {
+    background-color: black;
+    border-radius: 4px;
+}
+
+.setDarkColor .rdrDateDisplayWrapper
+ {
+    background-color: black;
+}
+
+   
+.setDarkColor .rdrDayNumber, .rdrEndEdge,.rdrStartEdge,.rdrInRange{
+    color:teal!important
+}
+
+.setDarkColor .rdrDateDisplayItemActive{
+    border-color:teal;
+}
+
+.setLightColor .rdrDateDisplayItemActive{
+    border-color:teal;
+}
+
+
+.setDarkColor .rdrDayNumber span{
+    color:white
+}
+
+
+.setDarkColor .rdrMonthAndYearPickers select:hover , .rdrMonthAndYearPickers select{
+    background-color: black;
+    color: white;
+}
+
+.setDarkColor .rdrMonthAndYearPickers select{
+    background-color: black;
+    color: white;
+}
+
+
+.setDarkColor .rdrDayStartPreview, .setDarkColor .rdrDayEndPreview, .setDarkColor .rdrDayInPreview{
+    border-color: teal !important;
+}
+
+.setLightColor .rdrDayStartPreview, .setLightColor .rdrDayEndPreview, .setLightColor .rdrDayInPreview{
+    border-color: teal !important;
+}
+
+.setDarkColor .rdrDayToday .rdrDayNumber span:after, .setLightColor .rdrDayToday .rdrDayNumber span:after{
+    background-color: teal;
+}
+
+.setDarkColor .rdrDayHovered{
+    border-color: teal !important;
+}
+
+ .setDarkColor .rdrMonthsVertical{
+    flex-direction: unset!important;
+}
