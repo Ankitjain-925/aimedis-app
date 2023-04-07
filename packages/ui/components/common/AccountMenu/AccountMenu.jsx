@@ -33,7 +33,6 @@ export const AccountMenu = () => {
   const handleLogout = useCallback(async () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
-      console.error(error.message);
       toast({
         title: 'Failed to logout',
         description: 'Please try again or contact us.',

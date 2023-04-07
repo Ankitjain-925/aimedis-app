@@ -17,7 +17,8 @@ import {
   Text,
   Box,
   Button,
-  Spacer
+  Spacer,
+  useColorMode,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -27,6 +28,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { yupResolver } from '@hookform/resolvers/yup';
 import { BsFillChatDotsFill } from "react-icons/Bs"
 import { DateRange } from 'react-date-range';
+// import style from "../../../styles/Services.Module.css";
 
 const schema = yup
   .object({
@@ -38,7 +40,6 @@ const schema = yup
     bio: yup.string().max(50, 'Must be less than 50 characters'),
   })
   .required();
-
 const Office = () => {
   const [state, setState] = useState([
     {
@@ -47,6 +48,8 @@ const Office = () => {
       key: 'selection'
     }
   ]);
+  const { colorMode, toggleColorMode } = useColorMode();
+
   const [value, setValue] = useState([false, false]);
 
   const weekNames = ["M", "T", "W", "T", "F", "S", "S"];
@@ -62,7 +65,6 @@ const Office = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
   const selectionRange = {
     startDate: new Date(),
     endDate: new Date(),
@@ -196,8 +198,7 @@ const Office = () => {
 
               </Flex>
               <DateRange
-                className="setColor"
-                // style={{ backgroundColor: "black", color: "black" }}
+                className={colorMode === 'light' ? "setLightColor" : "setDarkColor"}
                 editableDateInputs={true}
                 onChange={item => setState([item.selection])}
                 moveRangeOnFirstSelection={false}
