@@ -197,27 +197,27 @@ export default function Room() {
         initialFocusRef={initialRef}
         isOpen={isOpen}
         onClose={editing ? handleClose : onClose}
-        size="xl"
+        size='xl'
         isCentered
-        borderRadius="0"
+        borderRadius='0'
       >
-        <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
-        <ModalContent borderRadius={0} w="100%">
+        <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px)' />
+        <ModalContent borderRadius={0} w='100%'>
           <ModalHeader>
             {" "}
             {editing ? "Update" : "Add new"} Room{" "}
-            <Text fontWeight="400" fontSize="sm">
+            <Text fontWeight='400' fontSize='sm'>
               {editing ? "Updating" : "Adding new"} server on the metaverse
             </Text>{" "}
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton isDisabled={isMutating} />
           <ModalBody pb={6}>
             <Stack>
               <CustomSelect
-                name="Tenant"
+                name='Tenant'
                 value={building}
                 onChange={setBuilding}
-                placeholder="Select Partner"
+                placeholder='Select Partner'
               >
                 {buildings.map((building) => (
                   <Option key={building.id} value={building.id}>
@@ -231,8 +231,8 @@ export default function Room() {
                 <Input
                   {...register("name")}
                   isInvalid={errors.name}
-                  placeholder="Room name"
-                  name="name"
+                  placeholder='Room name'
+                  name='name'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -242,10 +242,10 @@ export default function Room() {
               <FormControl mt={4} mb={4}>
                 <FormLabel>Description</FormLabel>
                 <Textarea
-                  placeholder="Describe this server"
+                  placeholder='Describe this server'
                   isInvalid={errors.description}
                   {...register("description")}
-                  name="description"
+                  name='description'
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
@@ -254,13 +254,13 @@ export default function Room() {
                 </FormErrorMessage>
               </FormControl>
 
-              <RadioCardGroup defaultValue="one" spacing="3">
+              <RadioCardGroup defaultValue='one' spacing='3'>
                 {["one", "two", "three"].map((option) => (
                   <RadioCard key={option} value={option}>
-                    <Text color="emphasized" fontWeight="medium" fontSize="sm">
+                    <Text color='emphasized' fontWeight='medium' fontSize='sm'>
                       Option {option}
                     </Text>
-                    <Text color="muted" fontSize="sm">
+                    <Text color='muted' fontSize='sm'>
                       Jelly biscuit muffin icing dessert powder macaroon.
                     </Text>
                   </RadioCard>
@@ -298,10 +298,10 @@ export default function Room() {
 
         </Tabs> */}
 
-      <Flex justify="end" mb="4">
+      <Flex justify='end' mb='4'>
         <Button
-          bg="#00abaf"
-          color="#fff"
+          bg='#00abaf'
+          color='#fff'
           _hover={{ bg: "#00abaf" }}
           onClick={() => {
             setName("");
@@ -312,12 +312,12 @@ export default function Room() {
           Add
         </Button>
       </Flex>
-      <Box border="1px" borderColor="gray.200">
+      <Box border='1px' borderColor='gray.200'>
         <Table>
           <Thead>
             <Tr>
               {heads.map((head) => (
-                <Th fontWeight="medium" key={head}>
+                <Th fontWeight='medium' key={head}>
                   {head}
                 </Th>
               ))}
@@ -327,7 +327,7 @@ export default function Room() {
             {rooms.map((p) => (
               <Tr key={p.id}>
                 <Td>
-                  <Avatar name={p.name} src={p.logo_url} boxSize="10" />
+                  <Avatar name={p.name} src={p.logo_url} boxSize='10' />
                 </Td>
                 <Td>
                   <Text>{p.name}</Text>
@@ -336,17 +336,17 @@ export default function Room() {
                   <Text>{p.description}</Text>
                 </Td>
                 <Td>
-                  <HStack spacing="1">
+                  <HStack spacing='1'>
                     <IconButton
-                      icon={<FiEdit2 fontSize="1.25rem" />}
-                      variant="ghost"
-                      aria-label="Edit member"
+                      icon={<FiEdit2 fontSize='1.25rem' />}
+                      variant='ghost'
+                      aria-label='Edit member'
                       onClick={() => editHandler(p.id, p.name, p.description)}
                     />
                     <IconButton
-                      icon={<FiTrash2 fontSize="1.25rem" />}
-                      variant="ghost"
-                      aria-label="Delete member"
+                      icon={<FiTrash2 fontSize='1.25rem' />}
+                      variant='ghost'
+                      aria-label='Delete member'
                       onClick={() => handleRoomDelete(p.id)}
                       isDisabled={isDeleting}
                     />

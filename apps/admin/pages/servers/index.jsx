@@ -187,40 +187,40 @@ export default function Server() {
         initialFocusRef={initialRef}
         isOpen={isOpen}
         onClose={editing ? handleClose : onClose}
-        size="xl"
-        borderRadius="0"
+        size='xl'
+        borderRadius='0'
         isCentered
       >
-        <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
-        <ModalContent borderRadius={0} w="100%">
+        <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px)' />
+        <ModalContent borderRadius={0} w='100%'>
           <ModalHeader>
             {" "}
             {editing ? "Update" : "Add new"} Server{" "}
-            <Text fontWeight="400" fontSize="sm">
+            <Text fontWeight='400' fontSize='sm'>
               {editing ? "Updating" : "Adding new"} server on the metaverse
             </Text>{" "}
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton isDisabled={isMutating} />
           <ModalBody pb={6}>
             <Stack>
               <CustomSelect
-                name="ColorMode"
-                colorScheme="blue"
+                name='ColorMode'
+                colorScheme='blue'
                 value={colorMode}
                 onChange={setColorMode}
-                placeholder="Select a color mode"
+                placeholder='Select a color mode'
               >
-                <Option value="light">
+                <Option value='light'>
                   <HStack>
                     <Text>Light</Text>
                   </HStack>
                 </Option>
-                <Option value="dark">
+                <Option value='dark'>
                   <HStack>
                     <Text>Dark</Text>
                   </HStack>
                 </Option>
-                <Option value="system">
+                <Option value='system'>
                   <HStack>
                     <Text>System</Text>
                   </HStack>
@@ -232,8 +232,8 @@ export default function Server() {
                 <Input
                   {...register("name")}
                   isInvalid={errors.name}
-                  placeholder="Server name"
-                  name="name"
+                  placeholder='Server name'
+                  name='name'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -243,10 +243,10 @@ export default function Server() {
               <FormControl mt={4} mb={4}>
                 <FormLabel>Description</FormLabel>
                 <Textarea
-                  placeholder="Describe this server"
+                  placeholder='Describe this server'
                   isInvalid={errors.description}
                   {...register("description")}
-                  name="description"
+                  name='description'
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
@@ -255,13 +255,13 @@ export default function Server() {
                 </FormErrorMessage>
               </FormControl>
 
-              <RadioCardGroup defaultValue="one" spacing="3">
+              <RadioCardGroup defaultValue='one' spacing='3'>
                 {["one", "two", "three"].map((option) => (
                   <RadioCard key={option} value={option}>
-                    <Text color="emphasized" fontWeight="medium" fontSize="sm">
+                    <Text color='emphasized' fontWeight='medium' fontSize='sm'>
                       Option {option}
                     </Text>
-                    <Text color="muted" fontSize="sm">
+                    <Text color='muted' fontSize='sm'>
                       Jelly biscuit muffin icing dessert powder macaroon.
                     </Text>
                   </RadioCard>
@@ -299,10 +299,10 @@ export default function Server() {
 
         </Tabs> */}
 
-      <Flex justify="end" mb="4">
+      <Flex justify='end' mb='4'>
         <Button
-          bg="#00abaf"
-          color="#fff"
+          bg='#00abaf'
+          color='#fff'
           _hover={{ bg: "#00abaf" }}
           onClick={() => {
             setName("");
@@ -313,12 +313,12 @@ export default function Server() {
           Add
         </Button>
       </Flex>
-      <Box border="1px" borderColor="gray.200">
+      <Box border='1px' borderColor='gray.200'>
         <Table>
           <Thead>
             <Tr>
               {heads.map((head) => (
-                <Th fontWeight="medium" key={head}>
+                <Th fontWeight='medium' key={head}>
                   {head}
                 </Th>
               ))}
@@ -328,7 +328,7 @@ export default function Server() {
             {servers.map((p) => (
               <Tr key={p.id}>
                 <Td>
-                  <Avatar name={p.name} src={p.logo_url} boxSize="10" />
+                  <Avatar name={p.name} src={p.logo_url} boxSize='10' />
                 </Td>
                 <Td>
                   <Text>{p.name}</Text>
@@ -337,17 +337,17 @@ export default function Server() {
                   <Text>{p.description}</Text>
                 </Td>
                 <Td>
-                  <HStack spacing="1">
+                  <HStack spacing='1'>
                     <IconButton
-                      icon={<FiEdit2 fontSize="1.25rem" />}
-                      variant="ghost"
-                      aria-label="Edit member"
+                      icon={<FiEdit2 fontSize='1.25rem' />}
+                      variant='ghost'
+                      aria-label='Edit member'
                       onClick={() => editHandler(p.id, p.name, p.description)}
                     />
                     <IconButton
-                      icon={<FiTrash2 fontSize="1.25rem" />}
-                      variant="ghost"
-                      aria-label="Delete member"
+                      icon={<FiTrash2 fontSize='1.25rem' />}
+                      variant='ghost'
+                      aria-label='Delete member'
                       onClick={() => handleServerDelete(p.id)}
                       isDisabled={isDeleting}
                     />

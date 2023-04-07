@@ -65,7 +65,7 @@ export default function Tenant() {
     resolver: yupResolver(schema),
   });
 
-  const heads = ["Icon", "Name", "Description", "Action"];
+  const heads = ["Icon", "Name", "Description", "Actions"];
 
   const { isLoading, data: tenants, error } = useAllTenantQuery();
 
@@ -173,7 +173,7 @@ export default function Tenant() {
               {editing ? "Updating" : "Adding new"} tenant on the metaverse
             </Text>{" "}
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton isDisabled={isMutating} />
           <ModalBody pb={6}>
             <HStack spacing='5'>
               <FormControl w='64px'>
@@ -271,17 +271,17 @@ export default function Tenant() {
                 <Td>
                   <HStack spacing='1'>
                     <IconButton
+                      icon={<FiEdit2 fontSize='1.25rem' />}
+                      variant='ghost'
+                      aria-label='Edit member'
+                      onClick={() => editHandler(p.id, p.name, p.description)}
+                    />
+                    <IconButton
                       icon={<FiTrash2 fontSize='1.25rem' />}
                       variant='ghost'
                       aria-label='Delete member'
                       onClick={() => handleTenantDelete(p.id)}
                       isDisabled={isDeleting}
-                    />
-                    <IconButton
-                      icon={<FiEdit2 fontSize='1.25rem' />}
-                      variant='ghost'
-                      aria-label='Edit member'
-                      onClick={() => editHandler(p.id, p.name, p.description)}
                     />
                   </HStack>
                 </Td>

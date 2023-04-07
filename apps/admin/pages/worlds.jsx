@@ -66,7 +66,7 @@ export default function World() {
     resolver: yupResolver(schema),
   });
   
-  const heads =['Icon','Name', 'Description', 'Action']
+  const heads =['Icon','Name', 'Description', 'Actions']
 
   const {isLoading, data:worlds, error} = useAllWorldQuery()
 
@@ -161,112 +161,145 @@ export default function World() {
     )
   }
 
-    return (<>
+    return (
+      <>
+        <Modal
+          initialFocusRef={initialRef}
+          isOpen={isOpen}
+          onClose={editing ? handleClose : onClose}
+          size='xl'
+          borderRadius='0'
+          isCentered
+        >
+          <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px)' />
+          <ModalContent borderRadius={0} w='100%'>
+            <ModalHeader>
+              {" "}
+              {editing ? "Update" : "Add new"} World{" "}
+              <Text fontWeight='400' fontSize='sm'>
+                {editing ? "Updating" : "Adding new"} world on the metaverse
+              </Text>{" "}
+            </ModalHeader>
+            <ModalCloseButton isDisabled={isMutating} />
+            <ModalBody pb={6}>
+              <HStack spacing='5'>
+                <FormControl w='64px'>
+                  <AvatarUpload
+                    src={""}
+                    avatarProps={{ size: "lg", bg: "bg-canvas" }}
+                    register={() => register("image")}
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Name</FormLabel>
+                  <Input
+                    {...register("name")}
+                    isInvalid={errors.name}
+                    placeholder='World name'
+                    name='name'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
+                </FormControl>
+              </HStack>
 
-
-
-      <Modal
-        initialFocusRef={initialRef}
-        isOpen={isOpen}
-        onClose={editing ? handleClose: onClose}
-        size='xl'
-        borderRadius='0'
-        isCentered
-        
-      >
-        <ModalOverlay bg='blackAlpha.300'
-      backdropFilter='blur(10px)' />
-        <ModalContent borderRadius={0} w='100%'>
-          <ModalHeader> {editing ? 'Update' : 'Add new'} World <Text fontWeight='400' fontSize='sm' >{editing ? 'Updating' : 'Adding new'} world on the metaverse</Text> </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>
-            
-            <HStack spacing='5'>
-              <FormControl w="64px" >
-                <AvatarUpload
-                  src={''}
-                  avatarProps={{ size: 'lg', bg: 'bg-canvas' }}
-                  register={() => register('image')}
+              <FormControl mt={4}>
+                <FormLabel>Description</FormLabel>
+                <Textarea
+                  placeholder='Describe this world'
+                  isInvalid={errors.description}
+                  {...register("description")}
+                  name='description'
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                 />
+                <FormErrorMessage>
+                  {errors.description?.message}
+                </FormErrorMessage>
               </FormControl>
-            <FormControl>
-              <FormLabel>Name</FormLabel>
-              <Input  {...register('name')} isInvalid={errors.name} placeholder='World name' name='name' value={name} onChange={(e) => setName(e.target.value)} />
-              <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
-            </FormControl>
-            </HStack>
+            </ModalBody>
 
-            <FormControl mt={4}>
-              <FormLabel>Description</FormLabel>
-              <Textarea placeholder='Describe this world' isInvalid={errors.description} {...register('description')} name='description' value={description} onChange={(e) => setDescription(e.target.value)} />
-              <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
-            </FormControl>
-          </ModalBody>
+            <ModalFooter>
+              <Button onClick={onClose} isDisabled={isMutating} mr={3}>
+                Cancel
+              </Button>
+              <Button
+                variant={"primary"}
+                onClick={
+                  editing
+                    ? () => handleWorldUpdate(id, name, description)
+                    : handleWorldAdd
+                } // Check if editing is true
+                isLoading={editing ? isUpdating : isMutating}
+                loadingText={editing ? "Updating" : "Adding"} // Change the label of the button
+              >
+                {editing ? "Update" : "Add"}{" "}
+                {/* Change the label of the button */}
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
 
-          <ModalFooter>
-          <Button onClick={onClose} isDisabled={isMutating}  mr={3}>
-              Cancel
-            </Button>
-            <Button variant={'primary'}
-            onClick={editing ? () => handleWorldUpdate(id, name, description) : handleWorldAdd} // Check if editing is true
-            isLoading={editing ? isUpdating : isMutating}
-            loadingText={editing ? 'Updating' : 'Adding'} // Change the label of the button
+        <Flex justify='end' mb='4'>
+          <Button
+            bg='#00abaf'
+            color='#fff'
+            _hover={{ bg: "#00abaf" }}
+            onClick={() => {
+              setName("");
+              setDescription("");
+              onOpen();
+            }}
           >
-            {editing ? 'Update' : 'Add'} {/* Change the label of the button */}
+            Add
           </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-
-    <Flex justify='end' mb='4'> 
-      <Button bg="#00abaf" color="#fff" _hover={{ bg: '#00abaf' }} onClick={()=>{
-        setName('')
-        setDescription('')
-        onOpen()}} >Add</Button>
-      </Flex>
-<Box border='1px' borderColor='gray.200'>
-  <Table>
-    <Thead>
-      <Tr>
-      {heads.map((head)=><Th fontWeight='medium' key={head} >{head}</Th>)}
-      </Tr>
-    </Thead>
-    <Tbody>
-      {worlds.map((p) => (
-        <Tr key={p.id}>
-          <Td>
-          <Avatar name={p.name} src={p.logo_url} boxSize="10" />
-          </Td>
-          <Td>
-            <Text >{p.name}</Text>
-          </Td>
-          <Td>
-            <Text>{p.description}</Text>
-          </Td>
-          <Td>
-            <HStack spacing="1">
-              <IconButton
-                icon={<FiTrash2 fontSize="1.25rem" />}
-                variant="ghost"
-                aria-label="Delete member"
-                onClick={()=>handleWorldDelete(p.id)}
-                isDisabled={isDeleting}
-              />
-              <IconButton
-                icon={<FiEdit2 fontSize="1.25rem" />}
-                variant="ghost"
-                aria-label="Edit member"
-                onClick={()=>editHandler(p.id, p.name, p.description)}
-              />
-            </HStack>
-          </Td>
-          
-        </Tr>
-      ))}
-    </Tbody>
-  </Table>
-  </Box>
-  </>
-        
-  )}
+        </Flex>
+        <Box border='1px' borderColor='gray.200'>
+          <Table>
+            <Thead>
+              <Tr>
+                {heads.map((head) => (
+                  <Th fontWeight='medium' key={head}>
+                    {head}
+                  </Th>
+                ))}
+              </Tr>
+            </Thead>
+            <Tbody>
+              {worlds.map((p) => (
+                <Tr key={p.id}>
+                  <Td>
+                    <Avatar name={p.name} src={p.logo_url} boxSize='10' />
+                  </Td>
+                  <Td>
+                    <Text>{p.name}</Text>
+                  </Td>
+                  <Td>
+                    <Text>{p.description}</Text>
+                  </Td>
+                  <Td>
+                    <HStack spacing='1'>
+                      <IconButton
+                        icon={<FiEdit2 fontSize='1.25rem' />}
+                        variant='ghost'
+                        aria-label='Edit member'
+                        onClick={() => editHandler(p.id, p.name, p.description)}
+                      />
+                      <IconButton
+                        icon={<FiTrash2 fontSize='1.25rem' />}
+                        variant='ghost'
+                        aria-label='Delete member'
+                        onClick={() => handleWorldDelete(p.id)}
+                        isDisabled={isDeleting}
+                      />
+                    </HStack>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </Box>
+      </>
+    );}
 
