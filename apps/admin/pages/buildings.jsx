@@ -252,8 +252,11 @@ export default function Building() {
 
           </ModalBody>
 
-          <ModalFooter display={'flex'}  flexDirection={'column'} alignItems={'center'}>
-            <Button colorScheme="blue" w="60%" mb={3}
+          <ModalFooter>
+          <Button onClick={onClose} isDisabled={isMutating}  mr={3}>
+              Cancel
+            </Button>
+            <Button variant={'primary'}
             onClick={editing ? () => handleBuildingUpdate(id, name, description, tenant) : handleBuildingAdd} // Check if editing is true
             isLoading={editing ? isUpdating : isMutating}
             loadingText={editing ? 'Updating' : 'Adding'} // Change the label of the button

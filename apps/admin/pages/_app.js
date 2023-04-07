@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }) {
               navbar={{
                 leftContent: (
                   <Box>
-                    <Text>Actions</Text>
+                    <Text></Text>
                   </Box>
                 ),
                 middleContent: (
@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }) {
                 ),
                 rightContent: (
                   <Box>
-                    <Text>Actions</Text>
+                    <Text></Text>
                   </Box>
                 ),
               }}
@@ -73,11 +73,11 @@ export default function App({ Component, pageProps }) {
                     ],
                   },
                 ],
-                actions: (
-                  <Box>
-                    <Text>Actions</Text>
-                  </Box>
-                ),
+                // actions: (
+                //   <Box>
+                //     <Text>Actions</Text>
+                //   </Box>
+                // ),
                 footer: (
                   <Box>
                     <Text>Footer</Text>

@@ -171,6 +171,7 @@ export default function World() {
         onClose={editing ? handleClose: onClose}
         size='xl'
         borderRadius='0'
+        isCentered
         
       >
         <ModalOverlay bg='blackAlpha.300'
@@ -202,21 +203,17 @@ export default function World() {
             </FormControl>
           </ModalBody>
 
-          <ModalFooter display={'flex'}  flexDirection={'column'} alignItems={'center'}>
-            {/* <Button colorScheme='blue' w='60%' mb={3} onClick={handleWorldAdd} isLoading={isMutating}
-    loadingText='Adding'>
-            Add World
+          <ModalFooter>
+          <Button onClick={onClose} isDisabled={isMutating}  mr={3}>
+              Cancel
             </Button>
-            <Button onClick={onClose} w='60%'>Cancel</Button> */}
-
-            <Button colorScheme="blue" w="60%" mb={3}
+            <Button variant={'primary'}
             onClick={editing ? () => handleWorldUpdate(id, name, description) : handleWorldAdd} // Check if editing is true
             isLoading={editing ? isUpdating : isMutating}
             loadingText={editing ? 'Updating' : 'Adding'} // Change the label of the button
           >
             {editing ? 'Update' : 'Add'} {/* Change the label of the button */}
           </Button>
-
           </ModalFooter>
         </ModalContent>
       </Modal>
