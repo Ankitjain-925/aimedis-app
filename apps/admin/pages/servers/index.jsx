@@ -48,6 +48,9 @@ import {
   useAddServerMutation,
   useDeleteServerMutation,
   useUpdateServerMutation,
+  useAllBuildingQuery,
+  useAllWorldQuery,
+  useAllRoomQuery
 } from "ui";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -78,15 +81,24 @@ export default function Server() {
   const heads = ["Icon", "Name", "Description", "Actions"];
 
   const { isLoading, data: servers, error } = useAllServerQuery();
+  const { worldLoading, data: worlds, worldError } = useAllWorldQuery();
+  const { buildingLoading, data: buildings, buildingError } = useAllBuildingQuery();
+  const { roomLoading, data: rooms, roomError } = useAllRoomQuery();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const initialRef = useRef(null);
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
-  const [colorMode, setColorMode] = useState();
+  const [space, setSpace] = useState(null);
   const [id, setId] = useState(null);
   const [editing, setEditing] = useState(false);
+
+  const [radioValue, setRadioValue] = useState('world');
+
+  const handleRadioChange = (newVal) => {
+    setRadioValue(newVal);
+  };
 
   const { queryClient } = useDatabase();
 
@@ -94,6 +106,7 @@ export default function Server() {
     onSuccess: () => {
       setName("");
       setDescription("");
+      setSpace("");
       onClose();
       queryClient.invalidateQueries("allservers");
     },
@@ -135,10 +148,33 @@ export default function Server() {
   };
 
   const handleServerAdd = (e) => {
-    const newServerData = {
+    let newServerData;
+
+    if(radioValue=='world'){
+
+    }
+     newServerData = {
       name,
       description,
+      world_id:space
     };
+    if(radioValue=='building'){
+
+    }
+     newServerData = {
+      name,
+      description,
+      building_id:space
+    };
+    if(radioValue=='room'){
+
+    }
+     newServerData = {
+      name,
+      description,
+      room_id:space
+    };
+    
     mutate(newServerData);
     //  await onClose()
   };
@@ -202,30 +238,7 @@ export default function Server() {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <Stack>
-              <CustomSelect
-                name="ColorMode"
-                colorScheme="blue"
-                value={colorMode}
-                onChange={setColorMode}
-                placeholder="Select a color mode"
-              >
-                <Option value="light">
-                  <HStack>
-                    <Text>Light</Text>
-                  </HStack>
-                </Option>
-                <Option value="dark">
-                  <HStack>
-                    <Text>Dark</Text>
-                  </HStack>
-                </Option>
-                <Option value="system">
-                  <HStack>
-                    <Text>System</Text>
-                  </HStack>
-                </Option>
-              </CustomSelect>
+            <Stack spacing={5}>
 
               <FormControl>
                 <FormLabel>Name</FormLabel>
@@ -255,18 +268,47 @@ export default function Server() {
                 </FormErrorMessage>
               </FormControl>
 
-              <RadioCardGroup defaultValue="one" spacing="3">
-                {["one", "two", "three"].map((option) => (
+
+              <RadioCardGroup defaultValue="world" spacing="3" onChange={handleRadioChange}>
+                {["world", "building", "room"].map((option) => (
                   <RadioCard key={option} value={option}>
                     <Text color="emphasized" fontWeight="medium" fontSize="sm">
-                      Option {option}
+                       {option.charAt(0).toUpperCase() + option.slice(1)}
                     </Text>
-                    <Text color="muted" fontSize="sm">
+                    {/* <Text color="muted" fontSize="sm">
                       Jelly biscuit muffin icing dessert powder macaroon.
-                    </Text>
+                    </Text> */}
                   </RadioCard>
                 ))}
               </RadioCardGroup>
+                    <CustomSelect
+                      name={radioValue}
+                      value={space}
+                      onChange={setSpace}
+                      placeholder={"Select " +radioValue.charAt(0).toUpperCase() + radioValue.slice(1)}
+                      >
+                      {radioValue === 'world' && worlds?(
+                      worlds.map((world)=>
+                        <Option key={world.id} value={world.id}>
+                            <Text>{world.name}</Text>
+                        </Option>)
+      
+      ):null}
+                      {radioValue === 'building' && buildings?(
+                      buildings.map((building)=>
+                        <Option key={building.id} value={building.id}>
+                            <Text>{building.name}</Text>
+                        </Option>)
+      
+      ):null}
+                      {radioValue === 'room' && rooms?(
+                      rooms.map((room)=>
+                        <Option key={room.id} value={room.id}>
+                            <Text>{room.name}</Text>
+                        </Option>)
+      
+      ):null}
+                    </CustomSelect>
             </Stack>
           </ModalBody>
 
