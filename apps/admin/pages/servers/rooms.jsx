@@ -23,24 +23,26 @@ import {
     FormLabel,
     Textarea,
     HStack,
-    Avatarup,
+    Tabs,
+    Tab,
+    Stack,
+    TabList,
     IconButton,
-    Form,
-    Alert,
-    FormErrorMessage
+    FormErrorMessage,
   } from '@chakra-ui/react'
   import { FiEdit2, FiTrash2 } from 'react-icons/fi'
+  import Link from 'next/link';
   
   import {TableSkeleton, AvatarUpload, useDatabase, Option, CustomSelect,RadioCard, RadioCardGroup } from 'ui'
   import { useRef, useState } from "react";
-  import {useAllServerQuery, useAddServerMutation, useDeleteServerMutation, useUpdateServerMutation} from 'ui';
+  import {useAllRoomQuery, useAddRoomMutation, useDeleteRoomMutation, useUpdateRoomMutation, useAllBuildingQuery} from 'ui';
   import {useForm} from 'react-hook-form'
   import * as yup from 'yup'
   
   import { yupResolver } from '@hookform/resolvers/yup';
   
   
-  export default function Server() {
+  export default function Room() {
   
     const schema = yup
       .object({
@@ -64,42 +66,44 @@ import {
     
     const heads =['Icon','Name', 'Description', 'Action']
   
-    const {isLoading, data:servers, error} = useAllServerQuery()
+    const {isLoading, data:rooms, error} = useAllRoomQuery()
+  const {isLoading:loadingBuildings, data:buildings, error:buildingError} = useAllBuildingQuery()
+
   
     const { isOpen, onOpen, onClose } = useDisclosure()
   
     const initialRef = useRef(null)
     const [name, setName] = useState(null)
     const [description, setDescription] = useState(null)
-    const [colorMode, setColorMode] = useState()
     const [id, setId] = useState(null)
+    const [building, setBuilding] = useState(null)
     const [editing, setEditing] = useState(false)
   
     const {queryClient} = useDatabase()
   
-    const { mutate, isLoading:isMutating } = useAddServerMutation({
+    const { mutate, isLoading:isMutating } = useAddRoomMutation({
       onSuccess: () => {
         setName('')
         setDescription('')
         onClose()
-        queryClient.invalidateQueries('allservers');
+        queryClient.invalidateQueries('allrooms');
       },
       onError: (error) => {
         console.log(error)
       },
     });
-    const { mutate:deleteServer, isLoading:isDeleting } = useDeleteServerMutation({
+    const { mutate:deleteRoom, isLoading:isDeleting } = useDeleteRoomMutation({
       onSuccess: () => {
-        queryClient.invalidateQueries('allservers');
+        queryClient.invalidateQueries('allrooms');
       },
       onError: (error) => {
         alert(error)
       },
     });
   
-    const { mutate:updateServer, isLoading:isUpdating } = useUpdateServerMutation(id,{
+    const { mutate:updateRoom, isLoading:isUpdating } = useUpdateRoomMutation(id,{
       onSuccess: () => {
-        queryClient.invalidateQueries('allservers');
+        queryClient.invalidateQueries('allrooms');
         setName('')
         setDescription('')
         setEditing(false);
@@ -119,22 +123,30 @@ import {
       onOpen()
     }
   
-    const handleServerAdd =  (e) => {
-      const newServerData = {
+    const handleRoomAdd =  (e) => {
+      const newRoomData = {
         name,
-        description
+        description,
+        building_id:building
+
       };
-        mutate(newServerData)
+        mutate(newRoomData)
       //  await onClose()
     };
-    const handleServerDelete =  (id) => {
+    const handleRoomDelete =  (id) => {
   
-        deleteServer(id)
+        deleteRoom(id)
       //  await onClose()
     };
   
-    const handleServerUpdate =  (id, name, description) => {
-      updateServer({id, name, description})
+    const handleRoomUpdate =  (id, name, description, building) => {
+      const updatedRoomData = {
+        name,
+        description,
+        building_id:building
+        
+      };
+      updateRoom(updatedRoomData)
     //  await onClose()
   };
   
@@ -146,7 +158,18 @@ import {
     if(isLoading){
   
       return(
+        <>
+            <Tabs  size={'md'} variant="with-line" defaultIndex={2}>
+            <TabList>
+                <Tab><Link href='/servers'>Servers </Link></Tab>
+                <Tab><Link href='buildings'>Buildings </Link></Tab>
+                <Tab>Rooms</Tab>
+            </TabList>
+
+        </Tabs>
+  
         <TableSkeleton heads={heads} />
+        </>
       )
   
     }
@@ -167,61 +190,43 @@ import {
           isOpen={isOpen}
           onClose={editing ? handleClose: onClose}
           size='xl'
+          isCentered
           borderRadius='0'
           
         >
           <ModalOverlay bg='blackAlpha.300'
         backdropFilter='blur(10px)' />
           <ModalContent borderRadius={0} w='100%'>
-            <ModalHeader> {editing ? 'Update' : 'Add new'} Server <Text fontWeight='400' fontSize='sm' >{editing ? 'Updating' : 'Adding new'} server on the metaverse</Text> </ModalHeader>
+            <ModalHeader> {editing ? 'Update' : 'Add new'} Room <Text fontWeight='400' fontSize='sm' >{editing ? 'Updating' : 'Adding new'} server on the metaverse</Text> </ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
 
-            <CustomSelect
-            name="ColorMode"
-            colorScheme="blue"
-            value={colorMode}
-            onChange={setColorMode}
-            placeholder="Select a color mode"
-          >
-            <Option value="light">
-              <HStack>
-                <Text>Light</Text>
-              </HStack>
-            </Option>
-            <Option value="dark">
-              <HStack>
-                <Text>Dark</Text>
-              </HStack>
-            </Option>
-            <Option value="system">
-              <HStack>
-                <Text>System</Text>
-              </HStack>
-            </Option>
+                <Stack >
+  
+                <CustomSelect
+          name="Tenant"
+          value={building}
+          onChange={setBuilding}
+          placeholder="Select Partner"
+        >
+          {buildings.map((building)=>
+          <Option key={building.id} value={building.id}>
+              <Text>{building.name}</Text>
+          </Option>)}
           </CustomSelect>
               
-              <HStack spacing='5' mt={5}>
-                <FormControl w="64px" >
-                  <AvatarUpload
-                    src={''}
-                    avatarProps={{ size: 'lg', bg: 'bg-canvas' }}
-                    register={() => register('image')}
-                  />
-                </FormControl>
               <FormControl>
                 <FormLabel>Name</FormLabel>
-                <Input  {...register('name')} isInvalid={errors.name} placeholder='Server name' name='name' value={name} onChange={(e) => setName(e.target.value)} />
+                <Input  {...register('name')} isInvalid={errors.name} placeholder='Room name' name='name' value={name} onChange={(e) => setName(e.target.value)} />
                 <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
               </FormControl>
-              </HStack>
   
               <FormControl mt={4} mb={4}>
                 <FormLabel>Description</FormLabel>
                 <Textarea placeholder='Describe this server' isInvalid={errors.description} {...register('description')} name='description' value={description} onChange={(e) => setDescription(e.target.value)} />
                 <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
               </FormControl>
-
+  
               <RadioCardGroup defaultValue="one" spacing="3">
           {['one', 'two', 'three'].map((option) => (
             <RadioCard key={option} value={option}>
@@ -234,12 +239,13 @@ import {
             </RadioCard>
           ))}
         </RadioCardGroup>
-
+        </Stack>
+  
             </ModalBody>
   
             <ModalFooter display={'flex'}  flexDirection={'column'} alignItems={'center'}>
               <Button colorScheme="blue" w="60%" mb={3}
-              onClick={editing ? () => handleServerUpdate(id, name, description) : handleServerAdd} // Check if editing is true
+              onClick={editing ? () => handleRoomUpdate(id, name, description) : handleRoomAdd} // Check if editing is true
               isLoading={editing ? isUpdating : isMutating}
               loadingText={editing ? 'Updating' : 'Adding'} // Change the label of the button
             >
@@ -249,6 +255,18 @@ import {
             </ModalFooter>
           </ModalContent>
         </Modal>
+  
+        <Tabs  size={'md'} variant="with-line" defaultIndex={2}>
+            <TabList>
+                <Tab><Link href='/servers'>Servers </Link></Tab>
+                <Tab><Link href='buildings'>Buildings </Link></Tab>
+                <Tab>Rooms</Tab>
+            </TabList>
+
+        </Tabs>
+  
+        
+  
   
       <Flex justify='end' mb='4'> 
         <Button bg="#00abaf" color="#fff" _hover={{ bg: '#00abaf' }} onClick={()=>{
@@ -264,7 +282,7 @@ import {
         </Tr>
       </Thead>
       <Tbody>
-        {servers.map((p) => (
+        {rooms.map((p) => (
           <Tr key={p.id}>
             <Td>
             <Avatar name={p.name} src={p.logo_url} boxSize="10" />
@@ -281,7 +299,7 @@ import {
                   icon={<FiTrash2 fontSize="1.25rem" />}
                   variant="ghost"
                   aria-label="Delete member"
-                  onClick={()=>handleServerDelete(p.id)}
+                  onClick={()=>handleRoomDelete(p.id)}
                   isDisabled={isDeleting}
                 />
                 <IconButton

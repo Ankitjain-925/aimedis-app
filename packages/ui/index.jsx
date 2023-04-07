@@ -11,6 +11,8 @@ export * from './hooks/useProfile';
 export * from './hooks/useWorld';
 export * from './hooks/useServer';
 export * from './hooks/useTenant';
+export * from './hooks/useBuildng';
+export * from './hooks/useRoom';
 
 export * from './components/common/DocumentRoot';
 export * from './components/common/Logo';
