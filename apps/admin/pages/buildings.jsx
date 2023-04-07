@@ -182,93 +182,116 @@ export default function Building() {
     )
   }
 
-    return (<>
-
-
-
-      <Modal
-        initialFocusRef={initialRef}
-        isOpen={isOpen}
-        onClose={editing ? handleClose: onClose}
-        size='xl'
-        isCentered
-        borderRadius='0'
-        
-      >
-        <ModalOverlay bg='blackAlpha.300'
-      backdropFilter='blur(10px)' />
-        <ModalContent borderRadius={0} w='100%'>
-          <ModalHeader> {editing ? 'Update' : 'Add new'} Building <Text fontWeight='400' fontSize='sm' >{editing ? 'Updating' : 'Adding new'} server on the metaverse</Text> </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>
-
-            <Stack >
-
-          <CustomSelect
-          name="Tenant"
-          value={tenant}
-          onChange={setTenant}
-          placeholder="Select Partner"
+    return (
+      <>
+        <Modal
+          initialFocusRef={initialRef}
+          isOpen={isOpen}
+          onClose={editing ? handleClose : onClose}
+          size='xl'
+          isCentered
+          borderRadius='0'
         >
-          {tenants.map((tenant)=>
-          <Option key={tenant.id} value={tenant.id}>
-              <Text>{tenant.name}</Text>
-          </Option>)}
-          
-          {/* <Option value="dark">
+          <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px)' />
+          <ModalContent borderRadius={0} w='100%'>
+            <ModalHeader>
+              {" "}
+              {editing ? "Update" : "Add new"} Building{" "}
+              <Text fontWeight='400' fontSize='sm'>
+                {editing ? "Updating" : "Adding new"} server on the metaverse
+              </Text>{" "}
+            </ModalHeader>
+            <ModalCloseButton isDisabled={isMutating} />
+            <ModalBody pb={6}>
+              <Stack>
+                <CustomSelect
+                  name='Tenant'
+                  value={tenant}
+                  onChange={setTenant}
+                  placeholder='Select Partner'
+                >
+                  {tenants.map((tenant) => (
+                    <Option key={tenant.id} value={tenant.id}>
+                      <Text>{tenant.name}</Text>
+                    </Option>
+                  ))}
+
+                  {/* <Option value="dark">
               <Text>Dark</Text>
           </Option>
           <Option value="system">
               <Text>System</Text>
           </Option> */}
-        </CustomSelect>
-            
-            <FormControl>
-              <FormLabel>Name</FormLabel>
-              <Input  {...register('name')} isInvalid={errors.name} placeholder='Building name' name='name' value={name} onChange={(e) => setName(e.target.value)} />
-              <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
-            </FormControl>
+                </CustomSelect>
 
-            <FormControl mt={4} mb={4}>
-              <FormLabel>Description</FormLabel>
-              <Textarea placeholder='Describe this server' isInvalid={errors.description} {...register('description')} name='description' value={description} onChange={(e) => setDescription(e.target.value)} />
-              <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
-            </FormControl>
+                <FormControl>
+                  <FormLabel>Name</FormLabel>
+                  <Input
+                    {...register("name")}
+                    isInvalid={errors.name}
+                    placeholder='Building name'
+                    name='name'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
+                </FormControl>
 
-            <RadioCardGroup defaultValue="one" spacing="3">
-        {['one', 'two', 'three'].map((option) => (
-          <RadioCard key={option} value={option}>
-            <Text color="emphasized" fontWeight="medium" fontSize="sm">
-              Option {option}
-            </Text>
-            <Text color="muted" fontSize="sm">
-              Jelly biscuit muffin icing dessert powder macaroon.
-            </Text>
-          </RadioCard>
-        ))}
-      </RadioCardGroup>
+                <FormControl mt={4} mb={4}>
+                  <FormLabel>Description</FormLabel>
+                  <Textarea
+                    placeholder='Describe this server'
+                    isInvalid={errors.description}
+                    {...register("description")}
+                    name='description'
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                  <FormErrorMessage>
+                    {errors.description?.message}
+                  </FormErrorMessage>
+                </FormControl>
 
-      </Stack>
+                <RadioCardGroup defaultValue='one' spacing='3'>
+                  {["one", "two", "three"].map((option) => (
+                    <RadioCard key={option} value={option}>
+                      <Text
+                        color='emphasized'
+                        fontWeight='medium'
+                        fontSize='sm'
+                      >
+                        Option {option}
+                      </Text>
+                      <Text color='muted' fontSize='sm'>
+                        Jelly biscuit muffin icing dessert powder macaroon.
+                      </Text>
+                    </RadioCard>
+                  ))}
+                </RadioCardGroup>
+              </Stack>
+            </ModalBody>
 
-          </ModalBody>
+            <ModalFooter>
+              <Button onClick={onClose} isDisabled={isMutating} mr={3}>
+                Cancel
+              </Button>
+              <Button
+                variant={"primary"}
+                onClick={
+                  editing
+                    ? () => handleBuildingUpdate(id, name, description, tenant)
+                    : handleBuildingAdd
+                } // Check if editing is true
+                isLoading={editing ? isUpdating : isMutating}
+                loadingText={editing ? "Updating" : "Adding"} // Change the label of the button
+              >
+                {editing ? "Update" : "Add"}
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
 
-          <ModalFooter>
-          <Button onClick={onClose} isDisabled={isMutating}  mr={3}>
-              Cancel
-            </Button>
-            <Button variant={'primary'}
-            onClick={editing ? () => handleBuildingUpdate(id, name, description, tenant) : handleBuildingAdd} // Check if editing is true
-            isLoading={editing ? isUpdating : isMutating}
-            loadingText={editing ? 'Updating' : 'Adding'} // Change the label of the button
-          >
-            {editing ? 'Update' : 'Add'}
-          </Button>
-
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-
-      {/* <Tabs  size={'md'} variant="with-line" defaultIndex={1}>
+        {/* <Tabs  size={'md'} variant="with-line" defaultIndex={1}>
             <TabList>
                 <Tab><Link href='/servers'>Servers </Link></Tab>
                 <Tab>Buildings</Tab>
@@ -277,58 +300,65 @@ export default function Building() {
 
         </Tabs> */}
 
-      
-
-
-    <Flex justify='end' mb='4'> 
-      <Button bg="#00abaf" color="#fff" _hover={{ bg: '#00abaf' }} onClick={()=>{
-        setName('')
-        setDescription('')
-        onOpen()}} >Add</Button>
-      </Flex>
-<Box border='1px' borderColor='gray.200'>
-  <Table>
-    <Thead>
-      <Tr>
-      {heads.map((head)=><Th fontWeight='medium' key={head} >{head}</Th>)}
-      </Tr>
-    </Thead>
-    <Tbody>
-      {buildings.map((p) => (
-        <Tr key={p.id}>
-          <Td>
-          <Avatar name={p.name} src={p.logo_url} boxSize="10" />
-          </Td>
-          <Td>
-            <Text >{p.name}</Text>
-          </Td>
-          <Td>
-            <Text>{p.description}</Text>
-          </Td>
-          <Td>
-            <HStack spacing="1">
-              <IconButton
-                icon={<FiEdit2 fontSize="1.25rem" />}
-                variant="ghost"
-                aria-label="Edit member"
-                onClick={()=>editHandler(p.id, p.name, p.description)}
-              />
-              <IconButton
-                icon={<FiTrash2 fontSize="1.25rem" />}
-                variant="ghost"
-                aria-label="Delete member"
-                onClick={()=>handleBuildingDelete(p.id)}
-                isDisabled={isDeleting}
-              />
-            </HStack>
-          </Td>
-          
-        </Tr>
-      ))}
-    </Tbody>
-  </Table>
-  </Box>
-  </>
-        
-  )}
+        <Flex justify='end' mb='4'>
+          <Button
+            bg='#00abaf'
+            color='#fff'
+            _hover={{ bg: "#00abaf" }}
+            onClick={() => {
+              setName("");
+              setDescription("");
+              onOpen();
+            }}
+          >
+            Add
+          </Button>
+        </Flex>
+        <Box border='1px' borderColor='gray.200'>
+          <Table>
+            <Thead>
+              <Tr>
+                {heads.map((head) => (
+                  <Th fontWeight='medium' key={head}>
+                    {head}
+                  </Th>
+                ))}
+              </Tr>
+            </Thead>
+            <Tbody>
+              {buildings.map((p) => (
+                <Tr key={p.id}>
+                  <Td>
+                    <Avatar name={p.name} src={p.logo_url} boxSize='10' />
+                  </Td>
+                  <Td>
+                    <Text>{p.name}</Text>
+                  </Td>
+                  <Td>
+                    <Text>{p.description}</Text>
+                  </Td>
+                  <Td>
+                    <HStack spacing='1'>
+                      <IconButton
+                        icon={<FiEdit2 fontSize='1.25rem' />}
+                        variant='ghost'
+                        aria-label='Edit member'
+                        onClick={() => editHandler(p.id, p.name, p.description)}
+                      />
+                      <IconButton
+                        icon={<FiTrash2 fontSize='1.25rem' />}
+                        variant='ghost'
+                        aria-label='Delete member'
+                        onClick={() => handleBuildingDelete(p.id)}
+                        isDisabled={isDeleting}
+                      />
+                    </HStack>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </Box>
+      </>
+    );}
 

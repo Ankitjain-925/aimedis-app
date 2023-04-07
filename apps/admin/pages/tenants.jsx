@@ -65,7 +65,7 @@ export default function Tenant() {
     resolver: yupResolver(schema),
   });
 
-  const heads = ["Icon", "Name", "Description", "Action"];
+  const heads = ["Icon", "Name", "Description", "Actions"];
 
   const { isLoading, data: tenants, error } = useAllTenantQuery();
 
@@ -160,23 +160,23 @@ export default function Tenant() {
         initialFocusRef={initialRef}
         isOpen={isOpen}
         onClose={editing ? handleClose : onClose}
-        size="xl"
-        borderRadius="0"
+        size='xl'
+        borderRadius='0'
         isCentered
       >
-        <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
-        <ModalContent borderRadius={0} w="100%">
+        <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px)' />
+        <ModalContent borderRadius={0} w='100%'>
           <ModalHeader>
             {" "}
             {editing ? "Update" : "Add new"} Tenant{" "}
-            <Text fontWeight="400" fontSize="sm">
+            <Text fontWeight='400' fontSize='sm'>
               {editing ? "Updating" : "Adding new"} tenant on the metaverse
             </Text>{" "}
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton isDisabled={isMutating} />
           <ModalBody pb={6}>
-            <HStack spacing="5">
-              <FormControl w="64px">
+            <HStack spacing='5'>
+              <FormControl w='64px'>
                 <AvatarUpload
                   src={""}
                   avatarProps={{ size: "lg", bg: "bg-canvas" }}
@@ -188,8 +188,8 @@ export default function Tenant() {
                 <Input
                   {...register("name")}
                   isInvalid={errors.name}
-                  placeholder="Tenant name"
-                  name="name"
+                  placeholder='Tenant name'
+                  name='name'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -200,10 +200,10 @@ export default function Tenant() {
             <FormControl mt={4}>
               <FormLabel>Description</FormLabel>
               <Textarea
-                placeholder="Describe this tenant"
+                placeholder='Describe this tenant'
                 isInvalid={errors.description}
                 {...register("description")}
-                name="description"
+                name='description'
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
@@ -212,6 +212,9 @@ export default function Tenant() {
           </ModalBody>
 
           <ModalFooter>
+            <Button onClick={onClose} isDisabled={isMutating} mr={3}>
+              Cancel
+            </Button>
             <Button
               variant={"primary"}
               onClick={
@@ -228,10 +231,10 @@ export default function Tenant() {
         </ModalContent>
       </Modal>
 
-      <Flex justify="end" mb="4">
+      <Flex justify='end' mb='4'>
         <Button
-          bg="#00abaf"
-          color="#fff"
+          bg='#00abaf'
+          color='#fff'
           _hover={{ bg: "#00abaf" }}
           onClick={() => {
             setName("");
@@ -242,12 +245,12 @@ export default function Tenant() {
           Add
         </Button>
       </Flex>
-      <Box border="1px" borderColor="gray.200">
+      <Box border='1px' borderColor='gray.200'>
         <Table>
           <Thead>
             <Tr>
               {heads.map((head) => (
-                <Th fontWeight="medium" key={head}>
+                <Th fontWeight='medium' key={head}>
                   {head}
                 </Th>
               ))}
@@ -257,7 +260,7 @@ export default function Tenant() {
             {tenants.map((p) => (
               <Tr key={p.id}>
                 <Td>
-                  <Avatar name={p.name} src={p.logo_url} boxSize="10" />
+                  <Avatar name={p.name} src={p.logo_url} boxSize='10' />
                 </Td>
                 <Td>
                   <Text>{p.name}</Text>
@@ -266,19 +269,19 @@ export default function Tenant() {
                   <Text>{p.description}</Text>
                 </Td>
                 <Td>
-                  <HStack spacing="1">
+                  <HStack spacing='1'>
                     <IconButton
-                      icon={<FiTrash2 fontSize="1.25rem" />}
-                      variant="ghost"
-                      aria-label="Delete member"
-                      onClick={() => handleTenantDelete(p.id)}
-                      isDisabled={isDeleting}
+                      icon={<FiEdit2 fontSize='1.25rem' />}
+                      variant='ghost'
+                      aria-label='Edit member'
+                      onClick={() => editHandler(p.id, p.name, p.description)}
                     />
                     <IconButton
-                      icon={<FiEdit2 fontSize="1.25rem" />}
-                      variant="ghost"
-                      aria-label="Edit member"
-                      onClick={() => editHandler(p.id, p.name, p.description)}
+                      icon={<FiTrash2 fontSize='1.25rem' />}
+                      variant='ghost'
+                      aria-label='Delete member'
+                      onClick={() => handleTenantDelete(p.id)}
+                      isDisabled={isDeleting}
                     />
                   </HStack>
                 </Td>
