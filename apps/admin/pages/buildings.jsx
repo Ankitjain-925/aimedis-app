@@ -160,14 +160,14 @@ export default function Building() {
 
     return(
       <>
-      <Tabs  size={'md'} variant="with-line" defaultIndex={1}>
+      {/* <Tabs  size={'md'} variant="with-line" defaultIndex={1}>
             <TabList>
                 <Tab><Link href='/servers'>Servers </Link></Tab>
                 <Tab>Buildings</Tab>
                 <Tab><Link href='rooms'>Rooms </Link></Tab>
             </TabList>
 
-        </Tabs>
+        </Tabs> */}
 
       <TableSkeleton heads={heads} />
       </>
@@ -265,14 +265,14 @@ export default function Building() {
         </ModalContent>
       </Modal>
 
-      <Tabs  size={'md'} variant="with-line" defaultIndex={1}>
+      {/* <Tabs  size={'md'} variant="with-line" defaultIndex={1}>
             <TabList>
                 <Tab><Link href='/servers'>Servers </Link></Tab>
                 <Tab>Buildings</Tab>
                 <Tab><Link href='rooms'>Rooms </Link></Tab>
             </TabList>
 
-        </Tabs>
+        </Tabs> */}
 
       
 

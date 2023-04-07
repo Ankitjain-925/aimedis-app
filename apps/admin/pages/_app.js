@@ -8,7 +8,7 @@ import {
 } from 'ui';
 import { IoIosAnalytics } from 'react-icons/io';
 import { AiOutlineTeam } from 'react-icons/ai';
-import { BiWorld, BiServer } from 'react-icons/bi';
+import { BiWorld, BiServer, BiBuildings, BiDoorOpen } from 'react-icons/bi';
 
 
 export default function App({ Component, pageProps }) {
@@ -42,7 +42,7 @@ export default function App({ Component, pageProps }) {
                     icon: IoIosAnalytics,
                   },
                   {
-                    label: 'Section',
+                    label: 'Manage',
                     children: [
                       {
                         label: 'Worlds',
@@ -58,6 +58,16 @@ export default function App({ Component, pageProps }) {
                         label: 'Tenants',
                         href: '/tenants',
                         icon: AiOutlineTeam,
+                      },
+                      {
+                        label: 'Buildings',
+                        href: '/buildings',
+                        icon: BiBuildings,
+                      },
+                      {
+                        label: 'Rooms',
+                        href: '/rooms',
+                        icon: BiDoorOpen,
                       },
                       
                     ],

@@ -159,14 +159,14 @@ import {
   
       return(
         <>
-            <Tabs  size={'md'} variant="with-line" defaultIndex={2}>
+            {/* <Tabs  size={'md'} variant="with-line" defaultIndex={2}>
             <TabList>
                 <Tab><Link href='/servers'>Servers </Link></Tab>
                 <Tab><Link href='buildings'>Buildings </Link></Tab>
                 <Tab>Rooms</Tab>
             </TabList>
 
-        </Tabs>
+        </Tabs> */}
   
         <TableSkeleton heads={heads} />
         </>
@@ -256,14 +256,14 @@ import {
           </ModalContent>
         </Modal>
   
-        <Tabs  size={'md'} variant="with-line" defaultIndex={2}>
+        {/* <Tabs  size={'md'} variant="with-line" defaultIndex={2}>
             <TabList>
                 <Tab><Link href='/servers'>Servers </Link></Tab>
                 <Tab><Link href='buildings'>Buildings </Link></Tab>
                 <Tab>Rooms</Tab>
             </TabList>
 
-        </Tabs>
+        </Tabs> */}
   
         
   
