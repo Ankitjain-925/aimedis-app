@@ -107,6 +107,7 @@ export default function Server() {
       setName("");
       setDescription("");
       setSpace("");
+      setRadioValue("world");
       onClose();
       queryClient.invalidateQueries("allservers");
     },
@@ -143,6 +144,7 @@ export default function Server() {
     setName(name);
     setDescription(description);
     setId(id);
+    setSpace(space);
     setEditing(true);
     onOpen();
   };
@@ -152,28 +154,31 @@ export default function Server() {
 
     if(radioValue=='world'){
 
-    }
+   
      newServerData = {
       name,
       description,
       world_id:space
     };
+  }
     if(radioValue=='building'){
 
-    }
+    
      newServerData = {
       name,
       description,
       building_id:space
     };
+  }
     if(radioValue=='room'){
 
-    }
+    
      newServerData = {
       name,
       description,
       room_id:space
     };
+  }
     
     mutate(newServerData);
     //  await onClose()
@@ -196,7 +201,7 @@ export default function Server() {
   if (isLoading) {
     return (
       <>
-        <Tabs size={"md"} variant="with-line">
+        {/* <Tabs size={"md"} variant="with-line">
           <TabList>
             <Tab>Servers</Tab>
             <Tab>
@@ -206,7 +211,7 @@ export default function Server() {
               <Link href="servers/buildings">Rooms </Link>
             </Tab>
           </TabList>
-        </Tabs>
+        </Tabs> */}
 
         <TableSkeleton heads={heads} />
       </>
