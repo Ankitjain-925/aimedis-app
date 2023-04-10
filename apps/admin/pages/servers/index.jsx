@@ -98,6 +98,7 @@ export default function Server() {
 
   const handleRadioChange = (newVal) => {
     setRadioValue(newVal);
+    setSpace(null)
   };
 
   const { queryClient } = useDatabase();
