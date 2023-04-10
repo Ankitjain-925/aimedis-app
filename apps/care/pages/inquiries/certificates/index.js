@@ -273,10 +273,10 @@ const Certificates = () => {
           </Box>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme='blue' mr={3} onClick={onClose}>
+          <Button variant='ghost' onClick={onClose}>Reject</Button>
+          <Button colorScheme='teal' mr={3} onClick={onClose}>
             Accept
           </Button>
-          <Button variant='ghost' onClick={onClose}>Reject</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

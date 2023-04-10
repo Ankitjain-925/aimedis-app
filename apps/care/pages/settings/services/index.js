@@ -25,127 +25,127 @@ import * as yup from 'yup';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
-import { yupResolver } from '@hookform/resolvers/yup';
+// import { yupResolver } from '@hookform/resolvers/yup';
 import { BsFillChatDotsFill } from "react-icons/Bs"
 import { DateRange } from 'react-date-range';
 // import style from "../../../styles/Services.Module.css";
 
-const schema = yup
-  .object({
-    videocall: yup.boolean(),
-    officevisit: yup.boolean(),
-    consultancy: yup.boolean(),
-    sickleave: yup.boolean(),
-    homevisit: yup.boolean(),
-    videocall1: yup.number().when("videocall", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
-    videocall2: yup.number().when("videocall", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
-    videocall3: yup.number().when("videocall", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
-    videocall4: yup.number().when("videocall", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
-    officevisit1: yup.number().when("officevisit", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
-    officevisit2: yup.number().when("officevisit", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
-    officevisit3: yup.number().when("officevisit", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
-    officevisit4: yup.number().when("officevisit", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
-    consultancy1: yup.number().when("consultancy", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
-    consultancy2: yup.number().when("consultancy", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
-    consultancy3: yup.number().when("consultancy", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
-    consultancy4: yup.number().when("consultancy", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
-    sickleave1: yup.number().when("sickleave", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
-    sickleave2: yup.number().when("sickleave", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
+// const schema = yup
+//   .object({
+//     videocall: yup.boolean(),
+//     officevisit: yup.boolean(),
+//     consultancy: yup.boolean(),
+//     sickleave: yup.boolean(),
+//     homevisit: yup.boolean(),
+//     videocall1: yup.number().when("videocall", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
+//     videocall2: yup.number().when("videocall", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
+//     videocall3: yup.number().when("videocall", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
+//     videocall4: yup.number().when("videocall", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
+//     officevisit1: yup.number().when("officevisit", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
+//     officevisit2: yup.number().when("officevisit", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
+//     officevisit3: yup.number().when("officevisit", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
+//     officevisit4: yup.number().when("officevisit", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
+//     consultancy1: yup.number().when("consultancy", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
+//     consultancy2: yup.number().when("consultancy", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
+//     consultancy3: yup.number().when("consultancy", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
+//     consultancy4: yup.number().when("consultancy", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
+//     sickleave1: yup.number().when("sickleave", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
+//     sickleave2: yup.number().when("sickleave", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
 
-    homevisit1: yup.number().when("homevisit", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
-    homevisit2: yup.number().when("homevisit", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
-    homevisit3: yup.number().when("homevisit", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
-    homevisit4: yup.number().when("homevisit", {
-      is: "true",
-      then: yup
-        .number()
-        .required("Required field")
-    }),
+//     homevisit1: yup.number().when("homevisit", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
+//     homevisit2: yup.number().when("homevisit", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
+//     homevisit3: yup.number().when("homevisit", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
+//     homevisit4: yup.number().when("homevisit", {
+//       is: "true",
+//       then: yup
+//         .number()
+//         .required("Required field")
+//     }),
 
 
 
@@ -155,8 +155,8 @@ const schema = yup
 
 
 
-  })
-  .required();
+//   })
+//   .required();
 const Office = () => {
   const [state, setState] = useState([
     {
@@ -180,7 +180,7 @@ const Office = () => {
     watch,
     formState: { dirtyFields, errors, isSubmitting, isSubmitted },
   } = useForm({
-    resolver: yupResolver(schema),
+    // resolver: yupResolver(schema),
     mode: "onTouched",
 
   });
@@ -736,11 +736,8 @@ const Office = () => {
             </Stack>
 )}
 
+        <Input type="submit"  />
 
-
-{(videocall || officevisit || consultancy || sickleave || homevisit) && (
-<Input type="submit" onClick={handleSubmit()} />
-)}
 
 
 
