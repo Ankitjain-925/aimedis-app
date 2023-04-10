@@ -132,10 +132,11 @@ export default function Room() {
     }
   );
 
-  const editHandler = (id, name, description) => {
+  const editHandler = (id, name, description, building_id) => {
     console.log(id, name, description);
     setName(name);
     setDescription(description);
+    setBuilding(building_id);
     setId(id);
     setEditing(true);
     onOpen();
@@ -344,7 +345,7 @@ export default function Room() {
                       icon={<FiEdit2 fontSize='1.25rem' />}
                       variant='ghost'
                       aria-label='Edit member'
-                      onClick={() => editHandler(p.id, p.name, p.description)}
+                      onClick={() => editHandler(p.id, p.name, p.description, p.building_id)}
                     />
                     <IconButton
                       icon={<FiTrash2 fontSize='1.25rem' />}

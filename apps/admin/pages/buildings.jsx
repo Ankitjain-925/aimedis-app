@@ -84,6 +84,7 @@ export default function Building() {
     onSuccess: () => {
       setName('')
       setDescription('')
+      setTenant('')
       onClose()
       queryClient.invalidateQueries('allbuildings');
     },
@@ -105,6 +106,7 @@ export default function Building() {
       queryClient.invalidateQueries('allbuildings');
       setName('')
       setDescription('')
+      setTenant('');
       setEditing(false);
       handleClose()
     },
@@ -346,7 +348,7 @@ export default function Building() {
                         icon={<FiEdit2 fontSize='1.25rem' />}
                         variant='ghost'
                         aria-label='Edit member'
-                        onClick={() => editHandler(p.id, p.name, p.description)}
+                        onClick={() => editHandler(p.id, p.name, p.description, p.tenant_id)}
                       />
                       <IconButton
                         icon={<FiTrash2 fontSize='1.25rem' />}
