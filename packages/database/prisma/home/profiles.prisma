@@ -1,14 +1,14 @@
-import { memberships } from "..\metaverse\avalon"
+import {connections, memberships, chat_messages, message_read_recipients, group_participants } from "..\metaverse\avalon"
 
 generator client {
   provider = "prisma-client-js"
 }
 
 model profiles {
-  id                       String            @id @db.Uuid
-  created_at               DateTime          @default(now()) @db.Timestamptz(6)
-  updated_at               DateTime          @default(now()) @db.Timestamptz(6)
-  username                 String?           @unique
+  id                       String                    @id @db.Uuid
+  created_at               DateTime                  @default(now()) @db.Timestamptz(6)
+  updated_at               DateTime                  @default(now()) @db.Timestamptz(6)
+  username                 String?                   @unique
   email                    String?
   phone                    String?
   gender                   gender?
@@ -24,10 +24,20 @@ model profiles {
   avatar_rpm_full_body_url String?
   bio                      String?
   memberships              memberships[]
-  notification_sent        notifications[]   @relation("actor")
-  notification_recieved    notifications[]   @relation("recipients")
+  notification_sent        notifications[]           @relation("actor")
+  notification_recieved    notifications[]           @relation("recipients")
   identities               user_identities[]
+  connections_sent         connections[]             @relation("sender")
+  connections_recieved     connections[]             @relation("reciever")
+  messages_posted          chat_messages[]           @relation("posted")
+  read_messages            message_read_recipients[]
+  groups                   group_participants[]
 }
+
+
+
+
+
 
 enum gender {
   male
@@ -55,7 +65,7 @@ model user_identities {
 
 model entities {
   id            String          @id @db.Uuid
-  apps          apps?            @relation(fields: [app_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  apps          apps?           @relation(fields: [app_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   app_id        Int?
   trigger_point String?
   notifications notifications[]

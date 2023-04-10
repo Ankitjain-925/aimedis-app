@@ -133,27 +133,87 @@ model activities {
   activity_types   activity_types @relation(fields: [activity_type_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   start_time       DateTime
   end_time         DateTime
+  channels         channels?
   created_at       DateTime       @default(now())
   updated_at       DateTime?      @updatedAt
-  channels         channels?
 }
 
 model activity_types {
   id         Int          @id @default(autoincrement())
   type       String
+  activities activities[]
   created_at DateTime     @default(now())
   updated_at DateTime?    @updatedAt
-  activities activities[]
 }
 
 model channels {
-  id          String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name        String
-  activity_id String     @unique @db.Uuid
-  activities  activities @relation(fields: [activity_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  description String
-  created_at  DateTime   @default(now())
-  updated_at  DateTime?  @updatedAt
+  id            String          @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  activity_id   String?         @unique @db.Uuid
+  activities    activities?     @relation(fields: [activity_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  connection_id String?         @unique @db.Uuid
+  connections   connections?    @relation(fields: [connection_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  group_id      String?         @unique @db.Uuid
+  groups        groups?         @relation(fields: [group_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  description   String?
+  host_phrase   String?
+  joinee_phrase String?
+  text_channel  String?
+  chat_messages chat_messages[]
+  created_at    DateTime        @default(now())
+  updated_at    DateTime?       @updatedAt
+}
+
+model connections {
+  id          String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  status      String    @default("pending")
+  sender      profiles? @relation("sender", fields: [sender_id], references: [id])
+  sender_id   String?   @db.Uuid
+  reciever    profiles? @relation("reciever", fields: [reciever_id], references: [id])
+  reciever_id String?   @db.Uuid
+  channels    channels?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+}
+
+model chat_messages {
+  id              String                    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  message         String
+  channels        channels                  @relation(fields: [channel_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  channel_id      String                    @db.Uuid
+  posted_by       profiles                  @relation("posted", fields: [posted_by_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  posted_by_id    String                    @db.Uuid
+  read_recipients message_read_recipients[]
+  createdAt       DateTime                  @default(now())
+  updatedAt       DateTime?                 @updatedAt
+}
+
+model message_read_recipients {
+  id         String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  message    chat_messages @relation(fields: [message_id], references: [id])
+  message_id String        @db.Uuid
+  profiles   profiles      @relation(fields: [user_id], references: [id])
+  user_id    String        @db.Uuid
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime?     @updatedAt
+}
+
+model groups {
+  id        String               @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name      String
+  members   group_participants[]
+  channels  channels?
+  createdAt DateTime             @default(now())
+  updatedAt DateTime?            @updatedAt
+}
+
+model group_participants {
+  id        String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  group     groups    @relation(fields: [group_id], references: [id])
+  group_id  String    @db.Uuid
+  profiles  profiles  @relation(fields: [user_id], references: [id])
+  user_id   String    @db.Uuid
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }
 
 //END prisma\metaverse\avalon.prisma
@@ -164,10 +224,10 @@ model channels {
 
 
 model profiles {
-  id                       String            @id @db.Uuid
-  created_at               DateTime          @default(now()) @db.Timestamptz(6)
-  updated_at               DateTime          @default(now()) @db.Timestamptz(6)
-  username                 String?           @unique
+  id                       String                    @id @db.Uuid
+  created_at               DateTime                  @default(now()) @db.Timestamptz(6)
+  updated_at               DateTime                  @default(now()) @db.Timestamptz(6)
+  username                 String?                   @unique
   email                    String?
   phone                    String?
   gender                   gender?
@@ -183,10 +243,19 @@ model profiles {
   avatar_rpm_full_body_url String?
   bio                      String?
   memberships              memberships[]
-  notification_sent        notifications[]   @relation("actor")
-  notification_recieved    notifications[]   @relation("recipients")
+  notification_sent        notifications[]           @relation("actor")
+  notification_recieved    notifications[]           @relation("recipients")
   identities               user_identities[]
+  connections_sent         connections[]             @relation("sender")
+  connections_recieved     connections[]             @relation("reciever")
+  messages_posted          chat_messages[]           @relation("posted")
+  read_messages            message_read_recipients[]
+  groups                   group_participants[]
 }
+
+
+
+
 
 enum gender {
   male
@@ -214,7 +283,7 @@ model user_identities {
 
 model entities {
   id            String          @id @db.Uuid
-  apps          apps?            @relation(fields: [app_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  apps          apps?           @relation(fields: [app_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   app_id        Int?
   trigger_point String?
   notifications notifications[]
