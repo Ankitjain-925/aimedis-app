@@ -64,7 +64,7 @@ export default function Building() {
     resolver: yupResolver(schema),
   });
   
-  const heads =['Icon','Name', 'Description', 'Actions']
+  const heads =['Icon','Name', 'Description', 'Tenant', 'Actions']
 
   const {isLoading, data:buildings, error} = useAllBuildingQuery()
   const {isLoading:loadingTenants, data:tenants, error:tenantError} = useAllTenantQuery()
@@ -252,7 +252,7 @@ export default function Building() {
                   </FormErrorMessage>
                 </FormControl>
 
-                <RadioCardGroup defaultValue='one' spacing='3'>
+                {/* <RadioCardGroup defaultValue='one' spacing='3'>
                   {["one", "two", "three"].map((option) => (
                     <RadioCard key={option} value={option}>
                       <Text
@@ -267,7 +267,7 @@ export default function Building() {
                       </Text>
                     </RadioCard>
                   ))}
-                </RadioCardGroup>
+                </RadioCardGroup> */}
               </Stack>
             </ModalBody>
 
@@ -336,6 +336,9 @@ export default function Building() {
                   </Td>
                   <Td>
                     <Text>{p.description}</Text>
+                  </Td>
+                  <Td>
+                    <Text>{p.tenant.name}</Text>
                   </Td>
                   <Td>
                     <HStack spacing='1'>

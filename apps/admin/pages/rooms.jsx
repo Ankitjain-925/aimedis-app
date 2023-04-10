@@ -76,7 +76,7 @@ export default function Room() {
     resolver: yupResolver(schema),
   });
 
-  const heads = ["Icon", "Name", "Description", "Actions"];
+  const heads = ["Icon", "Name", "Description", "Building", "Actions"];
 
   const { isLoading, data: rooms, error } = useAllRoomQuery();
   const {
@@ -214,10 +214,10 @@ export default function Room() {
           <ModalBody pb={6}>
             <Stack>
               <CustomSelect
-                name='Tenant'
+                name='Building'
                 value={building}
                 onChange={setBuilding}
-                placeholder='Select Partner'
+                placeholder='Select Building'
               >
                 {buildings.map((building) => (
                   <Option key={building.id} value={building.id}>
@@ -254,7 +254,7 @@ export default function Room() {
                 </FormErrorMessage>
               </FormControl>
 
-              <RadioCardGroup defaultValue='one' spacing='3'>
+              {/* <RadioCardGroup defaultValue='one' spacing='3'>
                 {["one", "two", "three"].map((option) => (
                   <RadioCard key={option} value={option}>
                     <Text color='emphasized' fontWeight='medium' fontSize='sm'>
@@ -265,7 +265,7 @@ export default function Room() {
                     </Text>
                   </RadioCard>
                 ))}
-              </RadioCardGroup>
+              </RadioCardGroup> */}
             </Stack>
           </ModalBody>
 
@@ -334,6 +334,9 @@ export default function Room() {
                 </Td>
                 <Td>
                   <Text>{p.description}</Text>
+                </Td>
+                <Td>
+                  <Text>{p.building.name}</Text>
                 </Td>
                 <Td>
                   <HStack spacing='1'>

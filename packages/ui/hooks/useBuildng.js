@@ -4,7 +4,7 @@ import { useDatabase } from '../providers/Database';
 const getBuilding = (database, id) => {
   return database
     .from('buildings')
-    .select('*')
+    .select('*,tenant:tenant_id(*)')
     .eq('id', id)
     .throwOnError()
     .single();
@@ -21,7 +21,7 @@ const deleteBuilding = (database, id) => {
 const getAllBuildings = (database) => {
   return database
     .from('buildings')
-    .select('*')
+    .select('*,tenant:tenant_id(*)')
     .throwOnError()
 };
 
