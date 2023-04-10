@@ -219,11 +219,11 @@ export default function Room() {
                 onChange={setBuilding}
                 placeholder='Select Building'
               >
-                {buildings.map((building) => (
+                {buildings? (buildings.map((building) => (
                   <Option key={building.id} value={building.id}>
                     <Text>{building.name}</Text>
                   </Option>
-                ))}
+                ))):null}
               </CustomSelect>
 
               <FormControl>
