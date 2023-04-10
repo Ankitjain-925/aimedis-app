@@ -1,8 +1,5 @@
 import React from 'react';
-import { PhoneNumberInput, PageLayout, FormLayout } from 'ui';
-import { IoMdInformationCircle } from 'react-icons/io';
-import { FaFilePrescription } from 'react-icons/fa';
-import { TbLicense } from 'react-icons/tb';
+import { PageLayout } from 'ui';
 import {
     Stack,
     TabPanels,

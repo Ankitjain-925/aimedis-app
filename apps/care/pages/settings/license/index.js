@@ -97,7 +97,7 @@ const License = () => {
           </FormLayout>
           <FormLayout
             title="Upload Insurance"
-            description={`Upload a copy of your ID and heathcare pharma / Research / Insurance card`}
+            description={`Upload copy of your ID and Insurance`}
           >
             <FormControl>
               <FormLabel>Upload a photo of your ID Card</FormLabel>

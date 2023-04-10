@@ -8,6 +8,7 @@ import {
 import { MdDashboard } from 'react-icons/md';
 import { HiDocument } from 'react-icons/hi';
 import { Box, Text } from '@chakra-ui/react';
+import "../styles/globals.css";
 
 export default function App({ Component, pageProps }) {
   return (

@@ -8,6 +8,7 @@ import {
   Tfoot,
   Thead,
   TableContainer,
+  useDisclosure,
   Table,
   Tbody,
   Tr,
@@ -20,6 +21,18 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Button,
+  Box,
+  Text,
+  Input,
+  Divider
 } from '@chakra-ui/react';
 import { Icon } from '@chakra-ui/react'
 
@@ -39,8 +52,8 @@ const Prescriptions = () => {
         Actions
       </MenuButton>
       <MenuList>
-        <MenuItem>See detail</MenuItem>
-        {props.status == "free" && <MenuItem>Approve</MenuItem>}
+        <MenuItem onClick={onOpen}>See detail</MenuItem>
+        {props.status == "free" && <MenuItem onClick={onOpen}>Approve</MenuItem>}
         {props.status == "free" && <MenuItem>Decline</MenuItem>}
         <MenuItem>Remove</MenuItem>
       </MenuList>
@@ -53,11 +66,12 @@ const Prescriptions = () => {
       </MenuButton>
       <MenuList>
         <MenuItem>See detail</MenuItem>
-        <MenuItem>Not Handle</MenuItem>
-        {props.status == "handled" && <MenuItem>Handled</MenuItem>}
+        {(!props.status || props.status !== "handled")&& <MenuItem>Handle</MenuItem>}
       </MenuList>
     </Menu>
   )
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return <Tabs>
     <TabList>
@@ -307,6 +321,99 @@ const Prescriptions = () => {
         </TableContainer>
       </TabPanel>
     </TabPanels>
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Prescription inquiry</ModalHeader>
+        <ModalCloseButton />
+        <Divider orientation="horizontal" mb="10px" />
+        <ModalBody>
+
+          <Text fontWeight="600" pt="15px" pb="5px">
+            Standard Questions
+          </Text>
+          <Box mb="10px">
+            <Text fontSize="13px" fontWeight="600">Is this a follow-up prescription?</Text>
+            <Text fontSize="15px">Yes</Text>
+          </Box>
+          <Box mb="10px" mt="10px">
+            <Text fontSize="13px" fontWeight="600">
+              How would you like to receive the prescription?
+            </Text>
+            <Text fontSize="15px">Online</Text>
+          </Box>
+
+          <Text fontWeight="600" pt="15px" pb="5px">
+            Medicine Inquiry
+          </Text>
+          <Box mb="15px">
+            <Text fontSize="13px" fontWeight="600">
+              Medicine / Substance
+            </Text>
+            <Text fontSize="15px">ABC-1</Text>
+          </Box>
+          <Box mb="15px" mt="10px">
+            <Text fontSize="13px" fontWeight="600">Dose</Text>
+            <Text fontSize="15px">50-mg</Text>
+          </Box>
+          <Box mb="15px" mt="10px">
+            <Text fontSize="13px" fontWeight="600">Trade name</Text>
+            <Text fontSize="15px">ABC-34</Text>
+          </Box>
+          <Box mb="15px" mt="10px">
+            <Text fontSize="13px" fontWeight="600">
+              ATC code if applicable
+            </Text>
+            <Text fontSize="15px">CODE123</Text>
+          </Box>
+          <Box mb="15px" mt="10px">
+            <Text fontSize="13px" fontWeight="600">Manufacturer</Text>
+            <Text fontSize="15px">India</Text>
+          </Box>
+          <Box mb="15px" mt="10px">
+            <Text fontSize="13px" fontWeight="600">Pack size</Text>
+            <Text fontSize="15px">10</Text>
+          </Box>
+          <Box mb="15px" mt="10px">
+            <Text fontSize="13px" fontWeight="600">
+              Annotations / Details / Questions
+            </Text>
+            <Text fontSize="15px">Here is the details</Text>
+          </Box>
+          <Box mb="15px" mt="10px">
+            <Text fontSize="13px" mb="7px" fontWeight="600">
+              Upload scenned prescription
+            </Text>
+            <Box
+              minHeight="100px"
+              borderRadius={"8px"}
+              border={"1px dotted"}>
+              <Box
+                position="relative"
+                top="50px"
+                left="27%">
+                <Text fontSize="13px" fontWeight={"600"}>
+                  Browse or drag here
+                </Text>
+              </Box>
+              <Input
+                opacity={"0"}
+                minHeight="100px"
+                type="File"
+                placeholder="extra small size"
+                height="40px"
+              />
+            </Box>
+          </Box>
+        </ModalBody>
+        <ModalFooter>
+          <Button colorScheme='blue' mr={3} onClick={onClose}>
+            Accept
+          </Button>
+          <Button variant='ghost' onClick={onClose}>Reject</Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   </Tabs>;
 };
 
