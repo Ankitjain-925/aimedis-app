@@ -14,18 +14,19 @@ datasource db {
 
 
 model worlds {
-  id          String    @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  id          String      @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name        String
   description String?
   logo_url    String?
   tenants     tenants[]
+  buildings   buildings[]
   servers     servers[]
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @default(now()) @updatedAt
+  created_at  DateTime    @default(now())
+  updated_at  DateTime?   @updatedAt
 }
 
 model servers {
-  id               String     @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  id               String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name             String
   description      String?
   ip_address       String?
@@ -37,11 +38,11 @@ model servers {
   room             rooms?     @relation(fields: [room_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   room_id          String?    @db.Uuid
   created_at       DateTime   @default(now())
-  updated_at       DateTime   @default(now()) @updatedAt
+  updated_at       DateTime?  @updatedAt
 }
 
 model tenants {
-  id              String        @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  id              String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name            String
   world_id        String?       @db.Uuid
   worlds          worlds?       @relation(fields: [world_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
@@ -52,29 +53,25 @@ model tenants {
   billing_address String?
   buildings       buildings[]
   created_at      DateTime      @default(now())
-  updated_at      DateTime      @default(now()) @updatedAt
+  updated_at      DateTime?     @updatedAt
   memberships     memberships[]
 }
 
-model roles {
-  id          String        @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
-  name        role[]
+model tenant_roles {
+  id          Int           @id @default(autoincrement())
+  name        String
   created_at  DateTime      @default(now())
-  updated_at  DateTime      @default(now()) @updatedAt
+  updated_at  DateTime?     @updatedAt
   memberships memberships[]
 }
 
-enum role {
-  owner
-  member
-  moderator
-}
-
 model buildings {
-  id          String        @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  id          String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name        String
   tenant_id   String?       @db.Uuid
   tenants     tenants?      @relation(fields: [tenant_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  world_id    String?       @db.Uuid
+  worlds      worlds?       @relation(fields: [world_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   description String?
   image       String?
   nft_id      Int?
@@ -82,77 +79,144 @@ model buildings {
   memberships memberships[]
   server      servers[]
   created_at  DateTime      @default(now())
-  updated_at  DateTime      @default(now()) @updatedAt
+  updated_at  DateTime?     @updatedAt
   rooms       rooms[]
 }
 
 model memberships {
-  id          String     @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  id          String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name        String
-  tenant_id   String?    @db.Uuid
-  tenants     tenants?   @relation(fields: [tenant_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  building_id String?    @db.Uuid
-  buildings   buildings? @relation(fields: [building_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  profile_id  String?    @db.Uuid
-  profiles    profiles?  @relation(fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  role_id     String?    @db.Uuid
-  roles       roles?     @relation(fields: [role_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tenant_id   String?       @db.Uuid
+  tenants     tenants?      @relation(fields: [tenant_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  building_id String?       @db.Uuid
+  buildings   buildings?    @relation(fields: [building_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  profile_id  String?       @db.Uuid
+  profiles    profiles?     @relation(fields: [profile_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  role_id     Int?
+  roles       tenant_roles? @relation(fields: [role_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   description String?
   image       String?
   nft_id      Int?
   metadata    Json?
-  created_at  DateTime   @default(now())
-  updated_at  DateTime   @default(now()) @updatedAt
+  created_at  DateTime      @default(now())
+  updated_at  DateTime?     @updatedAt
+}
+
+model room_types {
+  id         Int       @id @default(autoincrement())
+  type       String
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
+  rooms      rooms[]
 }
 
 model rooms {
-  id           String       @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  id           String       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name         String
   building_id  String?      @db.Uuid
   buildings    buildings?   @relation(fields: [building_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   description  String?
-  type         room_types
+  room_type_id Int?
+  room_types   room_types?  @relation(fields: [room_type_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   availability Boolean?
   created_at   DateTime     @default(now())
-  updated_at   DateTime     @default(now()) @updatedAt
+  updated_at   DateTime?    @updatedAt
   activities   activities[]
   servers      servers[]
 }
 
-enum room_types {
-  public
-  private
-  closed
-}
-
 model activities {
-  id          String         @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
-  name        String
-  room_id     String?        @db.Uuid
-  rooms       rooms?         @relation(fields: [room_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  description String?
-  image       String?
-  type        activity_types
-  start_time  DateTime
-  end_time    DateTime
-  created_at  DateTime       @default(now())
-  updated_at  DateTime       @default(now()) @updatedAt
-  channels    channels?
+  id               String         @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name             String
+  room_id          String?        @db.Uuid
+  rooms            rooms?         @relation(fields: [room_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  description      String?
+  image            String?
+  activity_type_id Int
+  activity_types   activity_types @relation(fields: [activity_type_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  start_time       DateTime
+  end_time         DateTime
+  channels         channels?
+  created_at       DateTime       @default(now())
+  updated_at       DateTime?      @updatedAt
 }
 
-enum activity_types {
-  event
-  appointment
+model activity_types {
+  id         Int          @id @default(autoincrement())
+  type       String
+  activities activities[]
+  created_at DateTime     @default(now())
+  updated_at DateTime?    @updatedAt
 }
 
 model channels {
-  id          String     @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
-  name        String
-  activity_id String     @unique @db.Uuid
-  activities  activities @relation(fields: [activity_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  description String
-  created_at  DateTime   @default(now())
-  updated_at  DateTime   @default(now()) @updatedAt
+  id            String          @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  activity_id   String?         @unique @db.Uuid
+  activities    activities?     @relation(fields: [activity_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  connection_id String?         @unique @db.Uuid
+  connections   connections?    @relation(fields: [connection_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  group_id      String?         @unique @db.Uuid
+  groups        groups?         @relation(fields: [group_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  description   String?
+  host_phrase   String?
+  joinee_phrase String?
+  text_channel  String?
+  chat_messages chat_messages[]
+  created_at    DateTime        @default(now())
+  updated_at    DateTime?       @updatedAt
+}
+
+model connections {
+  id          String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  status      String    @default("pending")
+  sender      profiles? @relation("sender", fields: [sender_id], references: [id])
+  sender_id   String?   @db.Uuid
+  reciever    profiles? @relation("reciever", fields: [reciever_id], references: [id])
+  reciever_id String?   @db.Uuid
+  channels    channels?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+}
+
+model chat_messages {
+  id              String                    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  message         String
+  channels        channels                  @relation(fields: [channel_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  channel_id      String                    @db.Uuid
+  posted_by       profiles                  @relation("posted", fields: [posted_by_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  posted_by_id    String                    @db.Uuid
+  read_recipients message_read_recipients[]
+  createdAt       DateTime                  @default(now())
+  updatedAt       DateTime?                 @updatedAt
+}
+
+model message_read_recipients {
+  id         String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  message    chat_messages @relation(fields: [message_id], references: [id])
+  message_id String        @db.Uuid
+  profiles   profiles      @relation(fields: [user_id], references: [id])
+  user_id    String        @db.Uuid
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime?     @updatedAt
+}
+
+model groups {
+  id        String               @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name      String
+  members   group_participants[]
+  channels  channels?
+  createdAt DateTime             @default(now())
+  updatedAt DateTime?            @updatedAt
+}
+
+model group_participants {
+  id        String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  group     groups    @relation(fields: [group_id], references: [id])
+  group_id  String    @db.Uuid
+  profiles  profiles  @relation(fields: [user_id], references: [id])
+  user_id   String    @db.Uuid
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }
 
 //END prisma\metaverse\avalon.prisma
@@ -163,10 +227,10 @@ model channels {
 
 
 model profiles {
-  id                       String          @id @db.Uuid
-  created_at               DateTime        @default(now()) @db.Timestamptz(6)
-  updated_at               DateTime        @default(now()) @db.Timestamptz(6)
-  username                 String?         @unique
+  id                       String                    @id @db.Uuid
+  created_at               DateTime                  @default(now()) @db.Timestamptz(6)
+  updated_at               DateTime                  @default(now()) @db.Timestamptz(6)
+  username                 String?                   @unique
   email                    String?
   phone                    String?
   gender                   gender?
@@ -182,10 +246,20 @@ model profiles {
   avatar_rpm_full_body_url String?
   bio                      String?
   memberships              memberships[]
-  notification_sent        notifications[] @relation("actor")
-  notification_recieved    notifications[] @relation("recipients")
+  notification_sent        notifications[]           @relation("actor")
+  notification_recieved    notifications[]           @relation("recipients")
   identities               user_identities[]
+  connections_sent         connections[]             @relation("sender")
+  connections_recieved     connections[]             @relation("reciever")
+  messages_posted          chat_messages[]           @relation("posted")
+  read_messages            message_read_recipients[]
+  groups                   group_participants[]
 }
+
+
+
+
+
 
 enum gender {
   male
@@ -194,32 +268,33 @@ enum gender {
 }
 
 model identities {
-  id         String          @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
+  id         Int               @id @default(autoincrement())
   name       String
   users      user_identities[]
-  created_at DateTime        @default(now())
-  updated_at DateTime        @default(now()) @updatedAt
+  created_at DateTime          @default(now())
+  updated_at DateTime?         @updatedAt
 }
 
 model user_identities {
-  id          String   @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
-  user        profiles @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  user_id     String   @db.Uuid
+  id          String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user        profiles   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user_id     String     @db.Uuid
   identity    identities @relation(fields: [identity_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  identity_id String   @db.Uuid
-  created_at  DateTime @default(now())
-  updated_at  DateTime @default(now()) @updatedAt
+  identity_id Int
+  created_at  DateTime   @default(now())
+  updated_at  DateTime?  @updatedAt
 }
 
 model entities {
   id            String          @id @db.Uuid
-  app           app
-  trigger_point String
+  apps          apps?           @relation(fields: [app_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  app_id        Int?
+  trigger_point String?
   notifications notifications[]
 }
 
 model notifications {
-  id            String     @id @db.Uuid
+  id            String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   actor         profiles   @relation("actor", fields: [actor_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   actor_id      String     @db.Uuid
   recipients    profiles[] @relation("recipients")
@@ -229,27 +304,23 @@ model notifications {
   message       String
   is_read       Boolean    @default(false)
   created_at    DateTime   @default(now())
-  updated_at    DateTime   @updatedAt
+  updated_at    DateTime?  @updatedAt
 }
 
-enum app {
-  admin
-  care
-  chat
-  dapp
-  exchange
-  fhir
-  health
-  home
-  metaverse
-  store
-  web
+model apps {
+  id         Int        @id @default(autoincrement())
+  app_name   String
+  created_at DateTime   @default(now())
+  updated_at DateTime?  @updatedAt
+  entities   entities[]
 }
 
 model invalidated_tokens {
-  id        Int      @id @default(autoincrement())
-  token     String   @unique
-  expire_at DateTime @default(now())
+  id         String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  token      String    @unique
+  expire_at  DateTime  @default(now())
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
 }
 
 //END prisma\home\profiles.prisma

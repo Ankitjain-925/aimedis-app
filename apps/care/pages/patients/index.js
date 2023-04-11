@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router'
 import { PageLayout, PhoneNumberInput } from 'ui';
 import {
   Tfoot,
@@ -47,12 +48,13 @@ const Patients = () => {
       </MenuButton>
       <MenuList>
         <MenuItem onClick={information.onOpen}>See detail</MenuItem>
-        <MenuItem>Open Journal</MenuItem>
+        <MenuItem onClick={() => router.push('/patients/1')}>Open Journal</MenuItem>
         <MenuItem>Remove Patient</MenuItem>
       </MenuList>
     </Menu>
   )
 
+  const router = useRouter()
   const information = useDisclosure()
   const request = useDisclosure()
   const access = useDisclosure()
@@ -231,7 +233,7 @@ const Patients = () => {
             </ModalBody>
             <ModalFooter>
               <Button variant='ghost' onClick={information.onClose}>Cancel</Button>
-             <Button colorScheme='teal' mr={3}>
+             <Button colorScheme='teal' mr={3} onClick={() => router.push('/patients/1')}>
                 Go to Journal
               </Button>
             </ModalFooter>

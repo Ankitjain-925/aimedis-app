@@ -8,7 +8,7 @@ import {
 } from 'ui';
 import { IoIosAnalytics } from 'react-icons/io';
 import { AiOutlineTeam } from 'react-icons/ai';
-import { BiWorld, BiServer } from 'react-icons/bi';
+import { BiWorld, BiServer, BiBuildings, BiDoorOpen } from 'react-icons/bi';
 
 
 export default function App({ Component, pageProps }) {
@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }) {
               navbar={{
                 leftContent: (
                   <Box>
-                    <Text>Actions</Text>
+                    <Text></Text>
                   </Box>
                 ),
                 middleContent: (
@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }) {
                 ),
                 rightContent: (
                   <Box>
-                    <Text>Actions</Text>
+                    <Text></Text>
                   </Box>
                 ),
               }}
@@ -42,7 +42,7 @@ export default function App({ Component, pageProps }) {
                     icon: IoIosAnalytics,
                   },
                   {
-                    label: 'Section',
+                    label: 'Manage',
                     children: [
                       {
                         label: 'Worlds',
@@ -59,15 +59,25 @@ export default function App({ Component, pageProps }) {
                         href: '/tenants',
                         icon: AiOutlineTeam,
                       },
+                      {
+                        label: 'Buildings',
+                        href: '/buildings',
+                        icon: BiBuildings,
+                      },
+                      {
+                        label: 'Rooms',
+                        href: '/rooms',
+                        icon: BiDoorOpen,
+                      },
                       
                     ],
                   },
                 ],
-                actions: (
-                  <Box>
-                    <Text>Actions</Text>
-                  </Box>
-                ),
+                // actions: (
+                //   <Box>
+                //     <Text>Actions</Text>
+                //   </Box>
+                // ),
                 footer: (
                   <Box>
                     <Text>Footer</Text>

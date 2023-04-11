@@ -23,28 +23,41 @@ import {
   FormLabel,
   Textarea,
   HStack,
-  Avatarup,
+  Tabs,
+  Tab,
+  Stack,
+  TabList,
   IconButton,
-  Form,
-  Alert,
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
+import Link from "next/link";
 
-import { TableSkeleton, AvatarUpload, useDatabase } from "ui";
+import {
+  TableSkeleton,
+  AvatarUpload,
+  useDatabase,
+  Option,
+  CustomSelect,
+  RadioCard,
+  RadioCardGroup,
+} from "ui";
 import { useRef, useState } from "react";
 import {
-  useAllTenantQuery,
-  useAddTenantMutation,
-  useDeleteTenantMutation,
-  useUpdateTenantMutation,
+  useAllServerQuery,
+  useAddServerMutation,
+  useDeleteServerMutation,
+  useUpdateServerMutation,
+  useAllBuildingQuery,
+  useAllWorldQuery,
+  useAllRoomQuery
 } from "ui";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
-export default function Tenant() {
+export default function Server() {
   const schema = yup
     .object({
       name: yup
@@ -67,43 +80,56 @@ export default function Tenant() {
 
   const heads = ["Icon", "Name", "Description", "Actions"];
 
-  const { isLoading, data: tenants, error } = useAllTenantQuery();
+  const { isLoading, data: servers, error } = useAllServerQuery();
+  const { worldLoading, data: worlds, worldError } = useAllWorldQuery();
+  const { buildingLoading, data: buildings, buildingError } = useAllBuildingQuery();
+  const { roomLoading, data: rooms, roomError } = useAllRoomQuery();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const initialRef = useRef(null);
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
+  const [space, setSpace] = useState(null);
   const [id, setId] = useState(null);
   const [editing, setEditing] = useState(false);
 
+  const [radioValue, setRadioValue] = useState('world');
+
+  const handleRadioChange = (newVal) => {
+    setRadioValue(newVal);
+    setSpace(null)
+  };
+
   const { queryClient } = useDatabase();
 
-  const { mutate, isLoading: isMutating } = useAddTenantMutation({
+  const { mutate, isLoading: isMutating } = useAddServerMutation({
     onSuccess: () => {
       setName("");
       setDescription("");
+      setSpace("");
+      setRadioValue("world");
       onClose();
-      queryClient.invalidateQueries("alltenants");
+      queryClient.invalidateQueries("allservers");
     },
     onError: (error) => {
       console.log(error);
     },
   });
-  const { mutate: deleteTenant, isLoading: isDeleting } =
-    useDeleteTenantMutation({
+  const { mutate: deleteServer, isLoading: isDeleting } =
+    useDeleteServerMutation({
       onSuccess: () => {
-        queryClient.invalidateQueries("alltenants");
+        queryClient.invalidateQueries("allservers");
       },
       onError: (error) => {
         alert(error);
       },
     });
 
-  const { mutate: updateTenant, isLoading: isUpdating } =
-    useUpdateTenantMutation(id, {
+  const { mutate: updateServer, isLoading: isUpdating } =
+    useUpdateServerMutation(id, {
       onSuccess: () => {
-        queryClient.invalidateQueries("alltenants");
+        queryClient.invalidateQueries("allservers");
         setName("");
         setDescription("");
         setEditing(false);
@@ -119,25 +145,52 @@ export default function Tenant() {
     setName(name);
     setDescription(description);
     setId(id);
+    setSpace(space);
     setEditing(true);
     onOpen();
   };
 
-  const handleTenantAdd = (e) => {
-    const newTenantData = {
+  const handleServerAdd = (e) => {
+    let newServerData;
+
+    if(radioValue=='world'){
+
+   
+     newServerData = {
       name,
       description,
+      world_id:space
     };
-    mutate(newTenantData);
+  }
+    if(radioValue=='building'){
+
+    
+     newServerData = {
+      name,
+      description,
+      building_id:space
+    };
+  }
+    if(radioValue=='room'){
+
+    
+     newServerData = {
+      name,
+      description,
+      room_id:space
+    };
+  }
+    
+    mutate(newServerData);
     //  await onClose()
   };
-  const handleTenantDelete = (id) => {
-    deleteTenant(id);
+  const handleServerDelete = (id) => {
+    deleteServer(id);
     //  await onClose()
   };
 
-  const handleTenantUpdate = (id, name, description) => {
-    updateTenant({ id, name, description });
+  const handleServerUpdate = (id, name, description) => {
+    updateServer({ id, name, description });
     //  await onClose()
   };
 
@@ -147,7 +200,23 @@ export default function Tenant() {
   };
 
   if (isLoading) {
-    return <TableSkeleton heads={heads} />;
+    return (
+      <>
+        {/* <Tabs size={"md"} variant="with-line">
+          <TabList>
+            <Tab>Servers</Tab>
+            <Tab>
+              <Link href="servers/buildings">Buildings </Link>
+            </Tab>
+            <Tab>
+              <Link href="servers/buildings">Rooms </Link>
+            </Tab>
+          </TabList>
+        </Tabs> */}
+
+        <TableSkeleton heads={heads} />
+      </>
+    );
   }
 
   if (error) {
@@ -168,47 +237,85 @@ export default function Tenant() {
         <ModalContent borderRadius={0} w='100%'>
           <ModalHeader>
             {" "}
-            {editing ? "Update" : "Add new"} Tenant{" "}
+            {editing ? "Update" : "Add new"} Server{" "}
             <Text fontWeight='400' fontSize='sm'>
-              {editing ? "Updating" : "Adding new"} tenant on the metaverse
+              {editing ? "Updating" : "Adding new"} server on the metaverse
             </Text>{" "}
           </ModalHeader>
           <ModalCloseButton isDisabled={isMutating} />
           <ModalBody pb={6}>
-            <HStack spacing='5'>
-              <FormControl w='64px'>
-                <AvatarUpload
-                  src={""}
-                  avatarProps={{ size: "lg", bg: "bg-canvas" }}
-                  register={() => register("image")}
-                />
-              </FormControl>
+            <Stack spacing={5}>
+
               <FormControl>
                 <FormLabel>Name</FormLabel>
                 <Input
                   {...register("name")}
                   isInvalid={errors.name}
-                  placeholder='Tenant name'
+                  placeholder='Server name'
                   name='name'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
                 <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
               </FormControl>
-            </HStack>
 
-            <FormControl mt={4}>
-              <FormLabel>Description</FormLabel>
-              <Textarea
-                placeholder='Describe this tenant'
-                isInvalid={errors.description}
-                {...register("description")}
-                name='description'
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-              <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
-            </FormControl>
+              <FormControl mt={4} mb={4}>
+                <FormLabel>Description</FormLabel>
+                <Textarea
+                  placeholder='Describe this server'
+                  isInvalid={errors.description}
+                  {...register("description")}
+                  name='description'
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+                <FormErrorMessage>
+                  {errors.description?.message}
+                </FormErrorMessage>
+              </FormControl>
+
+
+              <RadioCardGroup defaultValue="world" spacing="3" onChange={handleRadioChange}>
+                {["world", "building", "room"].map((option) => (
+                  <RadioCard key={option} value={option}>
+                    <Text color="emphasized" fontWeight="medium" fontSize="sm">
+                       {option.charAt(0).toUpperCase() + option.slice(1)}
+                    </Text>
+                    {/* <Text color="muted" fontSize="sm">
+                      Jelly biscuit muffin icing dessert powder macaroon.
+                    </Text> */}
+                  </RadioCard>
+                ))}
+              </RadioCardGroup>
+                    <CustomSelect
+                      name={radioValue}
+                      value={space}
+                      onChange={setSpace}
+                      placeholder={"Select " +radioValue.charAt(0).toUpperCase() + radioValue.slice(1)}
+                      >
+                      {radioValue === 'world' && worlds?(
+                      worlds.map((world)=>
+                        <Option key={world.id} value={world.id}>
+                            <Text>{world.name}</Text>
+                        </Option>)
+      
+      ):null}
+                      {radioValue === 'building' && buildings?(
+                      buildings.map((building)=>
+                        <Option key={building.id} value={building.id}>
+                            <Text>{building.name}</Text>
+                        </Option>)
+      
+      ):null}
+                      {radioValue === 'room' && rooms?(
+                      rooms.map((room)=>
+                        <Option key={room.id} value={room.id}>
+                            <Text>{room.name}</Text>
+                        </Option>)
+      
+      ):null}
+                    </CustomSelect>
+            </Stack>
           </ModalBody>
 
           <ModalFooter>
@@ -219,8 +326,8 @@ export default function Tenant() {
               variant={"primary"}
               onClick={
                 editing
-                  ? () => handleTenantUpdate(id, name, description)
-                  : handleTenantAdd
+                  ? () => handleServerUpdate(id, name, description)
+                  : handleServerAdd
               } // Check if editing is true
               isLoading={editing ? isUpdating : isMutating}
               loadingText={editing ? "Updating" : "Adding"} // Change the label of the button
@@ -230,6 +337,15 @@ export default function Tenant() {
           </ModalFooter>
         </ModalContent>
       </Modal>
+
+      {/* <Tabs  size={'md'} variant="with-line">
+            <TabList>
+                <Tab>Servers</Tab>
+                <Tab><Link href='/buildings'>Buildings </Link></Tab>
+                <Tab><Link href='servers/buildings'>Rooms </Link></Tab>
+            </TabList>
+
+        </Tabs> */}
 
       <Flex justify='end' mb='4'>
         <Button
@@ -257,7 +373,7 @@ export default function Tenant() {
             </Tr>
           </Thead>
           <Tbody>
-            {tenants.map((p) => (
+            {servers.map((p) => (
               <Tr key={p.id}>
                 <Td>
                   <Avatar name={p.name} src={p.logo_url} boxSize='10' />
@@ -280,7 +396,7 @@ export default function Tenant() {
                       icon={<FiTrash2 fontSize='1.25rem' />}
                       variant='ghost'
                       aria-label='Delete member'
-                      onClick={() => handleTenantDelete(p.id)}
+                      onClick={() => handleServerDelete(p.id)}
                       isDisabled={isDeleting}
                     />
                   </HStack>
