@@ -10,20 +10,34 @@ import {
   Radio,
   Input,
   Stack,
+  Text,
   StackDivider,
+  FormErrorMessage
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-
 const schema = yup
   .object({
-    username: yup
+    pin: yup
       .string()
       .min(3, 'Must be more than 3 characters')
-      .required('Can’t be blank'),
-    email: yup.string().email('Address is invalid'),
-    bio: yup.string().max(50, 'Must be less than 50 characters'),
+      .required('Required field'),
+    profile: yup.string().required('Required field'),
+    email: yup.string().email('Address is invalid').required('Required field'),
+    phone: yup.string().required('Required field'),
+    mobile: yup.string().required('Required field'),
+    fax: yup.string().required('Required field'),
+    country: yup.string().required('Required field'),
+    Ccountry: yup.string().required('Required field'),
+    title: yup.string().required('Required field'),
+    radio: yup.string().required('Required field'),
+    dob: yup.string().required('Required field'),
+    MaritalStatus: yup.string().required('Required field'),
+    Speciality: yup.string().required('Required field'),
+    SubSpeciality: yup.string().required('Required field'),
+    LanguageSpoken: yup.string().required('Required field'),
+
   })
   .required();
 
@@ -73,14 +87,23 @@ const Account = () => {
           <FormLayout
             title="Account Information"
             description="Manage your account information"
+
           >
-            <FormControl isInvalid={errors.name}>
+
+
+            <FormControl >
               <FormLabel htmlFor="pin">Pin</FormLabel>
-              <Input />
+              <Input {...register('pin')} />
+              <Text color='tomato'>{errors?.pin?.message}</Text>
+
             </FormControl>
-            <FormControl isInvalid={errors.image}>
+
+
+            <FormControl  >
               <FormLabel htmlFor="id">Profile ID</FormLabel>
-              <Input />
+              <Input {...register('profile')} />
+              <Text color='tomato'>{errors?.profile?.message}</Text>
+
             </FormControl>
           </FormLayout>
           <FormLayout
@@ -89,7 +112,9 @@ const Account = () => {
           >
             <FormControl>
               <FormLabel>Email Address</FormLabel>
-              <Input type='email' />
+              <Input type='email' {...register('email')} />
+              <Text color='tomato'>{errors?.email?.message}</Text>
+
             </FormControl>
             <FormControl>
               <FormLabel>Home telephone number</FormLabel>
@@ -97,7 +122,10 @@ const Account = () => {
                 placeholder=""
                 height="40px"
                 onChange={(value) => setValue(value)}
+                {...register('phone')}
               />
+              <Text color='tomato'>{errors?.phone?.message}</Text>
+
             </FormControl>
             <FormControl>
               <FormLabel>Mobile phone number</FormLabel>
@@ -105,7 +133,11 @@ const Account = () => {
                 placeholder=""
                 height="40px"
                 onChange={(value) => setValue(value)}
+                {...register('mobile')}
+
               />
+              <Text color='tomato'>{errors?.mobile?.message}</Text>
+
             </FormControl>
             <FormControl>
               <FormLabel>Fax phone number</FormLabel>
@@ -113,23 +145,31 @@ const Account = () => {
                 placeholder=""
                 height="40px"
                 onChange={(value) => setValue(value)}
+                {...register('fax')}
+
               />
+              <Text color='tomato'>{errors?.fax?.message}</Text>
+
             </FormControl>
             <FormControl id="street">
               <FormLabel>Country</FormLabel>
-              <Select placeholder='Select option'>
+              <Select placeholder='Select option' {...register('country')} >
                 <option value='option1'>Option 1</option>
                 <option value='option2'>Option 2</option>
                 <option value='option3'>Option 3</option>
               </Select>
+              <Text color='tomato'>{errors?.country?.message}</Text>
+
             </FormControl>
             <FormControl id="street">
               <FormLabel>Citizenship Country</FormLabel>
-              <Select placeholder='Select option'>
+              <Select placeholder='Select option' {...register('Ccountry')}>
                 <option value='option1'>Option 1</option>
                 <option value='option2'>Option 2</option>
                 <option value='option3'>Option 3</option>
               </Select>
+              <Text color='tomato'>{errors?.Ccountry?.message}</Text>
+
             </FormControl>
           </FormLayout>
           <FormLayout
@@ -139,56 +179,72 @@ const Account = () => {
 
             <FormControl>
               <FormLabel>Title</FormLabel>
-              <Select placeholder='Select option'>
+              <Select placeholder='Select option' {...register('title')}>
                 <option value='option1'>Option 1</option>
                 <option value='option2'>Option 2</option>
                 <option value='option3'>Option 3</option>
               </Select>
+              <Text color='tomato'>{errors?.title?.message}</Text>
+
             </FormControl>
             <FormControl>
               <FormLabel>Gender</FormLabel>
               <Stack spacing={'40px'} direction='row'>
-                <Radio value='male' colorScheme='green'>Male</Radio>
-                <Radio value='female' colorScheme='green'>Female</Radio>
-                <Radio value='other' colorScheme='green'>Other</Radio>
+                <Radio value='male' colorScheme='green' {...register('radio')}>Male</Radio>
+                <Radio value='female' colorScheme='green' {...register('radio')}>Female</Radio>
+                <Radio value='other' colorScheme='green' {...register('radio')}>Other</Radio>
               </Stack>
+              <Text color='tomato'>{errors?.radio?.message}</Text>
+
             </FormControl>
             <FormControl>
               <FormLabel>Date of Birth</FormLabel>
-              <Input type='date' />
+              <Input type='date' {...register('dob')} />
+              <Text color='tomato'>{errors?.dob?.message}</Text>
+
             </FormControl>
             <FormControl>
               <FormLabel>Marital Status</FormLabel>
-              <Select placeholder='Select option'>
+              <Select placeholder='Select option' {...register('MaritalStatus')}>
                 <option value='option1'>Option 1</option>
                 <option value='option2'>Option 2</option>
                 <option value='option3'>Option 3</option>
               </Select>
+              <Text color='tomato'>{errors?.MaritalStatus?.message}</Text>
+
             </FormControl>
             <FormControl>
               <FormLabel>Speciality</FormLabel>
-              <Select placeholder='Select option'>
+              <Select placeholder='Select option' {...register('Speciality')}>
                 <option value='option1'>Option 1</option>
                 <option value='option2'>Option 2</option>
                 <option value='option3'>Option 3</option>
               </Select>
+              <Text color='tomato'>{errors?.Speciality?.message}</Text>
+
             </FormControl>
             <FormControl>
               <FormLabel>Sub-Speciality</FormLabel>
-              <Select placeholder='Select option'>
+              <Select placeholder='Select option' {...register('SubSpeciality')}>
                 <option value='option1'>Option 1</option>
                 <option value='option2'>Option 2</option>
                 <option value='option3'>Option 3</option>
               </Select>
+              <Text color='tomato'>{errors?.SubSpeciality?.message}</Text>
+
             </FormControl>
             <FormControl>
               <FormLabel>Language Spoken</FormLabel>
-              <Select placeholder='Select option'>
+              <Select placeholder='Select option' {...register('LanguageSpoken')}>
                 <option value='option1'>Option 1</option>
                 <option value='option2'>Option 2</option>
                 <option value='option3'>Option 3</option>
               </Select>
+              <Text color='tomato'>{errors?.LanguageSpoken?.message}</Text>
+
             </FormControl>
+            <Input type="submit" onClick={handleSubmit()} />
+
           </FormLayout>
         </Stack>
       </PageLayout>

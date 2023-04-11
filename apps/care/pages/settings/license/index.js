@@ -19,12 +19,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 const schema = yup
   .object({
-    username: yup
-      .string()
-      .min(3, 'Must be more than 3 characters')
-      .required('Can’t be blank'),
-    email: yup.string().email('Address is invalid'),
-    bio: yup.string().max(50, 'Must be less than 50 characters'),
+    country: yup.string().required('Required field'),
+    authority: yup.string().required('Required field'),
+    registration: yup.string().required('Required field'),
+    tc: yup.boolean().oneOf(
+      [true],
+      "Please accept terms and conditons"
+    )
   })
   .required();
 
@@ -77,15 +78,21 @@ const License = () => {
           >
             <FormControl id="country">
               <FormLabel>Country</FormLabel>
-              <Input />
+              <Input {...register('country')} />
+              <Text color='tomato'>{errors?.country?.message}</Text>
+
             </FormControl>
             <FormControl id="authority">
               <FormLabel>Responsible authority</FormLabel>
-              <Input />
+              <Input  {...register('authority')}/>
+              <Text color='tomato'>{errors?.authority?.message}</Text>
+
             </FormControl>
             <FormControl id="registration">
               <FormLabel>Registration / Doctor number</FormLabel>
-              <Input />
+              <Input {...register('registration')}/>
+              <Text color='tomato'>{errors?.registration?.message}</Text>
+
             </FormControl>
           </FormLayout>
           <FormLayout
@@ -167,10 +174,12 @@ const License = () => {
             description="AIS terms and its privacy policy"
           >
             <FormControl>
-              <Checkbox>
-                By clicking this you accept AIS terms and its privacy policy
-              </Checkbox>
+            <input colorScheme='teal' type="checkbox" {...register("tc")} />
+            By clicking this you accept AIS terms and its privacy policy
+            <Text color='tomato'>{errors?.tc?.message}</Text>
+
             </FormControl>
+            <Input type="submit" onClick={handleSubmit()} />
           </FormLayout>
         </Stack>
       </PageLayout>

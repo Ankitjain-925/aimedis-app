@@ -38,14 +38,14 @@ import { Icon } from '@chakra-ui/react'
 
 const Prescriptions = () => {
 
-  const CircleIcon = (props) => (
-    <Icon viewBox='0 0 200 200' {...props} mt="3px">
-      <path
-        fill='currentColor'
-        d='M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0'
-      />
-    </Icon>
-  )
+const CircleIcon = (props) => (
+  <Icon viewBox='0 0 200 200' {...props} mt="3px">
+    <path
+      fill='currentColor'
+      d='M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0'
+    />
+  </Icon>
+)
   const Actions = (props) => (
     <Menu>
       <MenuButton >
@@ -79,7 +79,7 @@ const Prescriptions = () => {
       <Tab>Sent</Tab>
     </TabList>
     <TabPanels>
-      <TabPanel>
+      <TabPanel px="0px">
         <TableContainer>
           <Table variant='simple'>
             <Thead>
@@ -213,10 +213,9 @@ const Prescriptions = () => {
           </Table>
         </TableContainer>
       </TabPanel>
-      <TabPanel>
+      <TabPanel px="0px">
         <TableContainer>
           <Table variant='simple'>
-
             <Thead>
               <Tr>
                 <Th>Pharmacist</Th>
@@ -407,10 +406,10 @@ const Prescriptions = () => {
           </Box>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme='blue' mr={3} onClick={onClose}>
+          <Button variant='ghost' onClick={onClose}>Reject</Button>
+          <Button colorScheme='teal' mr={3} onClick={onClose}>
             Accept
           </Button>
-          <Button variant='ghost' onClick={onClose}>Reject</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

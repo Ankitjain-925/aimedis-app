@@ -9,6 +9,7 @@ import {
   FormLabel,
   Input,
   Stack,
+  Text,
   StackDivider,
   Textarea,
 } from '@chakra-ui/react';
@@ -18,12 +19,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 const schema = yup
   .object({
-    username: yup
-      .string()
-      .min(3, 'Must be more than 3 characters')
-      .required('Can’t be blank'),
-    email: yup.string().email('Address is invalid'),
-    bio: yup.string().max(50, 'Must be less than 50 characters'),
+
+    offer: yup.string().required('Required field'),
+    Latestinformation: yup.string().required('Required field'),
   })
   .required();
 
@@ -40,28 +38,28 @@ const Office = () => {
 
   return (
     <SettingsLayout
-    links={[
-      {
-        label: 'Basic Information',
-        href: '/settings',
-        icon: IoMdInformationCircle,
-      },
-      {
-        label: 'Office Information',
-        href: '/settings/office',
-        icon: IoMdInformationCircle,
-      },
-      {
-        label: 'Service and Appointment',
-        href: '/settings/services',
-        icon: MdMedicalServices,
-      },
-      {
-        label: 'License',
-        href: '/settings/license',
-        icon: TbLicense,
-      }
-    ]}
+      links={[
+        {
+          label: 'Basic Information',
+          href: '/settings',
+          icon: IoMdInformationCircle,
+        },
+        {
+          label: 'Office Information',
+          href: '/settings/office',
+          icon: IoMdInformationCircle,
+        },
+        {
+          label: 'Service and Appointment',
+          href: '/settings/services',
+          icon: MdMedicalServices,
+        },
+        {
+          label: 'License',
+          href: '/settings/license',
+          icon: TbLicense,
+        }
+      ]}
     >
       <PageLayout
         title="Office information"
@@ -76,17 +74,22 @@ const Office = () => {
           >
             <FormControl isInvalid={errors.offer}>
               <FormLabel htmlFor="we_offer">We offer</FormLabel>
-              <Input />
-              <FormErrorMessage>{errors.we_offer?.message}</FormErrorMessage>
+              <Input {...register('offer')} />
+              <Text color='tomato'>{errors?.offer?.message}</Text>
+
             </FormControl>
             <FormControl isInvalid={errors.information}>
               <FormLabel htmlFor="latest_information">Latest information</FormLabel>
               <Textarea
                 _placeholder={{ color: 'subtle' }}
                 resize="none"
+                {...register('Latestinformation')}
               />
-              <FormErrorMessage>{errors.latest_information?.message}</FormErrorMessage>
+              <Text color='tomato'>{errors?.Latestinformation?.message}</Text>
+
             </FormControl>
+            <Input type="submit" onClick={handleSubmit()} />
+
           </FormLayout>
         </Stack>
       </PageLayout>
