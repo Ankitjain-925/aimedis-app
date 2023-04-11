@@ -4,12 +4,14 @@ import Link from 'next/link';
 import { Logo, LogoIcon } from '../../common/Logo';
 import { NavButton } from './NavButton';
 
-export const Sidebar = ({ links = [], actions, footer }) => (
-  <Flex as="section" minH="100vh" bg="bg-canvas">
+export const Sidebar = ({ Value, links = [], actions, footer }) => (
+  console.log("Sidebar", Value),
+  <Flex as="section" minH="100vh" bg="bg-canvas" >
     <Flex
       flex="1"
       bg="bg-surface"
       overflowY="auto"
+      overflow={"inherit"}
       boxShadow="sm"
       maxW={{
         base: 'full',
@@ -32,12 +34,13 @@ export const Sidebar = ({ links = [], actions, footer }) => (
               if (!link?.children?.length) {
                 return (
                   <Link href={link.href}>
-                  <NavButton
-                    key={index}
-                    label={link.label}
-                    href={link.href}
-                    icon={link.icon}
-                  />
+                    <NavButton
+                      Value={Value}
+                      key={index}
+                      label={link.label}
+                      href={link.href}
+                      icon={link.icon}
+                    />
                   </Link>
                 );
               }
@@ -49,14 +52,15 @@ export const Sidebar = ({ links = [], actions, footer }) => (
                     </Text>
                   )}
                   {link.children.map((childLink, index) => (
-                  <Link href={childLink.href}>
+                    <Link href={childLink.href}>
 
-                    <NavButton
-                      key={index}
-                      label={childLink.label}
-                      href={childLink.href}
-                      icon={childLink.icon}
-                    />
+                      <NavButton
+                        Value={Value}
+                        key={index}
+                        label={childLink.label}
+                        href={childLink.href}
+                        icon={childLink.icon}
+                      />
                     </Link>
                   ))}
                 </Stack>

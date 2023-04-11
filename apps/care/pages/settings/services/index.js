@@ -151,7 +151,7 @@ import { DateRange } from 'react-date-range';
 
 
 
-    
+
 
 
 
@@ -333,7 +333,7 @@ const Office = () => {
             </Stack>
           </FormLayout>
 
-          
+
           <FormLayout
             title="Appointments Schedule"
             description="Please enter time slots"
@@ -520,223 +520,223 @@ const Office = () => {
             description="Basic Appointment Information"
           >
 
-{videocall && (
-            <Stack spacing="6" direction={{ base: 'column' }}>
-              {/* <Flex justifyContent="flex-end">
+            {videocall && (
+              <Stack spacing="6" direction={{ base: 'column' }}>
+                {/* <Flex justifyContent="flex-end">
                 <Switch size='md' colorScheme='teal' />
               </Flex> */}
-              <FormControl id="firstName">
-                {/* <Checkbox colorScheme='teal' defaultChecked> */}
-                <Text fontSize="md" fontWeight="600">Video call</Text>
-                {/* </Checkbox> */}
-              </FormControl>
-              <Flex display="flex">
-                <Box w="50%"> <Text>Set time duration:</Text></Box>
-                <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('videocall1')}/></Box>
-              
-
-              </Flex>
-              <Text color='tomato'>{errors?.videocall1?.message}</Text>
-              <Flex display="flex">
-                <Box w="50%"> <Text>Break time:</Text></Box>
-                <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('videocall2')} /></Box>
-
-              </Flex>
-              <Text color='tomato'>{errors?.videocall2?.message}</Text>
-
-              <Flex display="flex">
-                <Box w="50%"></Box>
-                <Box w="50%"><Input w="100%" ml="10px" h="5vh" placeholder='60' /></Box>
-              </Flex>
-
-              <Text>Appointments can be booked:</Text>
-              <Flex display="flex">
-                <Box w="25%"> <Text fontSize="12px">Up to days:</Text></Box>
-                <Box w="35%"><Input type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('videocall3')} />   </Box>
-                <Box w="40%"><Text fontSize="12px">before the day of appointment</Text></Box>
-
-              </Flex>
-              <Text color='tomato'>{errors?.videocall3?.message}</Text>
-
-              <Text>Appointments can be cancelled:</Text>
-              <Flex display="flex">
-                <Box w="10%"> <Text fontSize="12px">Max:</Text></Box>
-                <Box w="40%"><Input  type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('videocall4')}/>   </Box>
-                <Box w="50%"><Text fontSize="12px">hours before the time of appointment</Text></Box>
-
-              </Flex>
-              <Text color='tomato'>{errors?.videocall4?.message}</Text>
-
-            </Stack>
-)}
-
-{officevisit && (
-            <Stack spacing="6" direction={{ base: 'column' }} borderTop="1px" borderColor="gray.200" pt="25px">
-              <FormControl id="firstName">
-                <Text fontSize="md" fontWeight="600">Office visit</Text>
-              </FormControl>
-              <Flex display="flex">
-                <Box w="50%"> <Text>Set time duration:</Text></Box>
-                <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('officevisit1')}/></Box>
-
-              </Flex>
-              <Text color='tomato'>{errors?.officevisit1?.message}</Text>
-
-              <Flex display="flex">
-                <Box w="50%"> <Text>Break time:</Text></Box>
-                <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('officevisit2')}/></Box>
-
-              </Flex>
-              <Text color='tomato'>{errors?.officevisit2?.message}</Text>
-
-              <Flex display="flex">
-                <Box w="50%"></Box>
-                <Box w="50%"><Input w="100%" ml="10px" h="5vh" placeholder='60' /></Box>
-              </Flex>
-
-              <Text>Appointments can be booked:</Text>
-              <Flex display="flex">
-                <Box w="25%"> <Text fontSize="12px">Up to days:</Text></Box>
-                <Box w="35%"><Input type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('officevisit3')}/>   </Box>
-                <Box w="40%"><Text fontSize="12px">before the day of appointment</Text></Box>
-
-              </Flex>
-              <Text color='tomato'>{errors?.officevisit3?.message}</Text>
+                <FormControl id="firstName">
+                  {/* <Checkbox colorScheme='teal' defaultChecked> */}
+                  <Text fontSize="md" fontWeight="600">Video call</Text>
+                  {/* </Checkbox> */}
+                </FormControl>
+                <Flex display="flex">
+                  <Box w="50%"> <Text>Set time duration:</Text></Box>
+                  <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('videocall1')} /></Box>
 
 
-              <Text>Appointments can be cancelled:</Text>
-              <Flex display="flex">
-                <Box w="10%"> <Text fontSize="12px">Max:</Text></Box>
-                <Box w="40%"><Input type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('officevisit4')}/>   </Box>
-                <Box w="50%"><Text fontSize="12px">hours before the time of appointment</Text></Box>
+                </Flex>
+                <Text color='tomato'>{errors?.videocall1?.message}</Text>
+                <Flex display="flex">
+                  <Box w="50%"> <Text>Break time:</Text></Box>
+                  <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('videocall2')} /></Box>
 
-              </Flex>
-              <Text color='tomato'>{errors?.officevisit4?.message}</Text>
+                </Flex>
+                <Text color='tomato'>{errors?.videocall2?.message}</Text>
 
-            </Stack>
+                <Flex display="flex">
+                  <Box w="50%"></Box>
+                  <Box w="50%"><Input w="100%" ml="10px" h="5vh" placeholder='60' /></Box>
+                </Flex>
 
-)}
+                <Text>Appointments can be booked:</Text>
+                <Flex display="flex">
+                  <Box w="25%"> <Text fontSize="12px">Up to days:</Text></Box>
+                  <Box w="35%"><Input type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('videocall3')} />   </Box>
+                  <Box w="40%"><Text fontSize="12px">before the day of appointment</Text></Box>
 
-{consultancy && (
-            <Stack spacing="6" direction={{ base: 'column' }} borderTop="1px" borderColor="gray.200" pt="25px">
-              <FormControl id="firstName">
-                <Text fontSize="md" fontWeight="600">Consultancy (Custom calendar)</Text>
-              </FormControl>
-              <Flex display="flex">
-                <Box w="50%"> <Text>Set time duration:</Text></Box>
-                <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('consultancy1')}/></Box>
+                </Flex>
+                <Text color='tomato'>{errors?.videocall3?.message}</Text>
 
-              </Flex>
-              <Text color='tomato'>{errors?.consultancy1?.message}</Text>
+                <Text>Appointments can be cancelled:</Text>
+                <Flex display="flex">
+                  <Box w="10%"> <Text fontSize="12px">Max:</Text></Box>
+                  <Box w="40%"><Input type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('videocall4')} />   </Box>
+                  <Box w="50%"><Text fontSize="12px">hours before the time of appointment</Text></Box>
 
-              <Flex display="flex">
-                <Box w="50%"> <Text>Break time:</Text></Box>
-                <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('consultancy2')}/></Box>
+                </Flex>
+                <Text color='tomato'>{errors?.videocall4?.message}</Text>
 
-              </Flex>
-              <Text color='tomato'>{errors?.consultancy2?.message}</Text>
+              </Stack>
+            )}
 
-              <Flex display="flex">
-                <Box w="50%"></Box>
-                <Box w="50%"><Input w="100%" ml="10px" h="5vh" placeholder='60' /></Box>
-              </Flex>
+            {officevisit && (
+              <Stack spacing="6" direction={{ base: 'column' }} borderTop="1px" borderColor="gray.200" pt="25px">
+                <FormControl id="firstName">
+                  <Text fontSize="md" fontWeight="600">Office visit</Text>
+                </FormControl>
+                <Flex display="flex">
+                  <Box w="50%"> <Text>Set time duration:</Text></Box>
+                  <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('officevisit1')} /></Box>
 
-              <Text>Appointments can be booked:</Text>
-              <Flex display="flex">
-                <Box w="25%"> <Text fontSize="12px">Up to days:</Text></Box>
-                <Box w="35%"><Input type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('consultancy3')}/>   </Box>
-                <Box w="40%"><Text fontSize="12px">before the day of appointment</Text></Box>
+                </Flex>
+                <Text color='tomato'>{errors?.officevisit1?.message}</Text>
 
-              </Flex>
-              <Text color='tomato'>{errors?.consultancy3?.message}</Text>
+                <Flex display="flex">
+                  <Box w="50%"> <Text>Break time:</Text></Box>
+                  <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('officevisit2')} /></Box>
 
-              <Text>Appointments can be cancelled:</Text>
-              <Flex display="flex">
-                <Box w="10%"> <Text fontSize="12px">Max:</Text></Box>
-                <Box w="40%"><Input type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('consultancy4')}/>   </Box>
-                <Box w="50%"><Text fontSize="12px">hours before the time of appointment</Text></Box>
+                </Flex>
+                <Text color='tomato'>{errors?.officevisit2?.message}</Text>
 
-              </Flex>
-              <Text color='tomato'>{errors?.consultancy4?.message}</Text>
+                <Flex display="flex">
+                  <Box w="50%"></Box>
+                  <Box w="50%"><Input w="100%" ml="10px" h="5vh" placeholder='60' /></Box>
+                </Flex>
 
-            </Stack>
-)}
+                <Text>Appointments can be booked:</Text>
+                <Flex display="flex">
+                  <Box w="25%"> <Text fontSize="12px">Up to days:</Text></Box>
+                  <Box w="35%"><Input type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('officevisit3')} />   </Box>
+                  <Box w="40%"><Text fontSize="12px">before the day of appointment</Text></Box>
 
-{sickleave && (
-            <Stack spacing="6" direction={{ base: 'column' }} borderTop="1px" borderColor="gray.200" pt="25px">
-              <FormControl id="firstName">
-                <Text fontSize="md" fontWeight="600">Sick leave certificate</Text>
-              </FormControl>
-              <Flex display="flex">
-                <Box w="50%"> <Text>Set time duration:</Text></Box>
-                <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('sickleave1')}/></Box>
-
-              </Flex>
-              <Text color='tomato'>{errors?.sickleave1?.message}</Text>
-
-              <Flex display="flex">
-                <Box w="50%"> <Text>Break time:</Text></Box>
-                <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('sickleave2')}/></Box>
-
-              </Flex>
-              <Text color='tomato'>{errors?.sickleave2?.message}</Text>
-
-              <Flex display="flex">
-                <Box w="50%"></Box>
-                <Box w="50%"><Input w="100%" ml="10px" h="5vh" placeholder='60' /></Box>
-            
-
-              </Flex>
-            </Stack>
-)}
-
-{homevisit && (
-            <Stack spacing="6" direction={{ base: 'column' }} borderTop="1px" borderColor="gray.200" pt="25px">
-              <FormControl id="firstName">
-                <Text fontSize="md" fontWeight="600">Home visit</Text>
-              </FormControl>
-              <Flex display="flex">
-                <Box w="50%"> <Text>Set time duration:</Text></Box>
-                <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('homevisit1')}/></Box>
-
-              </Flex>
-              <Text color='tomato'>{errors?.homevisit1?.message}</Text>
-
-              <Flex display="flex">
-                <Box w="50%"> <Text>Break time:</Text></Box>
-                <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('homevisit2')}/></Box>
-
-              </Flex>
-              <Text color='tomato'>{errors?.homevisit2?.message}</Text>
-
-              <Flex display="flex">
-                <Box w="50%"></Box>
-                <Box w="50%"><Input w="100%" ml="10px" h="5vh" placeholder='60' /></Box>
-              </Flex>
-
-              <Text>Appointments can be booked:</Text>
-              <Flex display="flex">
-                <Box w="25%"> <Text fontSize="12px">Up to days:</Text></Box>
-                <Box w="35%"><Input type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('homevisit3')}/>   </Box>
-                <Box w="40%"><Text fontSize="12px">before the day of appointment</Text></Box>
-
-              </Flex>
-              <Text color='tomato'>{errors?.homevisit3?.message}</Text>
+                </Flex>
+                <Text color='tomato'>{errors?.officevisit3?.message}</Text>
 
 
-              <Text>Appointments can be cancelled:</Text>
-              <Flex display="flex">
-                <Box w="10%"> <Text fontSize="12px">Max:</Text></Box>
-                <Box w="40%"><Input type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('homevisit4')}/>   </Box>
-                <Box w="50%"><Text fontSize="12px">hours before the time of appointment</Text></Box>
+                <Text>Appointments can be cancelled:</Text>
+                <Flex display="flex">
+                  <Box w="10%"> <Text fontSize="12px">Max:</Text></Box>
+                  <Box w="40%"><Input type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('officevisit4')} />   </Box>
+                  <Box w="50%"><Text fontSize="12px">hours before the time of appointment</Text></Box>
 
-              </Flex>
-              <Text color='tomato'>{errors?.homevisit4?.message}</Text>
+                </Flex>
+                <Text color='tomato'>{errors?.officevisit4?.message}</Text>
 
-            </Stack>
-)}
+              </Stack>
 
-        <Input type="submit"  />
+            )}
+
+            {consultancy && (
+              <Stack spacing="6" direction={{ base: 'column' }} borderTop="1px" borderColor="gray.200" pt="25px">
+                <FormControl id="firstName">
+                  <Text fontSize="md" fontWeight="600">Consultancy (Custom calendar)</Text>
+                </FormControl>
+                <Flex display="flex">
+                  <Box w="50%"> <Text>Set time duration:</Text></Box>
+                  <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('consultancy1')} /></Box>
+
+                </Flex>
+                <Text color='tomato'>{errors?.consultancy1?.message}</Text>
+
+                <Flex display="flex">
+                  <Box w="50%"> <Text>Break time:</Text></Box>
+                  <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('consultancy2')} /></Box>
+
+                </Flex>
+                <Text color='tomato'>{errors?.consultancy2?.message}</Text>
+
+                <Flex display="flex">
+                  <Box w="50%"></Box>
+                  <Box w="50%"><Input w="100%" ml="10px" h="5vh" placeholder='60' /></Box>
+                </Flex>
+
+                <Text>Appointments can be booked:</Text>
+                <Flex display="flex">
+                  <Box w="25%"> <Text fontSize="12px">Up to days:</Text></Box>
+                  <Box w="35%"><Input type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('consultancy3')} />   </Box>
+                  <Box w="40%"><Text fontSize="12px">before the day of appointment</Text></Box>
+
+                </Flex>
+                <Text color='tomato'>{errors?.consultancy3?.message}</Text>
+
+                <Text>Appointments can be cancelled:</Text>
+                <Flex display="flex">
+                  <Box w="10%"> <Text fontSize="12px">Max:</Text></Box>
+                  <Box w="40%"><Input type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('consultancy4')} />   </Box>
+                  <Box w="50%"><Text fontSize="12px">hours before the time of appointment</Text></Box>
+
+                </Flex>
+                <Text color='tomato'>{errors?.consultancy4?.message}</Text>
+
+              </Stack>
+            )}
+
+            {sickleave && (
+              <Stack spacing="6" direction={{ base: 'column' }} borderTop="1px" borderColor="gray.200" pt="25px">
+                <FormControl id="firstName">
+                  <Text fontSize="md" fontWeight="600">Sick leave certificate</Text>
+                </FormControl>
+                <Flex display="flex">
+                  <Box w="50%"> <Text>Set time duration:</Text></Box>
+                  <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('sickleave1')} /></Box>
+
+                </Flex>
+                <Text color='tomato'>{errors?.sickleave1?.message}</Text>
+
+                <Flex display="flex">
+                  <Box w="50%"> <Text>Break time:</Text></Box>
+                  <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('sickleave2')} /></Box>
+
+                </Flex>
+                <Text color='tomato'>{errors?.sickleave2?.message}</Text>
+
+                <Flex display="flex">
+                  <Box w="50%"></Box>
+                  <Box w="50%"><Input w="100%" ml="10px" h="5vh" placeholder='60' /></Box>
+
+
+                </Flex>
+              </Stack>
+            )}
+
+            {homevisit && (
+              <Stack spacing="6" direction={{ base: 'column' }} borderTop="1px" borderColor="gray.200" pt="25px">
+                <FormControl id="firstName">
+                  <Text fontSize="md" fontWeight="600">Home visit</Text>
+                </FormControl>
+                <Flex display="flex">
+                  <Box w="50%"> <Text>Set time duration:</Text></Box>
+                  <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('homevisit1')} /></Box>
+
+                </Flex>
+                <Text color='tomato'>{errors?.homevisit1?.message}</Text>
+
+                <Flex display="flex">
+                  <Box w="50%"> <Text>Break time:</Text></Box>
+                  <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('homevisit2')} /></Box>
+
+                </Flex>
+                <Text color='tomato'>{errors?.homevisit2?.message}</Text>
+
+                <Flex display="flex">
+                  <Box w="50%"></Box>
+                  <Box w="50%"><Input w="100%" ml="10px" h="5vh" placeholder='60' /></Box>
+                </Flex>
+
+                <Text>Appointments can be booked:</Text>
+                <Flex display="flex">
+                  <Box w="25%"> <Text fontSize="12px">Up to days:</Text></Box>
+                  <Box w="35%"><Input type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('homevisit3')} />   </Box>
+                  <Box w="40%"><Text fontSize="12px">before the day of appointment</Text></Box>
+
+                </Flex>
+                <Text color='tomato'>{errors?.homevisit3?.message}</Text>
+
+
+                <Text>Appointments can be cancelled:</Text>
+                <Flex display="flex">
+                  <Box w="10%"> <Text fontSize="12px">Max:</Text></Box>
+                  <Box w="40%"><Input type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('homevisit4')} />   </Box>
+                  <Box w="50%"><Text fontSize="12px">hours before the time of appointment</Text></Box>
+
+                </Flex>
+                <Text color='tomato'>{errors?.homevisit4?.message}</Text>
+
+              </Stack>
+            )}
+
+            <Input type="submit" />
 
 
 
