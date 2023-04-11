@@ -10,6 +10,7 @@ import { MdDashboard } from 'react-icons/md';
 import { HiDocument } from 'react-icons/hi';
 import { Box, Text, Switch, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
+import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 
 export default function App({ Component, pageProps }) {
   const [Value, setValue] = useState(false);
@@ -30,9 +31,8 @@ export default function App({ Component, pageProps }) {
               navbar={{
                 leftContent: (
                   <Flex alignItems="center">
-                    <Switch size="md" colorScheme="teal"
-                      onChange={(e) => setValue(e.target.checked)}
-                    />
+                    {Value ? <ArrowLeftIcon color="gray.500" onClick={() => setValue(false)} /> :
+                      <ArrowRightIcon color="gray.500" onClick={() => setValue(true)} />}
                   </Flex>
                 ),
                 middleContent: (

@@ -21,13 +21,13 @@ export const NavButton = (props) => {
       <HStack spacing="3">
         <Popover>
           <PopoverTrigger>
-
             <Icon as={icon} boxSize="6" color="subtle" />
           </PopoverTrigger>
           {!Value &&
             <PopoverContent width="auto"
-              left="0"
-              top="35px">
+              left="32px"
+              top="3px"
+            >
               <PopoverArrow />
               {/* <PopoverCloseButton /> */}
               {/* <PopoverHeader>  gfhdfhdhfg{label}</PopoverHeader> */}
