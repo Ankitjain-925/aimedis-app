@@ -78,7 +78,7 @@ export default function Server() {
     resolver: yupResolver(schema),
   });
 
-  const heads = ["Icon", "Name", "Description", "Actions"];
+  const heads = ["Icon", "Name", "Description","Space","Space Name", "Actions"];
 
   const { isLoading, data: servers, error } = useAllServerQuery();
   const { worldLoading, data: worlds, worldError } = useAllWorldQuery();
@@ -107,7 +107,7 @@ export default function Server() {
     onSuccess: () => {
       setName("");
       setDescription("");
-      setSpace("");
+      setSpace(null);
       setRadioValue("world");
       onClose();
       queryClient.invalidateQueries("allservers");
@@ -132,6 +132,8 @@ export default function Server() {
         queryClient.invalidateQueries("allservers");
         setName("");
         setDescription("");
+        setSpace(null);
+        setRadioValue("world");
         setEditing(false);
         handleClose();
       },
@@ -140,12 +142,13 @@ export default function Server() {
       },
     });
 
-  const editHandler = (id, name, description) => {
-    console.log(id, name, description);
+  const editHandler = (id, name, description , space , radioValue) => {
+    console.log(id, name, description, space);
     setName(name);
     setDescription(description);
     setId(id);
     setSpace(space);
+    setRadioValue(radioValue);
     setEditing(true);
     onOpen();
   };
@@ -189,8 +192,40 @@ export default function Server() {
     //  await onClose()
   };
 
-  const handleServerUpdate = (id, name, description) => {
-    updateServer({ id, name, description });
+  const handleServerUpdate = (id, name, description, space) => {
+    // updateServer({ id, name, description });
+
+    let updatedServerData;
+
+    if (radioValue == "world") {
+      updatedServerData = {
+        name,
+        description,
+        world_id: space,
+        building_id: null,
+        room_id: null,
+      };
+    }
+    if (radioValue == "building") {
+      updatedServerData = {
+        name,
+        description,
+        building_id: space,
+        world_id: null,
+        room_id: null,
+      };
+    }
+    if (radioValue == "room") {
+      updatedServerData = {
+        name,
+        description,
+        room_id: space,
+        building_id: null,
+        world_id: null,
+      };
+    }
+
+    updateServer(updatedServerData);
     //  await onClose()
   };
 
@@ -245,7 +280,6 @@ export default function Server() {
           <ModalCloseButton isDisabled={isMutating} />
           <ModalBody pb={6}>
             <Stack spacing={5}>
-
               <FormControl>
                 <FormLabel>Name</FormLabel>
                 <Input
@@ -274,12 +308,15 @@ export default function Server() {
                 </FormErrorMessage>
               </FormControl>
 
-
-              <RadioCardGroup defaultValue="world" spacing="3" onChange={handleRadioChange}>
+              <RadioCardGroup
+                defaultValue={radioValue}
+                spacing='3'
+                onChange={handleRadioChange}
+              >
                 {["world", "building", "room"].map((option) => (
                   <RadioCard key={option} value={option}>
-                    <Text color="emphasized" fontWeight="medium" fontSize="sm">
-                       {option.charAt(0).toUpperCase() + option.slice(1)}
+                    <Text color='emphasized' fontWeight='medium' fontSize='sm'>
+                      {option.charAt(0).toUpperCase() + option.slice(1)}
                     </Text>
                     {/* <Text color="muted" fontSize="sm">
                       Jelly biscuit muffin icing dessert powder macaroon.
@@ -287,34 +324,38 @@ export default function Server() {
                   </RadioCard>
                 ))}
               </RadioCardGroup>
-                    <CustomSelect
-                      name={radioValue}
-                      value={space}
-                      onChange={setSpace}
-                      placeholder={"Select " +radioValue.charAt(0).toUpperCase() + radioValue.slice(1)}
-                      >
-                      {radioValue === 'world' && worlds?(
-                      worlds.map((world)=>
-                        <Option key={world.id} value={world.id}>
-                            <Text>{world.name}</Text>
-                        </Option>)
-      
-      ):null}
-                      {radioValue === 'building' && buildings?(
-                      buildings.map((building)=>
-                        <Option key={building.id} value={building.id}>
-                            <Text>{building.name}</Text>
-                        </Option>)
-      
-      ):null}
-                      {radioValue === 'room' && rooms?(
-                      rooms.map((room)=>
-                        <Option key={room.id} value={room.id}>
-                            <Text>{room.name}</Text>
-                        </Option>)
-      
-      ):null}
-                    </CustomSelect>
+              <CustomSelect
+                name={radioValue}
+                value={space}
+                onChange={setSpace}
+                placeholder={
+                  "Select " +
+                  radioValue.charAt(0).toUpperCase() +
+                  radioValue.slice(1)
+                }
+              >
+                {radioValue === "world" && worlds
+                  ? worlds.map((world) => (
+                      <Option key={world.id} value={world.id}>
+                        <Text>{world.name}</Text>
+                      </Option>
+                    ))
+                  : null}
+                {radioValue === "building" && buildings
+                  ? buildings.map((building) => (
+                      <Option key={building.id} value={building.id}>
+                        <Text>{building.name}</Text>
+                      </Option>
+                    ))
+                  : null}
+                {radioValue === "room" && rooms
+                  ? rooms.map((room) => (
+                      <Option key={room.id} value={room.id}>
+                        <Text>{room.name}</Text>
+                      </Option>
+                    ))
+                  : null}
+              </CustomSelect>
             </Stack>
           </ModalBody>
 
@@ -326,7 +367,7 @@ export default function Server() {
               variant={"primary"}
               onClick={
                 editing
-                  ? () => handleServerUpdate(id, name, description)
+                  ? () => handleServerUpdate(id, name, description, space)
                   : handleServerAdd
               } // Check if editing is true
               isLoading={editing ? isUpdating : isMutating}
@@ -385,12 +426,22 @@ export default function Server() {
                   <Text>{p.description}</Text>
                 </Td>
                 <Td>
+                  <Text>
+                    {p.world_id ? "World": p.building_id ? "Building": p.room_id ? "Room" : "Independent"}
+                  </Text>
+                </Td>
+                <Td>
+                  <Text>
+                    {p.world_id ? p.world.name : p.building_id ? p.building.name : p.room_id ? p.room.name : "Independent"}
+                  </Text>
+                </Td>
+                <Td>
                   <HStack spacing='1'>
                     <IconButton
                       icon={<FiEdit2 fontSize='1.25rem' />}
                       variant='ghost'
                       aria-label='Edit member'
-                      onClick={() => editHandler(p.id, p.name, p.description)}
+                      onClick={() => editHandler(p.id, p.name, p.description, p.world_id ? p.world_id : p.building_id ? p.building_id: p.room_id , p.world_id ? "world" : p.building_id ? "building": "room")}
                     />
                     <IconButton
                       icon={<FiTrash2 fontSize='1.25rem' />}
