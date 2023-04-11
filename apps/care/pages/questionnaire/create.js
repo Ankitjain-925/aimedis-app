@@ -23,8 +23,8 @@ import Dropzone from "../dropzone/index"
 
 const Create = () => {
   const [openForm, setOpenForm] = useState(false);
-  const [value, setValue] = React.useState('1');
-  // const [painStatus, setPainStatus] = useState[""]
+  const [value, setValue] = useState('1');
+  // const [painStatus, setPainStatus] = useState[0];
 
 
   return <PageLayout
@@ -141,7 +141,7 @@ const Create = () => {
           <Box mb="20px">
             <Box mb="10px" w="80%">
               <Text mb="5px" fontSize="lg" fontWeight="500" color="teal">Falling Risk</Text>
-              <Text mb="5px" fontSize="xs">ask for incidents</Text>
+              <Text mb="5px" fontSize="xs">Ask for incidents</Text>
               <Checkbox size='md' colorScheme='teal' defaultChecked>
                 Did you fall today
               </Checkbox>
@@ -155,12 +155,12 @@ const Create = () => {
           <Box mb="20px">
             <Box mb="10px" w="80%">
               <Text mb="5px" fontSize="xs" fontWeight="600">o2 Saturation</Text>
-              <Text mb="5px" fontSize="xs">ask for incidents</Text>
+              <Text mb="5px" fontSize="xs">Ask for incidents</Text>
             </Box>
             <Input placeholder='Basic usage' />
           </Box>
 
-          <Box mb="10px">
+          <Box mb="20px">
             <Box>
               <Text mb="5px" fontSize="lg" fontWeight="500" color="teal">Thrombose Situation</Text>
               <Text mb="5px" fontSize="xs" fontWeight="600">Ask for Food</Text>
@@ -173,7 +173,7 @@ const Create = () => {
               </RadioGroup>
             </Box>
 
-            <Box mt="10px">
+            <Box mt="20px">
               <Text mb="5px" fontSize="xs" fontWeight="600">Water</Text>
               <Text mb="5px" fontSize="sm" color="gray.700">Have you been trinkung</Text>
               <RadioGroup onChange={setValue} value={value} mt="10px">
@@ -184,7 +184,7 @@ const Create = () => {
               </RadioGroup>
             </Box>
 
-            <Box mt="10px">
+            <Box mt="20px">
               <Text mb="5px" fontSize="xs" fontWeight="600">Toilet Situation</Text>
               <Text mb="5px" fontSize="sm" color="gray.700">Could you go to the Toilet</Text>
               <RadioGroup onChange={setValue} value={value} mt="10px">
@@ -197,13 +197,16 @@ const Create = () => {
 
           </Box>
 
-          <Box mb="10px">
+          <Box mb="20px">
             <Text mb="5px" fontSize="lg" fontWeight="500" color="teal">Pain Status</Text>
             <RangeSlider
               colorScheme='teal'
               aria-label={['min', 'max']}
               defaultValue={[0, 0]}
-            // onChange={(e) => setPainStatus(e[1])}
+            // onChange={(e) => {
+            //   const value = e[1]
+            //   setPainStatus(value)
+            // }}
             >
               <RangeSliderTrack>
                 <RangeSliderFilledTrack />
@@ -218,16 +221,94 @@ const Create = () => {
             <Text mb="5px" fontSize="xs" fontWeight="600">Picture with Scale</Text>
             <Dropzone />
             <Text mb="5px" fontSize="sm" fontWeight="500" color="teal">Supported file types .jpg, .png, .pdf, .doc, .dcm etc</Text>
-            <Text mb="5px" fontSize="xs" fontWeight="600">Amount of wounds</Text>
-            <Input type="number" placeholder='Enter amount of wounds' />
-            <Text mt="8px" mb="5px" fontSize="sm" color="gray.700">Better/ Worst</Text>
-            <RadioGroup onChange={setValue} value={value} mt="10px">
-              <Stack direction='row'>
-                <Radio colorScheme="teal" value='1'>Yes</Radio>
-                <Radio colorScheme="teal" value='2'>No</Radio>
+            <Box mb="20px">
+              <Box mb="10px" w="80%">
+                <Text mb="5px" fontSize="xs" fontWeight="600">Amount of wounds</Text>
+              </Box>
+              <Input placeholder='Basic usage' />
+            </Box>
+            <Box mb="20px">
+              <Box w="100%">
+                <Text mb="5px" fontSize="sm">Better / Worse</Text>
+              </Box>
+              <Stack direction={['column', 'row']} spacing='24px'>
+                <RadioGroup name="form-name">
+                  <Radio color="teal" mx="5px">Better</Radio>
+                  <Radio color="teal" mx="5px">Worse</Radio>
+                </RadioGroup>
               </Stack>
-            </RadioGroup>
+            </Box>
           </Box>
+
+          <Box mb="20px">
+
+            <Text mb="5px" fontSize="lg" fontWeight="600" color="teal">Depression Risk</Text>
+            <Text mb="5px" fontSize="xs">what was good today</Text>
+            <Checkbox size='md' colorScheme='teal' defaultChecked>
+              Can the Patient tell somethink Good this Day
+            </Checkbox>
+
+
+
+
+          </Box>
+
+
+          <Box mb="20px">
+            <Box mb="10px" w="80%">
+              <Text mb="5px" fontSize="lg" fontWeight="500" color="teal">Disorientation Level</Text>
+              <Text mb="5px" fontSize="xs">ask for News of the Day</Text>
+              <Checkbox size='md' colorScheme='teal' defaultChecked>
+                Can the Patient tell you a news of the Days
+              </Checkbox>
+              <Text mb="5px" fontSize="xs">Name of Family Members</Text>
+              <Checkbox size='md' colorScheme='teal' defaultChecked>
+                Does the Patient remember the Name of a Family Member
+              </Checkbox>
+            </Box>
+          </Box>
+
+          <Box mb="20px">
+
+            <Text mb="5px" fontSize="xs" fontWeight="600" color="teal">Sanitary Situation</Text>
+            <Text mb="5px" fontSize="xs">ask for incidents</Text>
+            <Checkbox size='md' colorScheme='teal' defaultChecked>
+              No Incidents at the Sanitary Situation
+            </Checkbox>
+
+
+
+
+          </Box>
+
+          <Box mb="20px">
+
+            <Text mb="5px" fontSize="xs" fontWeight="600" color="teal">Pneunomie Situation</Text>
+            <Checkbox size='md' colorScheme='teal' defaultChecked>
+              Sound Recording auscultation/Tech_development
+            </Checkbox>
+
+
+
+          </Box>
+
+          <Box mb="20px">
+            <Box mb="10px" w="80%">
+              <Text mb="5px" fontSize="lg" fontWeight="500" color="teal">Nutrition Situation</Text>
+              <Text mb="5px" fontSize="xs">Fruits</Text>
+              <Checkbox size='md' colorScheme='teal' defaultChecked>
+                Have u eaten Fruits
+              </Checkbox>
+              <Text mb="5px" fontSize="xs">Protein</Text>
+              <Checkbox size='md' colorScheme='teal' defaultChecked>
+                Have you eaten Meat/ Egg /Beans
+              </Checkbox>
+            </Box>
+          </Box>
+
+
+
+
 
 
           <Box mb="20px">
