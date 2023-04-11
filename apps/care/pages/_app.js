@@ -37,8 +37,8 @@ export default function App({ Component, pageProps }) {
               navbar={{
                 leftContent: (
                   <Flex alignItems="center">
-                    {Value ? <ArrowLeftIcon color="gray.500" onClick={() => setValue(false)} /> :
-                      <ArrowRightIcon color="gray.500" onClick={() => setValue(true)} />}
+                    {Value ? <ArrowLeftIcon cursor="pointer" color="gray.500" onClick={() => setValue(false)} /> :
+                      <ArrowRightIcon cursor="pointer" color="gray.500" onClick={() => setValue(true)} />}
                   </Flex>
                 ),
                 middleContent: (
