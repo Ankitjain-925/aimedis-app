@@ -1,8 +1,17 @@
-import { Button, HStack, Icon, Text } from '@chakra-ui/react';
+import {
+  Button, HStack, Icon, Text, Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+} from '@chakra-ui/react';
 import { Link } from 'next/link';
 
 export const NavButton = (props) => {
-  const { icon, label, href, ...buttonProps } = props;
+  const { Value, icon, label, href, ...buttonProps } = props;
   return (
     <Button
       variant="ghost"
@@ -10,8 +19,27 @@ export const NavButton = (props) => {
       {...buttonProps}
     >
       <HStack spacing="3">
-        <Icon as={icon} boxSize="6" color="subtle" />
-        <Text>{label}</Text>
+        <Popover>
+          <PopoverTrigger>
+            <Icon as={icon} boxSize="6" color="subtle" />
+          </PopoverTrigger>
+          {!Value &&
+            <PopoverContent width="auto"
+              left="32px"
+              top="3px"
+            >
+              <PopoverArrow />
+              {/* <PopoverCloseButton /> */}
+              {/* <PopoverHeader>  gfhdfhdhfg{label}</PopoverHeader> */}
+              <PopoverBody w={"5%"}>
+                <Text fontSize={"15px"}> {label}</Text>
+              </PopoverBody>
+            </PopoverContent>
+          }
+        </Popover>
+        {Value &&
+          <Text>{label}</Text>
+        }
       </HStack>
     </Button>
   );

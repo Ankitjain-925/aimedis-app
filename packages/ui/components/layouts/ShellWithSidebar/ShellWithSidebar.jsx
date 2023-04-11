@@ -17,11 +17,13 @@ import { Navbar as HomeNavBar } from '../HomeLayout/Navbar';
 import { AccountMenu } from '../../common/AccountMenu';
 
 export const ShellWithSidebar = ({ sidebar, navbar, children }) => {
-  const { links, actions, footer } = sidebar;
+  const {Value, links, actions, footer } = sidebar;
+  console.log("ShellWithSidebar",Value)
+
   const { leftContent, middleContent, rightContent } = navbar;
 
   const isDesktop = useBreakpointValue({
-    base: false,
+    base:  false,
     lg: true,
   });
   return (<>
@@ -37,7 +39,7 @@ export const ShellWithSidebar = ({ sidebar, navbar, children }) => {
       overflowY="auto"
     >
       {isDesktop ? (
-        <Sidebar links={links} actions={actions} footer={footer} />
+        <Sidebar Value={Value} links={links} actions={actions} footer={footer} />
       ) : (
         <Navbar
           leftContent={leftContent}

@@ -283,7 +283,7 @@ const Login = () => {
                     email={email}
                     onVerify={handleVerifyOTP}
                     isVerifying={isLoading === 'verify'}
-                    onResend={() => {}}
+                    onResend={() => { }}
                     isResending={isLoading === 'resend'}
                   />
                 </Stack>

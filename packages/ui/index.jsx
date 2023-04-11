@@ -32,3 +32,4 @@ export * from './components/common/CheckboxCardGroup';
 //PHONE INPUT
 export * from './components/inputs/PhoneNumberInput'
 export * from './components/common/TableSkeleton/TableSkeleton'
+export * from './components/common/SearchModal';
