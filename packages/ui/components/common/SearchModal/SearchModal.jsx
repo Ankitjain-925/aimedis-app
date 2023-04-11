@@ -61,6 +61,7 @@ export const SearchModal = ({ posts }) => {
                                             />
                                         )}
                                         <Flex
+                                            cursor="pointer"
                                             border="0.5px solid"
                                             _hover={{
                                                 background: "#00abaf",
