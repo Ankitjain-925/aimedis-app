@@ -59,8 +59,33 @@ export default function App({ Component, pageProps }) {
                     label: 'Section',
                     children: [
                       {
-                        label: 'Page',
-                        href: '/',
+                        label: 'Appointments',
+                        href: '/appointments',
+                        icon: HiDocument,
+                      },
+                      {
+                        label: 'Patients',
+                        href: '/patients',
+                        icon: HiDocument,
+                      },
+                      {
+                        label: 'Inquiries',
+                        href: '/inquiries',
+                        icon: HiDocument,
+                      },
+                      {
+                        label: 'Questionnaire',
+                        href: '/questionnaire',
+                        icon: HiDocument,
+                      },
+                      {
+                        label: 'Tasks',
+                        href: '/tasks',
+                        icon: HiDocument,
+                      },
+                      {
+                        label: 'Settings',
+                        href: '/settings',
                         icon: HiDocument,
                       },
                     ],
