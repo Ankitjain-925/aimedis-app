@@ -83,15 +83,7 @@ export const PhoneNumberInput = ({
             <UnorderedList
               boxShadow="xl"
               pl="3"
-              styleType="none"
-              top="40px"
-              width="200px"
-              left="0"
-              h={"200px"}
               overflow="auto"
-              height="300px"
-              position="absolute"
-              // borderColor="gray.900"
               borderRadius="6"
             >
               <ListItem>
