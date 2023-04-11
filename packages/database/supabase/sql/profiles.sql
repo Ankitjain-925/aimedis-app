@@ -112,3 +112,18 @@ create policy "Anyone can upload an avatar." on storage.objects
 --   );
 --   return new;
 -- end;  
+
+-- create or replace function delete_user_profile()
+-- returns trigger
+-- language 'plpgsql'
+-- security definer
+-- as $$
+-- begin
+--   delete from public.profiles where id = old.id;
+--   return old;
+-- end;
+-- $$;
+
+-- create trigger after_delete_user
+--   after delete on auth.users
+--   for each row execute function public.delete_user_profile();

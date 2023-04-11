@@ -23,28 +23,39 @@ import {
   FormLabel,
   Textarea,
   HStack,
-  Avatarup,
+  Tabs,
+  Tab,
+  Stack,
+  TabList,
   IconButton,
-  Form,
-  Alert,
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
+import Link from "next/link";
 
-import { TableSkeleton, AvatarUpload, useDatabase } from "ui";
+import {
+  TableSkeleton,
+  AvatarUpload,
+  useDatabase,
+  Option,
+  CustomSelect,
+  RadioCard,
+  RadioCardGroup,
+} from "ui";
 import { useRef, useState } from "react";
 import {
-  useAllTenantQuery,
-  useAddTenantMutation,
-  useDeleteTenantMutation,
-  useUpdateTenantMutation,
+  useAllRoomQuery,
+  useAddRoomMutation,
+  useDeleteRoomMutation,
+  useUpdateRoomMutation,
+  useAllBuildingQuery,
 } from "ui";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
-export default function Tenant() {
+export default function Room() {
   const schema = yup
     .object({
       name: yup
@@ -65,9 +76,14 @@ export default function Tenant() {
     resolver: yupResolver(schema),
   });
 
-  const heads = ["Icon", "Name", "Description", "Actions"];
+  const heads = ["Icon", "Name", "Description", "Building", "Actions"];
 
-  const { isLoading, data: tenants, error } = useAllTenantQuery();
+  const { isLoading, data: rooms, error } = useAllRoomQuery();
+  const {
+    isLoading: loadingBuildings,
+    data: buildings,
+    error: buildingError,
+  } = useAllBuildingQuery();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -75,35 +91,36 @@ export default function Tenant() {
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
   const [id, setId] = useState(null);
+  const [building, setBuilding] = useState(null);
   const [editing, setEditing] = useState(false);
 
   const { queryClient } = useDatabase();
 
-  const { mutate, isLoading: isMutating } = useAddTenantMutation({
+  const { mutate, isLoading: isMutating } = useAddRoomMutation({
     onSuccess: () => {
       setName("");
       setDescription("");
       onClose();
-      queryClient.invalidateQueries("alltenants");
+      queryClient.invalidateQueries("allrooms");
     },
     onError: (error) => {
       console.log(error);
     },
   });
-  const { mutate: deleteTenant, isLoading: isDeleting } =
-    useDeleteTenantMutation({
-      onSuccess: () => {
-        queryClient.invalidateQueries("alltenants");
-      },
-      onError: (error) => {
-        alert(error);
-      },
-    });
+  const { mutate: deleteRoom, isLoading: isDeleting } = useDeleteRoomMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries("allrooms");
+    },
+    onError: (error) => {
+      alert(error);
+    },
+  });
 
-  const { mutate: updateTenant, isLoading: isUpdating } =
-    useUpdateTenantMutation(id, {
+  const { mutate: updateRoom, isLoading: isUpdating } = useUpdateRoomMutation(
+    id,
+    {
       onSuccess: () => {
-        queryClient.invalidateQueries("alltenants");
+        queryClient.invalidateQueries("allrooms");
         setName("");
         setDescription("");
         setEditing(false);
@@ -112,32 +129,40 @@ export default function Tenant() {
       onError: (error) => {
         alert(error);
       },
-    });
+    }
+  );
 
-  const editHandler = (id, name, description) => {
+  const editHandler = (id, name, description, building_id) => {
     console.log(id, name, description);
     setName(name);
     setDescription(description);
+    setBuilding(building_id);
     setId(id);
     setEditing(true);
     onOpen();
   };
 
-  const handleTenantAdd = (e) => {
-    const newTenantData = {
+  const handleRoomAdd = (e) => {
+    const newRoomData = {
       name,
       description,
+      building_id: building,
     };
-    mutate(newTenantData);
+    mutate(newRoomData);
     //  await onClose()
   };
-  const handleTenantDelete = (id) => {
-    deleteTenant(id);
+  const handleRoomDelete = (id) => {
+    deleteRoom(id);
     //  await onClose()
   };
 
-  const handleTenantUpdate = (id, name, description) => {
-    updateTenant({ id, name, description });
+  const handleRoomUpdate = (id, name, description, building) => {
+    const updatedRoomData = {
+      name,
+      description,
+      building_id: building,
+    };
+    updateRoom(updatedRoomData);
     //  await onClose()
   };
 
@@ -147,7 +172,20 @@ export default function Tenant() {
   };
 
   if (isLoading) {
-    return <TableSkeleton heads={heads} />;
+    return (
+      <>
+        {/* <Tabs  size={'md'} variant="with-line" defaultIndex={2}>
+            <TabList>
+                <Tab><Link href='/servers'>Servers </Link></Tab>
+                <Tab><Link href='buildings'>Buildings </Link></Tab>
+                <Tab>Rooms</Tab>
+            </TabList>
+
+        </Tabs> */}
+
+        <TableSkeleton heads={heads} />
+      </>
+    );
   }
 
   if (error) {
@@ -161,54 +199,75 @@ export default function Tenant() {
         isOpen={isOpen}
         onClose={editing ? handleClose : onClose}
         size='xl'
-        borderRadius='0'
         isCentered
+        borderRadius='0'
       >
         <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px)' />
         <ModalContent borderRadius={0} w='100%'>
           <ModalHeader>
             {" "}
-            {editing ? "Update" : "Add new"} Tenant{" "}
+            {editing ? "Update" : "Add new"} Room{" "}
             <Text fontWeight='400' fontSize='sm'>
-              {editing ? "Updating" : "Adding new"} tenant on the metaverse
+              {editing ? "Updating" : "Adding new"} server on the metaverse
             </Text>{" "}
           </ModalHeader>
           <ModalCloseButton isDisabled={isMutating} />
           <ModalBody pb={6}>
-            <HStack spacing='5'>
-              <FormControl w='64px'>
-                <AvatarUpload
-                  src={""}
-                  avatarProps={{ size: "lg", bg: "bg-canvas" }}
-                  register={() => register("image")}
-                />
-              </FormControl>
+            <Stack>
+              <CustomSelect
+                name='Building'
+                value={building}
+                onChange={setBuilding}
+                placeholder='Select Building'
+              >
+                {buildings? (buildings.map((building) => (
+                  <Option key={building.id} value={building.id}>
+                    <Text>{building.name}</Text>
+                  </Option>
+                ))):null}
+              </CustomSelect>
+
               <FormControl>
                 <FormLabel>Name</FormLabel>
                 <Input
                   {...register("name")}
                   isInvalid={errors.name}
-                  placeholder='Tenant name'
+                  placeholder='Room name'
                   name='name'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
                 <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
               </FormControl>
-            </HStack>
 
-            <FormControl mt={4}>
-              <FormLabel>Description</FormLabel>
-              <Textarea
-                placeholder='Describe this tenant'
-                isInvalid={errors.description}
-                {...register("description")}
-                name='description'
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-              <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
-            </FormControl>
+              <FormControl mt={4} mb={4}>
+                <FormLabel>Description</FormLabel>
+                <Textarea
+                  placeholder='Describe this server'
+                  isInvalid={errors.description}
+                  {...register("description")}
+                  name='description'
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+                <FormErrorMessage>
+                  {errors.description?.message}
+                </FormErrorMessage>
+              </FormControl>
+
+              {/* <RadioCardGroup defaultValue='one' spacing='3'>
+                {["one", "two", "three"].map((option) => (
+                  <RadioCard key={option} value={option}>
+                    <Text color='emphasized' fontWeight='medium' fontSize='sm'>
+                      Option {option}
+                    </Text>
+                    <Text color='muted' fontSize='sm'>
+                      Jelly biscuit muffin icing dessert powder macaroon.
+                    </Text>
+                  </RadioCard>
+                ))}
+              </RadioCardGroup> */}
+            </Stack>
           </ModalBody>
 
           <ModalFooter>
@@ -219,8 +278,8 @@ export default function Tenant() {
               variant={"primary"}
               onClick={
                 editing
-                  ? () => handleTenantUpdate(id, name, description)
-                  : handleTenantAdd
+                  ? () => handleRoomUpdate(id, name, description)
+                  : handleRoomAdd
               } // Check if editing is true
               isLoading={editing ? isUpdating : isMutating}
               loadingText={editing ? "Updating" : "Adding"} // Change the label of the button
@@ -230,6 +289,15 @@ export default function Tenant() {
           </ModalFooter>
         </ModalContent>
       </Modal>
+
+      {/* <Tabs  size={'md'} variant="with-line" defaultIndex={2}>
+            <TabList>
+                <Tab><Link href='/servers'>Servers </Link></Tab>
+                <Tab><Link href='buildings'>Buildings </Link></Tab>
+                <Tab>Rooms</Tab>
+            </TabList>
+
+        </Tabs> */}
 
       <Flex justify='end' mb='4'>
         <Button
@@ -257,7 +325,7 @@ export default function Tenant() {
             </Tr>
           </Thead>
           <Tbody>
-            {tenants.map((p) => (
+            {rooms.map((p) => (
               <Tr key={p.id}>
                 <Td>
                   <Avatar name={p.name} src={p.logo_url} boxSize='10' />
@@ -269,18 +337,21 @@ export default function Tenant() {
                   <Text>{p.description}</Text>
                 </Td>
                 <Td>
+                  <Text>{p.building.name}</Text>
+                </Td>
+                <Td>
                   <HStack spacing='1'>
                     <IconButton
                       icon={<FiEdit2 fontSize='1.25rem' />}
                       variant='ghost'
                       aria-label='Edit member'
-                      onClick={() => editHandler(p.id, p.name, p.description)}
+                      onClick={() => editHandler(p.id, p.name, p.description, p.building_id)}
                     />
                     <IconButton
                       icon={<FiTrash2 fontSize='1.25rem' />}
                       variant='ghost'
                       aria-label='Delete member'
-                      onClick={() => handleTenantDelete(p.id)}
+                      onClick={() => handleRoomDelete(p.id)}
                       isDisabled={isDeleting}
                     />
                   </HStack>
