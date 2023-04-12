@@ -85,6 +85,17 @@ export const PhoneNumberInput = ({
               pl="3"
               overflow="auto"
               borderRadius="6"
+              style={{
+                overflowX: "scroll",
+                width: "300px",
+                maxHeight: "300px",
+                position: "absolute",
+                paddingLeft: "25px",
+                background: "white",
+                top: "42px",
+                left: "-15px",
+                listStyle: "none"
+              }}
             >
               <ListItem>
                 <Input
@@ -93,7 +104,7 @@ export const PhoneNumberInput = ({
                   size="sm"
                   placeholder="Search Country"
                   onChange={(e) => handleSelect(e)}
-                  // bg={useColorModeValue("gray.100", "gray.700")}
+                // bg={useColorModeValue("gray.100", "gray.700")}
                 />
               </ListItem>
               {filteredData.map((option) => (
@@ -131,9 +142,9 @@ export const PhoneNumberInput = ({
           pattern="[1-9]{1}[0-9]{9}"
           placeholder={placeholder}
           onChange={onPhoneNumberChange}
-          // bg={useColorModeValue("gray.100", "gray.700")}
+        // bg={useColorModeValue("gray.100", "gray.700")}
         />
-      </InputGroup>
+      </InputGroup >
     </>
   );
 }
