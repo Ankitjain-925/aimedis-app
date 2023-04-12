@@ -7,6 +7,7 @@ export * from './providers/Database';
 export * from './providers/User';
 export * from './providers/Crisp';
 
+export * from './hooks/useTable';
 export * from './hooks/useProfile';
 export * from './hooks/useWorld';
 export * from './hooks/useServer';
@@ -20,6 +21,10 @@ export * from './components/common/ColorSwitcher';
 export * from './components/common/Dropdown/CustomSelect';
 export * from './components/common/Dropdown/Option';
 export * from './components/common/RadioGroup/RadioCardGroup';
+export * from './components/common/AvatarUpload';
+export * from './components/common/CheckboxCardGroup';
+export * from './components/common/TableSkeleton/TableSkeleton';
+export * from './components/common/Actionbar';
 
 export * from './components/auth/HCaptchaModal';
 export * from './components/auth/VerifyModal';
@@ -31,10 +36,12 @@ export * from './components/layouts/SettingsLayout';
 export * from './components/layouts/FormLayout';
 
 export * from './components/scroll-menu-arrows/arrows';
-export * from './components/common/AvatarUpload';
-export * from './components/common/CheckboxCardGroup';
 
-//PHONE INPUT
-export * from './components/inputs/PhoneNumberInput'
-export * from './components/common/TableSkeleton/TableSkeleton'
+
+export * from './components/forms/Savebar';
+
+//Phone input / Datatable and stepIndicator
+export * from './components/tables/DataTable'; 
+export * from './components/common/StepIndicator';
+export * from './components/inputs/PhoneNumberInput';
 export * from './components/common/SearchModal';

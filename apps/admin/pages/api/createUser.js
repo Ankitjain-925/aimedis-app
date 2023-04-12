@@ -17,9 +17,15 @@ export default UserAuthorization(async function createUser(req, res) {
     const { data , error } = await supabase.auth.admin.createUser({  
         email: email,
         password: password,
-        email_confirm: true
+        email_confirm: true,
+        user_metadata: { created_by : 'Admin' }
       })
     
+    const { data: profileData, error: profileError } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", data.user.id)
+
     if(!error){
         return res.status(200).json({
             status: 200,
