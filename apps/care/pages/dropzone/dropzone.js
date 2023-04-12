@@ -19,32 +19,37 @@ import {
     Text,
     useColorModeValue,
     useToast,
-    Container
+    Container,
+    Progress
 } from '@chakra-ui/react';
 import { FiUploadCloud } from 'react-icons/fi'
+// import { truncate } from 'fs';
 
 
 const CDNURL = "https://jvogqxcgreynqmmenkqo.supabase.co/storage/v1/object/public/demo/";
 
 // CDNURL + user.id + "/" + image.name
 
-export default function App() {
-
+export default function App(props) {
+    const { path } = props;
     const [email, setEmail] = useState("");
     const [images, setImages] = useState([]);
     const [message, setmessage] = useState("");
-    const [empty,setEmpty]=useState("")
+    const [empty, setEmpty] = useState("")
+    const [UpdProcessing, setUpdProcessing] = useState(true)
 
     const user = useUser();
     const supabase = useSupabaseClient();
 
     async function getImages() {
+        setUpdProcessing(true);
         const { data, error } = await supabase
             .storage
             .from('demo')
             .list();
         if (data !== null) {
             setImages(data);
+            setUpdProcessing(false);
         } else {
             alert("Error loading images");
             console.log(error);
@@ -52,35 +57,35 @@ export default function App() {
     }
 
     useEffect(() => {
-
         getImages();
-
     }, []);
 
-    const reset=()=>{
+    const reset = () => {
         setEmpty(null)
-    } 
+    }
     async function uploadImage(e) {
+        setUpdProcessing(true);
         let file = e.target.files[0];
 
-        if(file){
+        if (file) {
             const { data, error } = await supabase
                 .storage
                 .from('demo')
                 .upload(`${file?.name}`, file)
-                console.log("error",data,error)
-                        if (data) {
-                            setmessage()
-                
-                            getImages();
-                        } else {
-                            setmessage(error.message)
-                        }
-                    }
-                    reset()
+            if (data) {
+                setmessage()
+
+                getImages();
+                setUpdProcessing(false);
+            } else {
+                setmessage(error.message)
+            }
+        }
+        reset()
     }
 
     async function deleteImage(imageName) {
+        setUpdProcessing(true);
         const { error } = await supabase
             .storage
             .from('demo')
@@ -90,13 +95,14 @@ export default function App() {
             alert(error);
         } else {
             getImages();
+            setUpdProcessing(false);
         }
     }
 
     return (
 
         <>
-        <Text fontSize="xs" color='tomato'> {message}</Text>  
+            <Text fontSize="xs" color='tomato'> {message}</Text>
             <Center
                 borderWidth="1px"
                 borderRadius="lg"
@@ -128,8 +134,8 @@ export default function App() {
                     </VStack>
                 </VStack>
                 <Input
-                     position="absolute"
-                     bottom="14px"
+                    position="absolute"
+                    bottom="14px"
                     opacity={"0"}
                     minHeight="100px"
                     type="File"
@@ -141,6 +147,8 @@ export default function App() {
 
                 />
             </Center>
+            {UpdProcessing &&
+                <Progress colorScheme='teal' size='sm' isIndeterminate />}
             <SimpleGrid spacing={2} templateColumns='repeat(auto-fill, minmax(200px, 1fr))' py="4">
                 {
                     images.map((image) => {
