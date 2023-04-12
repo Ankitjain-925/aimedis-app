@@ -4,12 +4,25 @@ import {
   UserProvider,
   CrispChatProvider,
   ShellWithSidebar,
+  SearchModal
 } from 'ui';
 import { MdDashboard } from 'react-icons/md';
 import { HiDocument } from 'react-icons/hi';
-import { Box, Text } from '@chakra-ui/react';
+import "../styles/globals.css";
+import { Box, Text, Switch, Flex } from '@chakra-ui/react';
+import { useState } from 'react';
+import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 
 export default function App({ Component, pageProps }) {
+  const [Value, setValue] = useState(false);
+  const posts = [
+    {
+      title: "How to create a react search bar",
+    },
+    {
+      title: "How to mock api data in Node",
+    },
+  ];
   return (
     <ChakraProvider pageProps={pageProps}>
       <DatabaseProvider pageProps={pageProps}>
@@ -18,13 +31,14 @@ export default function App({ Component, pageProps }) {
             <ShellWithSidebar
               navbar={{
                 leftContent: (
-                  <Box>
-                    <Text>Actions</Text>
-                  </Box>
+                  <Flex alignItems="center">
+                    {Value ? <ArrowLeftIcon cursor="pointer" color="gray.500" onClick={() => setValue(false)} /> :
+                      <ArrowRightIcon cursor="pointer" color="gray.500" onClick={() => setValue(true)} />}
+                  </Flex>
                 ),
                 middleContent: (
                   <Box>
-                    <Text>Search</Text>
+                    <SearchModal posts={posts} />
                   </Box>
                 ),
                 rightContent: (
@@ -34,6 +48,7 @@ export default function App({ Component, pageProps }) {
                 ),
               }}
               sidebar={{
+                Value: Value,
                 links: [
                   {
                     label: 'Dashboard',
