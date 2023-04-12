@@ -256,7 +256,7 @@ const Patients = () => {
             </ModalBody>
             <ModalFooter>
               <Button variant='ghost' onClick={information.onClose}>Cancel</Button>
-             <Button colorScheme='teal' mr={3} onClick={() => router.push('/patients/1')}>
+              <Button colorScheme='teal' mr={3} onClick={() => router.push('/patients/1')}>
                 Go to Journal
               </Button>
             </ModalFooter>
@@ -272,14 +272,14 @@ const Patients = () => {
             <ModalCloseButton />
             <Divider orientatioDCXn="horizontal" mb="10px" />
             <ModalBody>
-            <FormControl>
-              <FormLabel>Patient ID</FormLabel>
-              <Input />
-            </FormControl>
-            <FormControl mt="10px">
-              <FormLabel>Pin</FormLabel>
-              <Input />
-            </FormControl>
+              <FormControl>
+                <FormLabel>Patient ID</FormLabel>
+                <Input />
+              </FormControl>
+              <FormControl mt="10px">
+                <FormLabel>Pin</FormLabel>
+                <Input />
+              </FormControl>
             </ModalBody>
             <ModalFooter>
               <Button colorScheme='teal' mr={3}>
@@ -298,10 +298,10 @@ const Patients = () => {
             <ModalCloseButton />
             <Divider orientatioDCXn="horizontal" mb="10px" />
             <ModalBody>
-            <FormControl>
-              <FormLabel>Email or ID</FormLabel>
-              <Input />
-            </FormControl>
+              <FormControl>
+                <FormLabel>Email or ID</FormLabel>
+                <Input />
+              </FormControl>
             </ModalBody>
             <ModalFooter>
               <Button colorScheme='teal' mr={3}>
@@ -320,35 +320,35 @@ const Patients = () => {
             <ModalCloseButton />
             <Divider orientatioDCXn="horizontal" mb="10px" />
             <ModalBody>
-            <FormControl>
-              <FormLabel>First Name</FormLabel>
-              <Input />
-            </FormControl>
-            <FormControl mt="10px">
-              <FormLabel>Last Name</FormLabel>
-              <Input />
-            </FormControl>
-            <FormControl mt="10px">
-              <FormLabel>E-mail address</FormLabel>
-              <Input type="email"/>
-            </FormControl>
-            <FormControl mt="10px">
-              <FormLabel>Password</FormLabel>
-              <Input type="password"/>
-            </FormControl>
-            <FormControl mt="10px">
-              <FormLabel>Mobile</FormLabel>
-              <PhoneNumberInput
-                placeholder=""
-                height="40px"
-                onChange={(value) => console.log(value)}
-              />
-            </FormControl>
-            <FormControl mt="10px">
-              <Checkbox>Activate 2 factor authentication</Checkbox>
-            </FormControl>
+              <FormControl>
+                <FormLabel>First Name</FormLabel>
+                <Input />
+              </FormControl>
+              <FormControl mt="10px">
+                <FormLabel>Last Name</FormLabel>
+                <Input />
+              </FormControl>
+              <FormControl mt="10px">
+                <FormLabel>E-mail address</FormLabel>
+                <Input type="email" />
+              </FormControl>
+              <FormControl mt="10px">
+                <FormLabel>Password</FormLabel>
+                <Input type="password" />
+              </FormControl>
+              <FormControl mt="10px">
+                <FormLabel>Mobile</FormLabel>
+                <PhoneNumberInput
+                  placeholder=""
+                  height="40px"
+                  onChange={(value) => console.log(value)}
+                />
+              </FormControl>
+              <FormControl mt="10px" style={{ zIndex: "-99" }}>
+                <Checkbox>Activate 2 factor authentication</Checkbox>
+              </FormControl>
             </ModalBody>
-            <ModalFooter>
+            <ModalFooter style={{ zIndex: "-99" }}>
               <Button colorScheme='teal' mr={3}>
                 Create Account
               </Button>
