@@ -7,14 +7,13 @@ import {
   SearchModal
 } from 'ui';
 import { MdDashboard } from 'react-icons/md';
-import { FiCalendar} from 'react-icons/fi';
-import { GrGroup} from "react-icons/Gr";
-import { FcQuestions} from "react-icons/fc";
-import { BiTask} from "react-icons/Bi";
-import { HiDocumentText} from "react-icons/Hi";
+import { FiCalendar } from 'react-icons/fi';
+import { BiTask } from "react-icons/Bi";
+import { HiOutlineUserGroup, HiOutlineDocumentText } from "react-icons/Hi";
 import { AiFillSetting } from "react-icons/ai";
+import { BsQuestionSquare } from "react-icons/bs";
 import "../styles/globals.css";
-import { Box, Text, Switch, Flex } from '@chakra-ui/react';
+import { Box, Text, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 
@@ -71,17 +70,17 @@ export default function App({ Component, pageProps }) {
                       {
                         label: 'Patients',
                         href: '/patients',
-                        icon:GrGroup ,
+                        icon:HiOutlineUserGroup ,
                       },
                       {
                         label: 'Inquiries',
                         href: '/inquiries',
-                        icon: HiDocumentText,
+                        icon: HiOutlineDocumentText,
                       },
                       {
                         label: 'Questionnaire',
                         href: '/questionnaire',
-                        icon: FcQuestions,
+                        icon: BsQuestionSquare,
                       },
                       {
                         label: 'Tasks',

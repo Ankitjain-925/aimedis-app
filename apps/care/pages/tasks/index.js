@@ -29,8 +29,11 @@ import {
     Checkbox,
     useDisclosure,
     RadioGroup,
-    Radio
+    Radio,
+    IconButton,
+    Tooltip
 } from '@chakra-ui/react';
+import { AddIcon } from '@chakra-ui/icons'
 
 const Tasks = () => {
   const addition = useDisclosure()
@@ -40,19 +43,17 @@ const Tasks = () => {
         <PageLayout
             title="Professional activities"
             description=""
-            actions={<></>}
+            actions={<Tooltip label="Add new Task">
+            <IconButton
+              variant="primary"
+              aria-label="Add new Task"
+              icon={<AddIcon />}
+              onClick={addition.onOpen}
+            />
+          </Tooltip>}
             hasDivider
         >
             <Stack spacing="8" divider={<StackDivider />} pt="2">
-
-            <Flex minWidth='max-content' alignItems='center' gap='2'>
-        <Box p='2'></Box>
-        <Spacer />
-        <ButtonGroup gap='2'>
-          <Button colorScheme='teal' onClick={addition.onOpen}>Add Task</Button>
-        </ButtonGroup>
-      </Flex>
-
                 <Tabs>
                     <TabList>
                         <Tab>All</Tab>

@@ -6,11 +6,13 @@ import {
   Checkbox,
   Thead,
   useDisclosure,
+  IconButton,
   Table,
   Tbody,
   Tr,
   Th,
   Td,
+  Tooltip,
   Wrap,
   WrapItem,
   Avatar,
@@ -29,6 +31,7 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
+  HStack,
   ModalCloseButton,
   Button,
   Spacer,
@@ -38,8 +41,11 @@ import {
   Divider,
   Flex,
 } from '@chakra-ui/react';
+import {  AddIcon } from '@chakra-ui/icons'
 import { AiOutlineMail, AiOutlineMobile } from 'react-icons/ai'
+import { BsBookmarkPlus , BsThreeDotsVertical } from 'react-icons/bs'
 import { GrLocation, GrLanguage } from 'react-icons/gr'
+import { SiOpenaccess } from 'react-icons/si'
 const Patients = () => {
   const Actions = (props) => (
     <Menu>
@@ -64,20 +70,37 @@ const Patients = () => {
   return <PageLayout
     title="Patient"
     description="Patients you've added to a list and marked as your favourites"
-    actions={<></>}
+    actions={<HStack>
+      <Tooltip label="Add New Patient">
+        <IconButton
+          variant="primary"
+          aria-label="Add New Patient"
+          icon={<AddIcon />}
+          onClick={addition.onOpen}
+        />
+      </Tooltip>
+      <Tooltip label="More options">
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label="Options"
+          icon={<BsThreeDotsVertical />}
+          variant="outline"
+        />
+        <MenuList>
+          <MenuItem icon={<SiOpenaccess />} onClick={access.onOpen}>
+            Patient Data Access
+          </MenuItem>
+          <MenuItem icon={<BsBookmarkPlus/>} onClick={request.onOpen}>
+            Private Doctor Request
+          </MenuItem>
+        </MenuList>
+      </Menu>
+      </Tooltip>
+    </HStack>}
     hasDivider
   >
     <Stack spacing="8" divider={<StackDivider />} pt="2">
-      <Flex minWidth='max-content' alignItems='center' gap='2'>
-        <Box p='2'></Box>
-        <Spacer />
-        <ButtonGroup gap='2'>
-          <Button colorScheme='teal' onClick={addition.onOpen}>Add New Patient</Button>
-          <Button colorScheme='teal' onClick={access.onOpen}>Patient Data Access</Button>
-          <Button colorScheme='teal' onClick={request.onOpen}>Private Doctor Request</Button>
-        </ButtonGroup>
-      </Flex>
-
       <Table variant='simple'>
         <Thead>
           <Tr>

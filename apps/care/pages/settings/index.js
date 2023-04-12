@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { PhoneNumberInput, SettingsLayout, PageLayout, FormLayout, AvatarUpload } from 'ui';
 import { IoMdInformationCircle } from 'react-icons/io';
 import { MdMedicalServices } from 'react-icons/md';
@@ -7,6 +8,7 @@ import {
   FormControl,
   FormLabel,
   Select,
+  Button,
   Radio,
   Input,
   Stack,
@@ -16,6 +18,7 @@ import {
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { SaveDiscardBar } from 'ui';
 import { yupResolver } from '@hookform/resolvers/yup';
 const schema = yup
   .object({
@@ -40,6 +43,11 @@ const schema = yup
 
   })
   .required();
+
+const onSubmit = (data) =>{
+  console.log('data', data)
+  console.log('Do Query')
+}
 
 const Account = () => {
   const {
@@ -89,8 +97,6 @@ const Account = () => {
             description="Manage your account information"
 
           >
-
-
             <FormControl >
               <FormLabel htmlFor="pin">Pin</FormLabel>
               <Input {...register('pin')} />
@@ -112,16 +118,15 @@ const Account = () => {
           >
             <FormControl>
               <FormLabel>Email Address</FormLabel>
-              <Input type='email' {...register('email')} />
-              <Text color='tomato'>{errors?.email?.message}</Text>
-
+                <Input type='email' {...register('email')} />
+                <Text color='tomato'>{errors?.email?.message}</Text>
             </FormControl>
             <FormControl>
               <FormLabel>Home telephone number</FormLabel>
               <PhoneNumberInput
                 placeholder=""
                 height="40px"
-                onChange={(value) => setValue(value)}
+                onChange={()=>console.log('')}
                 {...register('phone')}
               />
               <Text color='tomato'>{errors?.phone?.message}</Text>
@@ -133,6 +138,7 @@ const Account = () => {
                 placeholder=""
                 height="40px"
                 onChange={(value) => setValue(value)}
+                name="mobile"
                 {...register('mobile')}
 
               />
@@ -243,8 +249,7 @@ const Account = () => {
               <Text color='tomato'>{errors?.LanguageSpoken?.message}</Text>
 
             </FormControl>
-            <Input type="submit" onClick={handleSubmit()} />
-
+            <SaveDiscardBar onDiscard={()=>{console.log('discard')}}  isDisabledSave ={!(_.isEmpty(errors))} isOpen={!(_.isEmpty(dirtyFields))} isSaving={isSubmitting} handleSubmit={()=>handleSubmit(onSubmit)}/>
           </FormLayout>
         </Stack>
       </PageLayout>

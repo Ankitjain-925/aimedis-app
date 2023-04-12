@@ -3,6 +3,8 @@ import { SettingsLayout, PageLayout, FormLayout, AvatarUpload } from 'ui';
 import { IoMdInformationCircle } from 'react-icons/io';
 import { MdMedicalServices } from 'react-icons/md';
 import { TbLicense } from 'react-icons/tb';
+import { SaveDiscardBar } from 'ui';
+import _ from 'lodash';
 import {
   FormControl,
   FormErrorMessage,
@@ -25,6 +27,10 @@ const schema = yup
   })
   .required();
 
+const onSubmit = (data) =>{
+  console.log('data', data)
+  console.log('Do Query')
+}
 const Office = () => {
   const {
     handleSubmit,
@@ -88,8 +94,8 @@ const Office = () => {
               <Text color='tomato'>{errors?.Latestinformation?.message}</Text>
 
             </FormControl>
-            <Input type="submit" onClick={handleSubmit()} />
-
+            {/* <Input type="submit" onClick={handleSubmit()} /> */}
+            <SaveDiscardBar onDiscard={()=>{console.log('discard')}}  isDisabledSave ={!(_.isEmpty(errors))} isOpen={!(_.isEmpty(dirtyFields))} isSaving={isSubmitting} handleSubmit={()=>handleSubmit(onSubmit)}/>
           </FormLayout>
         </Stack>
       </PageLayout>

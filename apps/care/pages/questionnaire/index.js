@@ -1,9 +1,12 @@
 import React from 'react';
+import { useRouter } from 'next/router'
 import {
   Button,
   Tfoot,
   Thead,
   useDisclosure,
+  Tooltip,
+  IconButton,
   Table,
   Tbody,
   Tr,
@@ -36,6 +39,7 @@ import Link from 'next/link'
 import { PageLayout } from 'ui';
 import { AiOutlineMail, AiOutlineMobile } from 'react-icons/ai'
 import { GrLocation, GrLanguage } from 'react-icons/gr'
+import { AddIcon } from '@chakra-ui/icons'
 
 
 const Questionnaire = () => {
@@ -62,19 +66,21 @@ const Questionnaire = () => {
   )
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-
+  const router = useRouter()
 
   return <PageLayout
     title="Questionnaire"
     description="Questionnaire you've added to a list and marked as your favourites"
-    actions={<></>}
+    actions={<Tooltip label="Add Care Questionnaire">
+    <IconButton
+      variant="primary"
+      aria-label="Add Care Questionnaire"
+      icon={<AddIcon />}
+      onClick={() => router.push('/questionnaire/create')}
+    />
+  </Tooltip>}
     hasDivider
   >
-    <Flex display="flex" justifyContent="flex-end">
-      <Button w="auto" colorScheme='teal' size='md'>
-        <Link href="/questionnaire/create">Care Questionnaire</Link>
-      </Button>
-    </Flex>
     <Stack spacing="8" divider={<StackDivider />} pt="2">
       <Table variant='simple'>
         <Thead>

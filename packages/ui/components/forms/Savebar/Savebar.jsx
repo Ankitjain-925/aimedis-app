@@ -18,6 +18,7 @@ export const SaveDiscardBar = ({
   isDisabledSave,
   isDisabledDiscard,
   onDiscard,
+  handleSubmit
 }) => {
   const cancelRef = useRef();
   const discardAlert = useDisclosure();
@@ -35,6 +36,7 @@ export const SaveDiscardBar = ({
             maxW="100px"
             isLoading={isSaving}
             isDisabled={isDisabledSave}
+            onClick={handleSubmit()}
           >
             Save
           </Button>

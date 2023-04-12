@@ -3,6 +3,8 @@ import { SettingsLayout, PageLayout, FormLayout, AvatarUpload } from 'ui';
 import { IoMdInformationCircle } from 'react-icons/io';
 import { MdMedicalServices } from 'react-icons/md';
 import { TbLicense } from 'react-icons/tb';
+import { SaveDiscardBar } from 'ui';
+import _ from 'lodash';
 import {
   FormControl,
   FormLabel,
@@ -28,6 +30,11 @@ const schema = yup
     )
   })
   .required();
+
+const onSubmit = (data) =>{
+  console.log('data', data)
+  console.log('Do Query')
+}
 
 const License = () => {
   const {
@@ -119,6 +126,7 @@ const License = () => {
                   type="File"
                   placeholder="extra small size"
                   height="40px"
+                  name="upload1"
                 />
               </Box>
             </FormControl>
@@ -140,6 +148,7 @@ const License = () => {
                   opacity={"0"}
                   minHeight="100px"
                   type="File"
+                  name="upload2"
                   placeholder="extra small size"
                   height="40px"
                 />
@@ -165,6 +174,7 @@ const License = () => {
                   type="File"
                   placeholder="extra small size"
                   height="40px"
+                  name="license"
                 />
               </Box>
             </FormControl>
@@ -179,7 +189,8 @@ const License = () => {
             <Text color='tomato'>{errors?.tc?.message}</Text>
 
             </FormControl>
-            <Input type="submit" onClick={handleSubmit()} />
+            {/* <Input type="submit" onClick={handleSubmit()} /> */}
+            <SaveDiscardBar onDiscard={()=>{console.log('discard')}}  isDisabledSave ={!(_.isEmpty(errors))} isOpen={!(_.isEmpty(dirtyFields))} isSaving={isSubmitting} handleSubmit={()=>handleSubmit(onSubmit)}/>
           </FormLayout>
         </Stack>
       </PageLayout>
