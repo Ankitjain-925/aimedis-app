@@ -3,9 +3,9 @@ import { useDatabase } from '../providers/Database';
 
 const getServer = (database, id) => {
   return database
-    .from('servers')
-    .select('*')
-    .eq('id', id)
+    .from("servers")
+    .select("* , world:world_id(name) , building:building_id(name) , room:room_id(name)")
+    .eq("id", id)
     .throwOnError()
     .single();
 };
@@ -20,9 +20,9 @@ const deleteServer = (database, id) => {
 
 const getAllServers = (database) => {
   return database
-    .from('servers')
-    .select('*')
-    .throwOnError()
+    .from("servers")
+    .select("* , world:world_id(name) , building:building_id(name) , room:room_id(name)")
+    .throwOnError();
 };
 
 const updateServer = (database, id, data) => {

@@ -29,8 +29,6 @@ export const NavButton = (props) => {
               top="3px"
             >
               <PopoverArrow />
-              {/* <PopoverCloseButton /> */}
-              {/* <PopoverHeader>  gfhdfhdhfg{label}</PopoverHeader> */}
               <PopoverBody w={"5%"}>
                 <Text fontSize={"15px"}> {label}</Text>
               </PopoverBody>
