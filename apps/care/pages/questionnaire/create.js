@@ -18,8 +18,7 @@ import {
   Checkbox,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { PageLayout } from "ui";
-import Dropzone from "../dropzone/index";
+import { PageLayout, DropZone} from "ui";
 
 const Create = () => {
   const [openForm, setOpenForm] = useState(false);
@@ -146,7 +145,7 @@ const Create = () => {
               <Text mb="5px" fontSize="15px" fontWeight="600">
                 Picture with Scale
               </Text>
-              <Dropzone />
+              <DropZone />
               <Text mb="5px" fontSize="sm" fontWeight="500" color="teal">
                 Supported file types .jpg, .png, .pdf, .doc, .dcm etc
               </Text>
@@ -307,7 +306,7 @@ const Create = () => {
               <Text mb="5px" fontSize="15px" fontWeight="600">
                 Picture with Scale
               </Text>
-              <Dropzone />
+              <DropZone />
               <Text mb="5px" fontSize="sm" fontWeight="500" color="teal">
                 Supported file types .jpg, .png, .pdf, .doc, .dcm etc
               </Text>
@@ -510,7 +509,7 @@ const Create = () => {
             <Box mb="20px">
               <FormLabel fontSize="18px" color="teal">
                 Wheelchair Management (*Only use this item if the patient is
-                rated "O" for ambulation, and then only if the patient has been
+                rated 'O' for ambulation, and then only if the patient has been
                 trained in w/c management.)
               </FormLabel>
               <RadioGroup>
@@ -532,7 +531,7 @@ const Create = () => {
                 <Radio w="100%" mb="5px" value="4" colorScheme="teal">
                   The patient can propel self for a resonable duration over
                   regular encountered terrain. Minimal assistance may still be
-                  required in "right corners" or tp negotiation a Kerb 100mm
+                  required in 'right corners' or tp negotiation a Kerb 100mm
                   high.
                 </Radio>
 

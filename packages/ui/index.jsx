@@ -45,3 +45,4 @@ export * from './components/tables/DataTable';
 export * from './components/common/StepIndicator';
 export * from './components/inputs/PhoneNumberInput';
 export * from './components/common/SearchModal';
+export * from './components/common/Dropzone';

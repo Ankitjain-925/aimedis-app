@@ -24,6 +24,7 @@ export const PhoneNumberInput = ({
   onChange,
   placeholder,
   style,
+  zIndex=9999,
   ...rest
 }) => {
   const countryOptions = COUNTRIES.map(({ name, iso }) => ({
@@ -49,7 +50,7 @@ export const PhoneNumberInput = ({
     let parsedNumber = new AsYouType().input(`${code}${number}`);
     setCountryCode(code);
     setSelectedCountry(value);
-    onChange(parsedNumber);
+    onChange(parsedNumber)
     setShowDropdown(!showDropdown);
   };
 
@@ -77,7 +78,7 @@ export const PhoneNumberInput = ({
 
   return (
     <>
-      <InputGroup style={style} size={size} {...rest}>
+      <InputGroup zIndex={zIndex} style={style} size={size} {...rest}>
         <InputLeftElement width="7rem">
           {showDropdown && (
             <UnorderedList
