@@ -19,84 +19,38 @@ import {
     Text,
     useColorModeValue,
     useToast,
-    Container,
-    Progress
+    Container
 } from '@chakra-ui/react';
 import { FiUploadCloud } from 'react-icons/fi'
-// import { truncate } from 'fs';
+import BarLoader from "react-spinners/BarLoader";
+import { supabaseServer } from 'database/utils/supabase';
 
-
-const CDNURL = "https://jvogqxcgreynqmmenkqo.supabase.co/storage/v1/object/public/demo/";
 
 // CDNURL + user.id + "/" + image.name
 
 export default function App(props) {
-    const { path } = props;
-    const [email, setEmail] = useState("");
-    const [images, setImages] = useState([]);
     const [message, setmessage] = useState("");
-    const [empty, setEmpty] = useState("")
-    const [UpdProcessing, setUpdProcessing] = useState(true)
+    const [empty, setEmpty] = useState("");
+    const [file, setFile] = useState([]);
+    let [loading, setLoading] = useState(false);
+    let [color, setColor] = useState("#008080");
 
-    const user = useUser();
-    const supabase = useSupabaseClient();
 
-    async function getImages() {
-        setUpdProcessing(true);
-        const { data, error } = await supabase
-            .storage
-            .from('demo')
-            .list();
-        if (data !== null) {
-            setImages(data);
-            setUpdProcessing(false);
-        } else {
-            alert("Error loading images");
-            console.log(error);
-        }
-    }
+  
+    
 
-    useEffect(() => {
-        getImages();
-    }, []);
+    async function handleChange(e) {
+        setLoading(true)
+        setFile([
+            ...file,
+            URL.createObjectURL(e.target.files[0])
+        ]);
 
-    const reset = () => {
-        setEmpty(null)
-    }
-    async function uploadImage(e) {
-        setUpdProcessing(true);
-        let file = e.target.files[0];
+        setTimeout(() => {
+            setLoading(false)
+        }, 2000)
 
-        if (file) {
-            const { data, error } = await supabase
-                .storage
-                .from('demo')
-                .upload(`${file?.name}`, file)
-            if (data) {
-                setmessage()
 
-                getImages();
-                setUpdProcessing(false);
-            } else {
-                setmessage(error.message)
-            }
-        }
-        reset()
-    }
-
-    async function deleteImage(imageName) {
-        setUpdProcessing(true);
-        const { error } = await supabase
-            .storage
-            .from('demo')
-            .remove([imageName])
-
-        if (error) {
-            alert(error);
-        } else {
-            getImages();
-            setUpdProcessing(false);
-        }
     }
 
     return (
@@ -134,6 +88,7 @@ export default function App(props) {
                     </VStack>
                 </VStack>
                 <Input
+                    multiple
                     position="absolute"
                     bottom="14px"
                     opacity={"0"}
@@ -143,31 +98,35 @@ export default function App(props) {
                     height="40px"
                     width="100%"
                     value={empty}
-                    onChange={(e) => uploadImage(e)}
+                    onChange={(e) => handleChange(e)}
 
                 />
+
             </Center>
-            {UpdProcessing &&
-                <Progress colorScheme='teal' size='sm' isIndeterminate />}
+
+            <Center mt="3px">
+                <BarLoader
+                    color={color}
+                    loading={loading}
+                    size={150}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+            </Center>
+
+
             <SimpleGrid spacing={2} templateColumns='repeat(auto-fill, minmax(200px, 1fr))' py="4">
-                {
-                    images.map((image) => {
-                        return (
-                            <>
-                                <Center borderWidth="10px">
-                                    <Center>
-                                        <Image variant="top" src={CDNURL + image?.name} />
-                                    </Center>
-                                    <Center>
-                                        <Button variant="danger" onClick={() => deleteImage(image?.name)}>Delete Image</Button>
-                                    </Center>
-                                </Center>
 
-                            </>
+                {file.map((room, i) => (
+                    <Center borderWidth="10px">
+                        <Center>
 
-                        )
-                    })
-                }
+                            <Image variant="top" src={room} />
+
+
+                        </Center>
+                    </Center>
+                ))}
             </SimpleGrid>
         </>
     );
