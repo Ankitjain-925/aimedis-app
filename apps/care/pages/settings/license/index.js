@@ -15,7 +15,7 @@ import {
   Box,
   Text
 } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -27,11 +27,16 @@ const schema = yup
     tc: yup.boolean().oneOf(
       [true],
       "Please accept terms and conditons"
-    )
+    ),
+    upload1: yup.mixed(),
+    upload2: yup.mixed(),
+    upload3: yup.mixed(),
+
+
   })
   .required();
 
-const onSubmit = (data) =>{
+const onSubmit = (data) => {
   console.log('data', data)
   console.log('Do Query')
 }
@@ -39,6 +44,7 @@ const onSubmit = (data) =>{
 const License = () => {
   const {
     handleSubmit,
+    control,
     register,
     reset,
     watch,
@@ -91,13 +97,13 @@ const License = () => {
             </FormControl>
             <FormControl id="authority">
               <FormLabel>Responsible authority</FormLabel>
-              <Input  {...register('authority')}/>
+              <Input  {...register('authority')} />
               <Text color='tomato'>{errors?.authority?.message}</Text>
 
             </FormControl>
             <FormControl id="registration">
               <FormLabel>Registration / Doctor number</FormLabel>
-              <Input {...register('registration')}/>
+              <Input {...register('registration')} />
               <Text color='tomato'>{errors?.registration?.message}</Text>
 
             </FormControl>
@@ -120,15 +126,23 @@ const License = () => {
                     Browse or drag here
                   </Text>
                 </Box>
-                <Input
-                  opacity={"0"}
-                  minHeight="100px"
-                  type="File"
-                  placeholder="extra small size"
-                  height="40px"
+                <Controller
                   name="upload1"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      opacity={"0"}
+                      type="file"
+                      onChange={(val) => {
+                        if (val?.target?.files) {
+                          field?.onChange(val?.target?.files[0]);
+                        }
+                      }}
+                    />
+                  )}
                 />
               </Box>
+              <Text color='tomato'>{errors?.upload1?.message}</Text>
             </FormControl>
             <FormControl>
               <FormLabel>Upload a photo of your ID Card</FormLabel>
@@ -144,15 +158,24 @@ const License = () => {
                     Browse or drag here
                   </Text>
                 </Box>
-                <Input
-                  opacity={"0"}
-                  minHeight="100px"
-                  type="File"
+                <Controller
                   name="upload2"
-                  placeholder="extra small size"
-                  height="40px"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      opacity={"0"}
+                      type="file"
+                      onChange={(val) => {
+                        if (val?.target?.files) {
+                          field?.onChange(val?.target?.files[0]);
+                        }
+                      }}
+                      
+                    />
+                  )}
                 />
               </Box>
+              <Text color='tomato'>{errors?.upload2?.message}</Text>
             </FormControl>
             <FormControl>
               <FormLabel>Upload your License</FormLabel>
@@ -168,15 +191,24 @@ const License = () => {
                     Browse or drag here
                   </Text>
                 </Box>
-                <Input
-                  opacity={"0"}
-                  minHeight="100px"
-                  type="File"
-                  placeholder="extra small size"
-                  height="40px"
-                  name="license"
+                <Controller
+                  name="upload3"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      opacity={"0"}
+                      type="file"
+                      onChange={(val) => {
+                        if (val?.target?.files) {
+                          field?.onChange(val?.target?.files[0]);
+                        }
+                      }}
+                      
+                    />
+                  )}
                 />
               </Box>
+              <Text color='tomato'>{errors?.upload3?.message}</Text>
             </FormControl>
           </FormLayout>
           <FormLayout
@@ -184,13 +216,13 @@ const License = () => {
             description="AIS terms and its privacy policy"
           >
             <FormControl>
-            <input colorScheme='teal' type="checkbox" {...register("tc")} />
-            By clicking this you accept AIS terms and its privacy policy
-            <Text color='tomato'>{errors?.tc?.message}</Text>
+              <input colorScheme='teal' type="checkbox" {...register("tc")} />
+              By clicking this you accept AIS terms and its privacy policy
+              <Text color='tomato'>{errors?.tc?.message}</Text>
 
             </FormControl>
             {/* <Input type="submit" onClick={handleSubmit()} /> */}
-            <SaveDiscardBar onDiscard={()=>{console.log('discard')}}  isDisabledSave ={!(_.isEmpty(errors))} isOpen={!(_.isEmpty(dirtyFields))} isSaving={isSubmitting} handleSubmit={()=>handleSubmit(onSubmit)}/>
+            <SaveDiscardBar onDiscard={() => { console.log('discard') }} isDisabledSave={!(_.isEmpty(errors))} isOpen={!(_.isEmpty(dirtyFields))} isSaving={isSubmitting} handleSubmit={() => handleSubmit(onSubmit)} />
           </FormLayout>
         </Stack>
       </PageLayout>

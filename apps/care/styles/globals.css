@@ -1,6 +1,6 @@
-.setDarkColor  , .rdrDateDisplayItem input{
+/* .setDarkColor  , .rdrDateDisplayItem input{
     background-color: black;
-}
+} */
 
 .setDarkColor .rdrMonth, .setDarkColor .rdrMonthsVertical, .setDarkColor .rdrMonthAndYearWrapper {
     background-color: black;
@@ -36,8 +36,8 @@
 
 
 .setDarkColor .rdrMonthAndYearPickers select:hover , .rdrMonthAndYearPickers select{
-    background-color: black;
-    color: white;
+    border: 1px solid teal;
+    /* color: white; */
 }
 
 .setDarkColor .rdrMonthAndYearPickers select{
