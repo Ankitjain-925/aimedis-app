@@ -45,4 +45,8 @@ export * from './components/tables/DataTable';
 export * from './components/common/StepIndicator';
 export * from './components/inputs/PhoneNumberInput';
 export * from './components/common/SearchModal';
+//Dropzone component
+export * from './components/common/Dropzone';
+//Editor - slate with chakra ui
 export * from './components/Editor/RickTextEditor'
+ß
