@@ -1,6 +1,6 @@
 import { Box, Text } from "@chakra-ui/react";
 import React from "react";
-import { StepIndicator, PhoneNumberInput } from "ui";
+import { StepIndicator, PhoneNumberInput, DropZone } from "ui";
 
 const phoneInput=()=> {
   return (
@@ -13,6 +13,11 @@ const phoneInput=()=> {
           <Box>
           <Text>Phone number Input</Text>
           <PhoneNumberInput onChange={(number)=>{console.log(number)}}/>
+          </Box>
+
+          <Box mt="20px">
+          <Text>DropZone with Image Preview</Text>
+          <DropZone />
           </Box>
     </>
   );

@@ -82,6 +82,7 @@ export const PhoneNumberInput = ({
         <InputLeftElement width="7rem">
           {showDropdown && (
             <UnorderedList
+              bg={useColorModeValue("white", "gray.800")}
               boxShadow="xl"
               pl="3"
               overflow="auto"
@@ -92,7 +93,6 @@ export const PhoneNumberInput = ({
                 maxHeight: "300px",
                 position: "absolute",
                 paddingLeft: "25px",
-                background: "white",
                 top: "42px",
                 left: "-15px",
                 listStyle: "none"
