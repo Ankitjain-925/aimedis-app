@@ -35,17 +35,18 @@ import {
   Divider
 } from '@chakra-ui/react';
 import { Icon } from '@chakra-ui/react'
+import Dropzone from "../../dropzone/index";
 
 const Prescriptions = () => {
 
-const CircleIcon = (props) => (
-  <Icon viewBox='0 0 200 200' {...props} mt="3px">
-    <path
-      fill='currentColor'
-      d='M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0'
-    />
-  </Icon>
-)
+  const CircleIcon = (props) => (
+    <Icon viewBox='0 0 200 200' {...props} mt="3px">
+      <path
+        fill='currentColor'
+        d='M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0'
+      />
+    </Icon>
+  )
   const Actions = (props) => (
     <Menu>
       <MenuButton >
@@ -66,7 +67,7 @@ const CircleIcon = (props) => (
       </MenuButton>
       <MenuList>
         <MenuItem>See detail</MenuItem>
-        {(!props.status || props.status !== "handled")&& <MenuItem>Handle</MenuItem>}
+        {(!props.status || props.status !== "handled") && <MenuItem>Handle</MenuItem>}
       </MenuList>
     </Menu>
   )
@@ -383,7 +384,7 @@ const CircleIcon = (props) => (
             <Text fontSize="13px" mb="7px" fontWeight="600">
               Upload scenned prescription
             </Text>
-            <Box
+            {/* <Box
               minHeight="100px"
               borderRadius={"8px"}
               border={"1px dotted"}>
@@ -402,7 +403,10 @@ const CircleIcon = (props) => (
                 placeholder="extra small size"
                 height="40px"
               />
-            </Box>
+            </Box> */}
+            <Dropzone />
+
+
           </Box>
         </ModalBody>
         <ModalFooter>

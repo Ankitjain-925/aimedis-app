@@ -18,6 +18,7 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Dropzone from "../../dropzone/index";
 
 const schema = yup
   .object({
@@ -114,7 +115,7 @@ const License = () => {
           >
             <FormControl>
               <FormLabel>Upload a photo of your ID Card</FormLabel>
-              <Box
+              {/* <Box
                 minHeight="100px"
                 borderRadius={"8px"}
                 border={"1px dotted"}>
@@ -141,12 +142,13 @@ const License = () => {
                     />
                   )}
                 />
-              </Box>
+              </Box> */}
+              <Dropzone />
               <Text color='tomato'>{errors?.upload1?.message}</Text>
             </FormControl>
             <FormControl>
               <FormLabel>Upload a photo of your ID Card</FormLabel>
-              <Box
+              {/* <Box
                 minHeight="100px"
                 borderRadius={"8px"}
                 border={"1px dotted"}>
@@ -170,16 +172,17 @@ const License = () => {
                           field?.onChange(val?.target?.files[0]);
                         }
                       }}
-                      
+
                     />
                   )}
                 />
-              </Box>
+              </Box> */}
+              <Dropzone />
               <Text color='tomato'>{errors?.upload2?.message}</Text>
             </FormControl>
             <FormControl>
               <FormLabel>Upload your License</FormLabel>
-              <Box
+              {/* <Box
                 minHeight="100px"
                 borderRadius={"8px"}
                 border={"1px dotted"}>
@@ -203,11 +206,12 @@ const License = () => {
                           field?.onChange(val?.target?.files[0]);
                         }
                       }}
-                      
+
                     />
                   )}
                 />
-              </Box>
+              </Box> */}
+              <Dropzone />
               <Text color='tomato'>{errors?.upload3?.message}</Text>
             </FormControl>
           </FormLayout>
