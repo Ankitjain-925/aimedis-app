@@ -41,7 +41,8 @@ export * from './components/scroll-menu-arrows/arrows';
 export * from './components/forms/Savebar';
 
 //Phone input / Datatable and stepIndicator
-export * from './components/tables/DataTable'; 
+export * from './components/tables/DataTable';
 export * from './components/common/StepIndicator';
 export * from './components/inputs/PhoneNumberInput';
 export * from './components/common/SearchModal';
+export * from './components/Editor/RickTextEditor'

@@ -26,6 +26,10 @@ const Create = () => {
   const [value, setValue] = React.useState("1");
   // const [painStatus, setPainStatus] = useState[""]
 
+  const color1 = useColorModeValue("white", "gray.800");
+  const color2 = useColorModeValue("white", "gray.800");
+  const color3 = useColorModeValue("gray.700", "white");
+
   return (
     <PageLayout
       title="Questionnaire"
@@ -34,7 +38,7 @@ const Create = () => {
       hasDivider>
       {!openForm ? (
         <Box
-          bg={useColorModeValue("white", "gray.800")}
+          bg={color1}
           p="30px"
           w="50%"
           borderRadius="8px">
@@ -71,7 +75,7 @@ const Create = () => {
       ) : (
         <>
           <Box
-            bg={useColorModeValue("white", "gray.800")}
+            bg={color2}
             p="30px"
             w={["100%", "100%", "100%", "70%"]}
             borderRadius="8px">
@@ -222,7 +226,7 @@ const Create = () => {
                 <Text
                   mb="5px"
                   fontSize="sm"
-                  color={useColorModeValue("gray.700", "white")}>
+                  color={color3}>
                   Have you Eaten
                 </Text>
                 <RadioGroup onChange={setValue} value={value} mt="10px">
@@ -244,7 +248,7 @@ const Create = () => {
                 <Text
                   mb="5px"
                   fontSize="sm"
-                  color={useColorModeValue("gray.700", "white")}>
+                  color={color3}>
                   Have you been trinkung
                 </Text>
                 <RadioGroup onChange={setValue} value={value} mt="10px">
@@ -266,7 +270,7 @@ const Create = () => {
                 <Text
                   mb="5px"
                   fontSize="sm"
-                  color={useColorModeValue("gray.700", "white")}>
+                  color={color3}>
                   Could you go to the Toilet
                 </Text>
                 <RadioGroup onChange={setValue} value={value} mt="10px">
@@ -319,7 +323,7 @@ const Create = () => {
                 mt="15px"
                 mb="2px"
                 fontSize="sm"
-                color={useColorModeValue("gray.700", "white")}>
+                color={color3}>
                 Better/ Worst
               </Text>
               <RadioGroup onChange={setValue} value={value} mt="10px">
@@ -334,71 +338,98 @@ const Create = () => {
               </RadioGroup>
             </Box>
 
-
             <Box mb="20px">
-              <Text mb="5px" fontSize="lg" fontWeight="600" color="teal">Depression Risk</Text>
-              <Text mb="5px" fontSize="xs">what was good today</Text>
-              <Checkbox size='md' colorScheme='teal' defaultChecked>
+              <Text mb="5px" fontSize="lg" fontWeight="600" color="teal">
+                Depression Risk
+              </Text>
+              <Text
+                mb="5px"
+                fontSize="sm"
+                color={color3}>
+                what was good today
+              </Text>
+              <Checkbox size="md" colorScheme="teal" defaultChecked>
                 Can the Patient tell somethink Good this Day
               </Checkbox>
             </Box>
 
-
             <Box mb="20px">
               <Box mb="10px" w="80%">
-                <Text mb="5px" fontSize="lg" fontWeight="500" color="teal">Disorientation Level</Text>
-                <Text mb="5px" fontSize="xs">ask for News of the Day</Text>
-                <Checkbox size='md' colorScheme='teal' defaultChecked>
+                <Text mb="5px" fontSize="lg" fontWeight="500" color="teal">
+                  Disorientation Level
+                </Text>
+                <Text
+                  mb="5px"
+                  fontSize="sm"
+                  color={color3}>
+                  ask for News of the Day
+                </Text>
+                <Checkbox size="md" colorScheme="teal" defaultChecked>
                   Can the Patient tell you a news of the Days
                 </Checkbox>
-                <Text mb="5px" fontSize="xs">Name of Family Members</Text>
-                <Checkbox size='md' colorScheme='teal' defaultChecked>
+                <Text
+                  mt="10px"
+                  mb="5px"
+                  fontSize="sm"
+                  color={color3}>
+                  Name of Family Members
+                </Text>
+                <Checkbox size="md" colorScheme="teal" defaultChecked>
                   Does the Patient remember the Name of a Family Member
                 </Checkbox>
               </Box>
             </Box>
 
             <Box mb="20px">
-
-              <Text mb="5px" fontSize="xs" fontWeight="600" color="teal">Sanitary Situation</Text>
-              <Text mb="5px" fontSize="xs">ask for incidents</Text>
-              <Checkbox size='md' colorScheme='teal' defaultChecked>
+              <Text mb="5px" fontSize="md" fontWeight="600" color="teal">
+                Sanitary Situation
+              </Text>
+              <Text
+                mb="5px"
+                fontSize="sm"
+                color={color3}>
+                ask for incidents
+              </Text>
+              <Checkbox size="md" colorScheme="teal" defaultChecked>
                 No Incidents at the Sanitary Situation
               </Checkbox>
-
-
-
-
             </Box>
 
             <Box mb="20px">
-
-              <Text mb="5px" fontSize="xs" fontWeight="600" color="teal">Pneunomie Situation</Text>
-              <Checkbox size='md' colorScheme='teal' defaultChecked>
+              <Text mb="5px" fontSize="md" fontWeight="600" color="teal">
+                Pneunomie Situation
+              </Text>
+              <Checkbox size="md" colorScheme="teal" defaultChecked>
                 Sound Recording auscultation/Tech_development
               </Checkbox>
-
-
-
             </Box>
 
             <Box mb="20px">
               <Box mb="10px" w="80%">
-                <Text mb="5px" fontSize="lg" fontWeight="500" color="teal">Nutrition Situation</Text>
-                <Text mb="5px" fontSize="xs">Fruits</Text>
-                <Checkbox size='md' colorScheme='teal' defaultChecked>
+                <Text mb="5px" fontSize="lg" fontWeight="500" color="teal">
+                  Nutrition Situation
+                </Text>
+                <Text
+                  mb="5px"
+                  fontSize="sm"
+                  color={color3}>
+                  Fruits
+                </Text>
+                <Checkbox size="md" colorScheme="teal" defaultChecked>
                   Have u eaten Fruits
                 </Checkbox>
-                <Text mb="5px" fontSize="xs">Protein</Text>
-                <Checkbox size='md' colorScheme='teal' defaultChecked>
+                <Text
+                  mt="10px"
+                  mb="5px"
+                  fontSize="sm"
+                  color={color3}>
+                  Protein
+                </Text>
+                <Checkbox size="md" colorScheme="teal" defaultChecked>
                   Have you eaten Meat/ Egg /Beans
                 </Checkbox>
               </Box>
             </Box>
-
-
-
-
 
             <Box mb="20px" mt="20px">
               <FormLabel fontSize="18px" color="teal">
@@ -417,8 +448,8 @@ const Create = () => {
                 <Radio w="100%" mb="5px" value="3" colorScheme="teal">
                   Able to feed self with supervision. Assistance is required
                   with associated tasks such as putting milk/sugar into tea,
-                  salt, pepper,spreading butter, turning a plate or other "set
-                  up" activities.
+                  salt, pepper,spreading butter, turning a plate or other `set
+                  up` activities.
                 </Radio>
 
                 <Radio w="100%" mb="5px" value="4" colorScheme="teal">

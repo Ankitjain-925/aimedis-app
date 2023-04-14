@@ -3,7 +3,7 @@ import { SettingsLayout, PageLayout, FormLayout, AvatarUpload } from 'ui';
 import { IoMdInformationCircle } from 'react-icons/io';
 import { MdMedicalServices } from 'react-icons/md';
 import { TbLicense } from 'react-icons/tb';
-import { SaveDiscardBar } from 'ui';
+import { SaveDiscardBar, RichTextBlock } from 'ui';
 import _ from 'lodash';
 import {
   FormControl,
@@ -18,6 +18,7 @@ import {
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+// import { RichTextBlock } from "./components/RichTeaxtBlock";
 
 const schema = yup
   .object({
@@ -27,7 +28,7 @@ const schema = yup
   })
   .required();
 
-const onSubmit = (data) =>{
+const onSubmit = (data) => {
   console.log('data', data)
   console.log('Do Query')
 }
@@ -35,6 +36,7 @@ const Office = () => {
   const {
     handleSubmit,
     register,
+    setValue,
     reset,
     watch,
     formState: { dirtyFields, errors, isSubmitting, isSubmitted },
@@ -86,16 +88,20 @@ const Office = () => {
             </FormControl>
             <FormControl isInvalid={errors.information}>
               <FormLabel htmlFor="latest_information">Latest information</FormLabel>
-              <Textarea
+              {/* <Textarea
                 _placeholder={{ color: 'subtle' }}
                 resize="none"
                 {...register('Latestinformation')}
-              />
+              /> */}
+
+              <RichTextBlock onChange={(e) => { setValue('Latestinformation', e, { shouldValidate: true, shouldDirty: true }) }} />
+
+
               <Text color='tomato'>{errors?.Latestinformation?.message}</Text>
 
             </FormControl>
             {/* <Input type="submit" onClick={handleSubmit()} /> */}
-            <SaveDiscardBar onDiscard={()=>{console.log('discard')}}  isDisabledSave ={!(_.isEmpty(errors))} isOpen={!(_.isEmpty(dirtyFields))} isSaving={isSubmitting} handleSubmit={()=>handleSubmit(onSubmit)}/>
+            <SaveDiscardBar onDiscard={() => { console.log('discard') }} isDisabledSave={!(_.isEmpty(errors))} isOpen={!(_.isEmpty(dirtyFields))} isSaving={isSubmitting} handleSubmit={() => handleSubmit(onSubmit)} />
           </FormLayout>
         </Stack>
       </PageLayout>
