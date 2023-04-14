@@ -1,43 +1,28 @@
-import { useState, useEffect } from 'react';
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useState } from 'react';
 import {
-    Box,
     Button,
-    Flex,
     Center,
-    FormControl,
-    FormLabel,
     Icon,
     HStack,
     VStack,
     Image,
-    IconButton,
+    Spinner,
     Input,
     SimpleGrid,
     Square,
-    Stack,
     Text,
     useColorModeValue,
-    useToast,
-    Container
 } from '@chakra-ui/react';
 import { FiUploadCloud } from 'react-icons/fi'
-import BarLoader from "react-spinners/BarLoader";
-import { supabaseServer } from 'database/utils/supabase';
 
 
-// CDNURL + user.id + "/" + image.name
 
-export default function App(props) {
+export const DropZone = (props)=> {
     const [message, setmessage] = useState("");
     const [empty, setEmpty] = useState("");
     const [file, setFile] = useState([]);
     let [loading, setLoading] = useState(false);
     let [color, setColor] = useState("#008080");
-
-
-  
-    
 
     async function handleChange(e) {
         setLoading(true)
@@ -49,8 +34,6 @@ export default function App(props) {
         setTimeout(() => {
             setLoading(false)
         }, 2000)
-
-
     }
 
     return (
@@ -103,27 +86,18 @@ export default function App(props) {
                 />
 
             </Center>
-
-            <Center mt="3px">
-                <BarLoader
-                    color={color}
-                    loading={loading}
-                    size={150}
-                    aria-label="Loading Spinner"
-                    data-testid="loader"
-                />
-            </Center>
+            {loading &&
+                <Center mt="3px">
+                    <Spinner />
+                </Center>
+            }
 
 
             <SimpleGrid spacing={2} templateColumns='repeat(auto-fill, minmax(200px, 1fr))' py="4">
-
                 {file.map((room, i) => (
                     <Center borderWidth="10px">
                         <Center>
-
                             <Image variant="top" src={room} />
-
-
                         </Center>
                     </Center>
                 ))}
