@@ -4,7 +4,7 @@ import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import { useState, useEffect, createContext, useContext } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools} from 'react-query/devtools';
+import { ReactQueryDevtools } from 'react-query/devtools';
 const queryClient = new QueryClient();
 
 export const DatabaseContext = createContext(null);
@@ -14,8 +14,6 @@ export const DatabaseProvider = ({ pageProps, children }) => {
 
   const [supabase] = useState(() =>
     createBrowserSupabaseClient({
-      supabaseUrl: "https://zrbmskhkuydumylscqyu.supabase.co",
-      supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyYm1za2hrdXlkdW15bHNjcXl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzYwNDQ3ODYsImV4cCI6MTk5MTYyMDc4Nn0.Q0Oo0yHd0VsV4HptfQlrawJcDFm-nS2gHgUDs7d5W60",
       cookieOptions: {
         domain:
           process.env.NODE_ENV === 'development'
