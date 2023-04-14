@@ -159,6 +159,7 @@ const schema = yup
 
   })
   .required();
+
 const Office = () => {
   const [state, setState] = useState([
     {
@@ -169,7 +170,7 @@ const Office = () => {
   ]);
   const { colorMode, toggleColorMode } = useColorMode();
 
-  const [value, setValue] = useState([false, false]);
+  const [value, setValue1] = useState([false, false]);
 
   const weekNames = ["M", "T", "W", "T", "F", "S", "S"];
 
@@ -179,6 +180,7 @@ const Office = () => {
     handleSubmit,
     register,
     reset,
+    setValue,
     watch,
     formState: { dirtyFields, errors, isSubmitting, isSubmitted },
   } = useForm({
@@ -235,54 +237,16 @@ const Office = () => {
         actions={<></>}
         hasDivider
       >
-        {console.log("23", errors)}
         <Stack spacing="8" divider={<StackDivider />} pt="2">
-          {/* <Flex> */}
-          {/* <Box mt="5px" mr="7px"> */}
-          {/* <BsFillChatDotsFill color='teal' /> */}
-          {/* </Box> */}
           <FormLayout
             title="Chat & Voicecalls"
             description="Invite your patients to contact you online"
             comesFrom="Chatandvoice"
           >
-
-
             <Flex justifyContent="flex-end">
-              <Switch size='md' colorScheme='teal' />
+              <Switch size='md' colorScheme='teal' onChange = {(e)=>setValue('videocall', e.target.checked, { shouldDirty: true })}/>
             </Flex>
-
-
-            {/* 
-            <Stack spacing="6" direction={{ base: 'column', md: 'row' }}>
-              <FormControl isInvalid={errors.name}>
-                <FormLabel htmlFor="username">Username</FormLabel>
-                <Input {...register('username')} />
-                <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
-              </FormControl>
-
-              <FormControl w="64px" isInvalid={errors.image}>
-                <FormLabel htmlFor="image">Avatar</FormLabel>
-                <AvatarUpload
-                  src={''}
-                  avatarProps={{ size: 'lg', bg: 'bg-canvas' }}
-                  register={() => register('image')}
-                />
-                <FormErrorMessage>{errors.image?.message}</FormErrorMessage>
-              </FormControl>
-            </Stack> */}
-
-            {/* <FormControl isInvalid={errors.bio}>
-              <FormLabel htmlFor="bio">Bio</FormLabel>
-              <Textarea
-                _placeholder={{ color: 'subtle' }}
-                resize="none"
-                {...register('bio')}
-              />
-              <FormErrorMessage>{errors.bio?.message}</FormErrorMessage>
-            </FormControl> */}
           </FormLayout>
-          {/* </Flex> */}
           <FormLayout
             title="Prescription & Sick Certificates"
             description="Issue prescriptions & sick certificates online"
@@ -291,15 +255,17 @@ const Office = () => {
               <Flex justifyContent="flex-end">
                 <Switch size='md'
                   colorScheme='teal'
-                  onChange={(e) => setValue([e.target.checked, e.target.checked])}
-                  isChecked={value[0] && value[1]}
+                  onChange = {(e)=>setValue('online_certificates', e.target.checked, { shouldDirty: true })}
+                  // onChange={(e) => setValue1([e.target.checked, e.target.checked])}
+                  // isChecked={value[0] && value[1]}
                 />
               </Flex>
               <FormControl id="firstName">
                 <Checkbox
                   colorScheme='teal'
-                  onChange={(e) => setValue([e.target.checked, value[1]])}
-                  isChecked={value[0]}
+                  // onChange={(e) => setValue1([e.target.checked, value[1]])}
+                  onChange = {(e)=>setValue('online_sick', e.target.checked, { shouldDirty: true })}
+                  // isChecked={value[0]}
                 >
                   Online Sick Certificates
                 </Checkbox>
@@ -307,8 +273,9 @@ const Office = () => {
               <FormControl id="firstName">
                 <Checkbox
                   colorScheme='teal'
-                  onChange={(e) => setValue([value[0], e.target.checked])}
-                  isChecked={value[1]}
+                  onChange = {(e)=>setValue('online_sick', e.target.checked, { shouldDirty: true })}
+                  // onChange={(e) => setValue1([value[0], e.target.checked])}
+                  // isChecked={value[1]}
                 >
                   Online Prescriptions
                 </Checkbox>
@@ -692,8 +659,6 @@ const Office = () => {
                 <Flex display="flex">
                   <Box w="50%"></Box>
                   <Box w="50%"><Input w="100%" ml="10px" h="5vh" placeholder='60' /></Box>
-
-
                 </Flex>
               </Stack>
             )}
@@ -713,7 +678,6 @@ const Office = () => {
                 <Flex display="flex">
                   <Box w="50%"> <Text>Break time:</Text></Box>
                   <Box w="50%"><Input type="number" w="100%" ml="10px" h="5vh" placeholder='60' {...register('homevisit2')} /></Box>
-
                 </Flex>
                 <Text color='tomato'>{errors?.homevisit2?.message}</Text>
 
@@ -727,7 +691,6 @@ const Office = () => {
                   <Box w="25%"> <Text fontSize="12px">Up to days:</Text></Box>
                   <Box w="35%"><Input type="number" w="70%" ml="10px" h="6vh" placeholder='60' {...register('homevisit3')} />   </Box>
                   <Box w="40%"><Text fontSize="12px">before the day of appointment</Text></Box>
-
                 </Flex>
                 <Text color='tomato'>{errors?.homevisit3?.message}</Text>
 
@@ -746,11 +709,7 @@ const Office = () => {
 
             {/* <Input type="submit" /> */}
             <SaveDiscardBar onDiscard={()=>{console.log('discard')}}  isDisabledSave ={!(_.isEmpty(errors))} isOpen={!(_.isEmpty(dirtyFields))} isSaving={isSubmitting} handleSubmit={()=>handleSubmit(onSubmit)}/>
-
-
-
           </FormLayout>
-
         </Stack>
       </PageLayout >
     </SettingsLayout >

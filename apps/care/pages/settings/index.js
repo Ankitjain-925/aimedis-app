@@ -53,13 +53,16 @@ const Account = () => {
   const {
     handleSubmit,
     register,
+    setValue,
     reset,
     watch,
     formState: { dirtyFields, errors, isSubmitting, isSubmitted },
   } = useForm({
     resolver: yupResolver(schema),
   });
-
+  const mobile = register('mobile');
+  const phone = register('phone');  
+  const fax = register('phone');  
   return (
     <SettingsLayout
       links={[
@@ -85,6 +88,7 @@ const Account = () => {
         }
       ]}
     >
+      {console.log('dirtyFields', dirtyFields)}
       <PageLayout
         title="Profile information"
         description="This is your profile information"
@@ -126,8 +130,9 @@ const Account = () => {
               <PhoneNumberInput
                 placeholder=""
                 height="40px"
-                onChange={()=>console.log('')}
-                {...register('phone')}
+                onChange = {(e)=>setValue('phone', e, { shouldValidate: true, shouldDirty: true })}
+                // onChange={(number)=>{console.log('number', number); register('phone')}}
+                name="phone"
               />
               <Text color='tomato'>{errors?.phone?.message}</Text>
 
@@ -137,9 +142,9 @@ const Account = () => {
               <PhoneNumberInput
                 placeholder=""
                 height="40px"
-                onChange={(value) => setValue(value)}
                 name="mobile"
-                {...register('mobile')}
+                onChange = {(e)=>setValue('mobile', e, { shouldValidate: true, shouldDirty: true })}
+                zIndex="9988"
 
               />
               <Text color='tomato'>{errors?.mobile?.message}</Text>
@@ -150,9 +155,9 @@ const Account = () => {
               <PhoneNumberInput
                 placeholder=""
                 height="40px"
-                onChange={(value) => setValue(value)}
-                {...register('fax')}
-
+                name="fax"
+                onChange = {(e)=>setValue('fax', e, { shouldValidate: true, shouldDirty: true })}
+                zIndex="9986"
               />
               <Text color='tomato'>{errors?.fax?.message}</Text>
 
