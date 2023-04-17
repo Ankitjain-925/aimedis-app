@@ -18,7 +18,7 @@ import {
   Checkbox,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { PageLayout, DropZone} from "ui";
+import { PageLayout, DropZone } from "ui";
 
 const Create = () => {
   const [openForm, setOpenForm] = useState(false);

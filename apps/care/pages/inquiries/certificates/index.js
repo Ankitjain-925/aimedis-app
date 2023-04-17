@@ -29,6 +29,7 @@ import {
   Input
 } from '@chakra-ui/react';
 import { Icon } from '@chakra-ui/react'
+import { DropZone } from 'ui';
 
 const Certificates = () => {
 
@@ -201,7 +202,7 @@ const Certificates = () => {
           </Box>
           <Box mb="10px" mt="10px">
             <Text fontSize="13px" fontWeight="600">
-            Is your temperature higher than 38 °C?
+              Is your temperature higher than 38 °C?
             </Text>
             <Text fontSize="15px">no</Text>
           </Box>
@@ -250,7 +251,7 @@ const Certificates = () => {
             <Text fontSize="13px" mb="7px" fontWeight="600">
               Upload scenned prescription
             </Text>
-            <Box
+            {/* <Box
               minHeight="100px"
               borderRadius={"8px"}
               border={"1px dotted"}>
@@ -269,7 +270,8 @@ const Certificates = () => {
                 placeholder="extra small size"
                 height="40px"
               />
-            </Box>
+            </Box> */}
+            <DropZone />
           </Box>
         </ModalBody>
         <ModalFooter>

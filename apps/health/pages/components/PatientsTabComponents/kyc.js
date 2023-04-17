@@ -9,7 +9,7 @@ import {
   Box,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { PhoneNumberInput } from 'ui';
+import { PhoneNumberInput, DropZone } from 'ui';
 // import PhoneNumberInput from "";
 
 
@@ -70,10 +70,11 @@ export default function KYC() {
                   />
                 </Box> */}
           {/* <Input type="File" placeholder='extra small size' height="40px" /> */}
+          <DropZone />
         </FormControl>
         <FormControl mt="15px">
           <FormLabel>Upload a photo of your ID Card</FormLabel>
-          <Box
+          {/* <Box
             minHeight="100px"
             borderRadius={"8px"}
             border={"1px dotted"}>
@@ -96,8 +97,9 @@ export default function KYC() {
               placeholder="extra small size"
               height="40px"
             />
-          </Box>
+          </Box> */}
           {/* <Input type="File" placeholder='extra small size' height="40px" /> */}
+          <DropZone />
         </FormControl>
         <FormControl mt="30px">
           <Checkbox colorScheme='green' defaultChecked>

@@ -35,7 +35,7 @@ import {
   Divider
 } from '@chakra-ui/react';
 import { Icon } from '@chakra-ui/react'
-import Dropzone from "../../dropzone/index";
+import { DropZone } from 'ui';
 
 const Prescriptions = () => {
 
@@ -404,9 +404,7 @@ const Prescriptions = () => {
                 height="40px"
               />
             </Box> */}
-            <Dropzone />
-
-
+            <DropZone />
           </Box>
         </ModalBody>
         <ModalFooter>

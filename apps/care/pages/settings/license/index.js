@@ -3,7 +3,7 @@ import { SettingsLayout, PageLayout, FormLayout, AvatarUpload } from 'ui';
 import { IoMdInformationCircle } from 'react-icons/io';
 import { MdMedicalServices } from 'react-icons/md';
 import { TbLicense } from 'react-icons/tb';
-import { SaveDiscardBar } from 'ui';
+import { SaveDiscardBar, DropZone } from 'ui';
 import _ from 'lodash';
 import {
   FormControl,
@@ -18,7 +18,6 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Dropzone from "../../dropzone/index";
 
 const schema = yup
   .object({
@@ -143,7 +142,7 @@ const License = () => {
                   )}
                 />
               </Box> */}
-              <Dropzone />
+              <DropZone />
               <Text color='tomato'>{errors?.upload1?.message}</Text>
             </FormControl>
             <FormControl>
@@ -177,7 +176,7 @@ const License = () => {
                   )}
                 />
               </Box> */}
-              <Dropzone />
+              <DropZone />
               <Text color='tomato'>{errors?.upload2?.message}</Text>
             </FormControl>
             <FormControl>
@@ -211,7 +210,7 @@ const License = () => {
                   )}
                 />
               </Box> */}
-              <Dropzone />
+              <DropZone />
               <Text color='tomato'>{errors?.upload3?.message}</Text>
             </FormControl>
           </FormLayout>

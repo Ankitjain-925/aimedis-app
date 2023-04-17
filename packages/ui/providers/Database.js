@@ -14,8 +14,6 @@ export const DatabaseProvider = ({ pageProps, children }) => {
 
   const [supabase] = useState(() =>
     createBrowserSupabaseClient({
-      supabaseUrl: "https://zrbmskhkuydumylscqyu.supabase.co",
-      supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyYm1za2hrdXlkdW15bHNjcXl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzYwNDQ3ODYsImV4cCI6MTk5MTYyMDc4Nn0.Q0Oo0yHd0VsV4HptfQlrawJcDFm-nS2gHgUDs7d5W60",
       cookieOptions: {
         domain:
           process.env.NODE_ENV === 'development'

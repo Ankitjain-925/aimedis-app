@@ -30,6 +30,7 @@ import {
   Divider
 } from '@chakra-ui/react';
 import { Icon } from '@chakra-ui/react'
+import { DropZone } from "ui"
 
 const Opinions = () => {
 
@@ -217,15 +218,15 @@ const Opinions = () => {
               Attachements
             </Text>
             <Box>
-            <Image src='https://via.placeholder.com/150'  />
+              <Image src='https://via.placeholder.com/150' />
             </Box>
-            
+
           </Box>
           <Box mb="15px" mt="10px">
             <Text fontSize="13px" mb="7px" fontWeight="600">
               Upload scenned prescription
             </Text>
-            <Box
+            {/* <Box
               minHeight="100px"
               borderRadius={"8px"}
               border={"1px dotted"}>
@@ -244,7 +245,8 @@ const Opinions = () => {
                 placeholder="extra small size"
                 height="40px"
               />
-            </Box>
+            </Box> */}
+            <DropZone />
           </Box>
         </ModalBody>
         <ModalFooter>

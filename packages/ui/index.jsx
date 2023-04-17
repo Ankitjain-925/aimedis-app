@@ -48,5 +48,4 @@ export * from './components/common/SearchModal';
 //Dropzone component
 export * from './components/common/Dropzone';
 //Editor - slate with chakra ui
-export * from './components/Editor/RickTextEditor'
-ß
+export * from './components/common/RickTextEditor'
