@@ -1,6 +1,8 @@
 import { useMutation, useQuery } from 'react-query';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useQueryClient } from 'react-query';
+import { createClient } from '@supabase/supabase-js';
+
 
 const getTable = (supabase, table, id, fields) => {
   return id
@@ -17,6 +19,7 @@ const getTable = (supabase, table, id, fields) => {
 };
 
 const insertTable = (supabase, table, data, fields) => {
+  console.log("tete",table, data,fields)
   if (!data) throw new Error('data is required');
 
   return supabase
@@ -63,8 +66,11 @@ export const useTableQuery = (table, id, fields, options) => {
 };
 
 export const useTableInsert = (table, fields, options) => {
-  const supabase = useSupabaseClient();
+  // const supabase = useSupabaseClient();
+const supabase = createClient('https://jvogqxcgreynqmmenkqo.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp2b2dxeGNncmV5bnFtbWVua3FvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzcwNDMyMDIsImV4cCI6MTk5MjYxOTIwMn0.z9HRHY0Zzqn_SgDTy8f1cLlV2Izvf3WzmeJqy8ZPS9E')
+
   const queryClient = useQueryClient();
+  console.log("data3456",table, fields)
 
   return useMutation(
     async (data) => {
